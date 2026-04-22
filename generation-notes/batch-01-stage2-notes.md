@@ -92,3 +92,140 @@ None.
 | L6     | 94        | 80–200 (transfer) | ok |
 | L7     | 169       | 150–400 (grammar) | ok |
 | L8     | 184       | 150–400 (grammar) | ok |
+
+---
+
+## Step 3 — Mid grammar (L9–L14)
+
+### Anchor edits
+
+**L13**: added anchors to cover two introduced rules that had zero teacher anchors:
+
+- `verb-present-third-singular-er`: added `Lo vende` (`source: ai-generated`)
+- `noun-gender-ion-feminine`: added `la administracion` (`source: ai-generated`)
+
+**L11**: added anchors so every introduced rule has at least one anchor:
+
+- `verb-infinitive-ending-r`: `comer` (`source: ai-generated`)
+- `verb-irregular-yo-go`: `Tengo` (`source: ai-generated`)
+- `phonology-stress-accent-default`: `intentar / intento` (`source: ai-generated`)
+
+### AI-generated anchors added
+
+All AI-generated anchors for this step are listed under "Anchor edits" (above).
+
+### Clitic normalizations
+
+Normalized space-clitic spellings to attached form (kept `source: teacher`):
+
+- **L9**: `Quiere visitar me` → `Quiere visitarme`; `Por que no quiere visitar me` → `Por que no quiere visitarme`; `Debo identificar lo` → `Debo identificarlo`
+- **L10**: `... a visitar me` → `... a visitarme`; `No quiero imaginar lo` → `No quiero imaginarlo`
+- **L12**: `Quiero ver lo` → `Quiero verlo`; `Debo invitar lo` → `Debo invitarlo`
+
+### Discrepancies with frozen catalogs
+
+None. All rule IDs and transfer-pattern IDs referenced in L9–L14 exist in `rules.yaml` and `transfer-patterns.yaml`.
+
+### Deliberate self-check exception — closed-class words not tracked in vocab lists
+
+Across this slice, multiple anchors necessarily include high-frequency closed-class words that are not present in the cumulative `vocab_introduced` lists (e.g., `a`, `la/las`, `por`, `que`, `si`, `y`). These are treated as structural/functional tokens required by introduced grammar rules and by the teacher's anchors, and are not retroactively added to the vocab lists during Stage 2.
+
+Proper nouns (e.g., `Pablo`) are treated the same way.
+
+### New sequencing concerns
+
+None.
+
+### Word-count check
+
+| Lesson | Body words | Target | Status |
+|-------:|----------:|:------:|:------:|
+| L9     | 176       | 150–400 (grammar) | ok |
+| L10    | 166       | 150–400 (grammar) | ok |
+| L11    | 227       | 150–400 (grammar) | ok |
+| L12    | 163       | 150–400 (grammar) | ok |
+| L13    | 187       | 150–400 (grammar/mixed) | ok |
+| L14    | 157       | 150–400 (grammar/mixed) | ok |
+
+---
+
+## Step 4 — Stem changes + modals + pose-to-poner (L15–L18)
+
+### Anchor edits
+
+**L15 — "I don't want to invite him but she does"**: added explicit `Yo` for the intended emphasis drill and normalized the clitic (`invitarlo`). Marked `source: ai-edited`.
+
+**L18 — "Me duermo"**: changed `drills` from `reflexive-pronoun-attach-infinitive` to `pronoun-placement-flexible` (this is a one-verb sentence; the pronoun sits before the conjugated verb, not attached to an infinitive). Marked `source: ai-edited`.
+
+### AI-generated anchors added
+
+None.
+
+### Clitic normalizations
+
+Normalized space-clitic spellings to attached form (kept `source: teacher` unless otherwise noted):
+
+- **L15**: `No quiero invitar lo ...` → `... invitarlo ...` (also added `Yo` as an explicit emphasis cue; see Anchor edits); `Tengo que hacer lo` → `Tengo que hacerlo`; `Debo ver la / Tengo que ver la` → `Debo verla / Tengo que verla`
+
+### Discrepancies with frozen catalogs
+
+None. All rule IDs and transfer-pattern IDs referenced in L15–L18 exist in `rules.yaml` and `transfer-patterns.yaml`.
+
+### Deliberate self-check exception — closed-class words not tracked in vocab lists
+
+Same as Step 3: teacher anchors contain closed-class tokens (e.g., `que`, `a`, `la/las`, `ella`) that are not consistently present in `vocab_introduced` lists. These were not retroactively added during Stage 2.
+
+### New sequencing concerns
+
+None.
+
+### Word-count check
+
+| Lesson | Body words | Target | Status |
+|-------:|----------:|:------:|:------:|
+| L15    | 171       | 150–400 (grammar) | ok |
+| L16    | 95        | 80–200 (transfer) | ok |
+| L17    | 193       | 150–400 (grammar) | ok |
+| L18    | 153       | 150–400 (grammar) | ok |
+
+---
+
+## Step 5 — Nosotros + irregulars + future (L19–L22)
+
+### Anchor edits
+
+None beyond clitic normalization (see below).
+
+### AI-generated anchors added
+
+**L21**: added two anchors to ensure `noun-gender-e-context-dependent` has explicit anchor coverage with an article:
+
+- `la noche` (`source: ai-generated`)
+- `la carne` (`source: ai-generated`)
+
+### Clitic normalizations
+
+Normalized space-clitic spellings to attached form (kept `source: teacher`):
+
+- **L22**: `Vamos a ver la` → `Vamos a verla`; `Vas a ver nos pronto` → `Vas a vernos pronto`
+
+### Discrepancies with frozen catalogs
+
+None. All rule IDs and transfer-pattern IDs referenced in L19–L22 exist in `rules.yaml` and `transfer-patterns.yaml`.
+
+### Deliberate self-check exception — closed-class words not tracked in vocab lists
+
+Same as Steps 3–4: teacher anchors contain closed-class tokens (e.g., `la`, `que`, `y`, `a`, `donde`) that are not consistently present in `vocab_introduced` lists. These were not retroactively added during Stage 2.
+
+### New sequencing concerns
+
+None.
+
+### Word-count check
+
+| Lesson | Body words | Target | Status |
+|-------:|----------:|:------:|:------:|
+| L19    | 178       | 150–400 (grammar) | ok |
+| L20    | 158       | 150–400 (grammar) | ok |
+| L21    | 166       | 150–400 (grammar) | ok |
+| L22    | 172       | 150–400 (grammar/mixed) | ok |
