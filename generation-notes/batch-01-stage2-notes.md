@@ -47,4 +47,48 @@ None.
 - `<exemplar-grammar>`: **L1** — smallest possible grammar lesson; introduces `negation-no-before-verb` as a gap-fill riding alongside a transfer pattern. Shows the body shape when a grammar rule enters light.
 - `<exemplar-transfer>`: **L3** — cleanest possible transfer-pattern lesson; no grammar, one pattern, arrow-form derivations. Shows the body shape for pure transfer.
 
-Diff is prepared separately (see assistant message). **Not applied** — pending user approval per the plan's Step 1 post-step work.
+Exemplars were subsequently applied to `docs/prompts/stage-2.md` prior to step 2 execution.
+
+---
+
+## Step 2 — Early grammar (L4–L8)
+
+### Anchor edits
+
+**L8 — "I want to show you something"**: changed `drills` from `reflexive-pronoun-attach-infinitive` to `do-pronoun-postverbal-infinitive` (this sentence uses `te` as an object pronoun, not reflexive). Marked `source: ai-edited`.
+
+### AI-generated anchors added
+
+- **L5**: added `horrible` to drill `phonology-rr-rolled` using an in-universe example (derivable via the earlier `-ible` transfer pattern).
+- **L7**: added `horrible` to drill `phonology-h-silent` (teacher-mentioned example; missing from the lesson plan anchors).
+
+### Clitic normalizations
+
+Normalized space-clitic spellings to attached form (kept `source: teacher`):
+
+- **L4**: `Quiero preparar me` → `Quiero prepararme`
+- **L5**: `Quiero cancelar lo` → `Quiero cancelarlo`; `No quiero obligar te` → `No quiero obligarte`; `Quiero informar me` → `Quiero informarme`
+- **L7**: `Intento publicar lo` → `Intento publicarlo`; `Intento continuar lo` → `Intento continuarlo`; `Quiero visitar lo` → `Quiero visitarlo`
+- **L8**: `Quiero ver los` → `Quiero verlos`; `Voy a ver los` → `Voy a verlos`; `Voy a intentar ver los` → `Voy a intentar verlos`; `Voy a pasar a visitar te` → `Voy a pasar a visitarte`; `Quiero mostrar te algo` → `Quiero mostrarte algo`
+
+### Discrepancies with frozen catalogs
+
+None. All rule IDs and transfer-pattern IDs referenced in L4–L8 exist in `rules.yaml` and `transfer-patterns.yaml`.
+
+### Deliberate self-check exception — `a` not listed in `vocab_introduced`
+
+The lesson plan introduces `verb-motion-plus-a-before-infinitive` at L8, and every anchor necessarily contains the token `a`, but `a` is not present anywhere in `vocab_introduced` through this slice. Treated `a` as a structural marker required by the introduced rule (not a content-vocab choice) and proceeded without retroactively adding it to the vocab lists (schema forbids that during Stage 2).
+
+### New sequencing concerns
+
+None.
+
+### Word-count check
+
+| Lesson | Body words | Target | Status |
+|-------:|----------:|:------:|:------:|
+| L4     | 166       | 150–400 (grammar) | ok |
+| L5     | 176       | 150–400 (grammar) | ok |
+| L6     | 94        | 80–200 (transfer) | ok |
+| L7     | 169       | 150–400 (grammar) | ok |
+| L8     | 184       | 150–400 (grammar) | ok |

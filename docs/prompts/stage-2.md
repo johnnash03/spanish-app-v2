@@ -240,11 +240,110 @@ If you need a word that isn't in the universe to make a sentence work, **do not 
 
 ```
 <exemplar-grammar>
-(intentionally empty in v1 — populate after first run)
+=== FILE: lessons/lesson-01.md ===
+```markdown
+---
+id: 1
+title: "-al words are free Spanish"
+source_refs: ["ReferenceNotes.md#2"]
+prerequisite_lessons: []
+rules_introduced: [negation-no-before-verb]
+rules_reinforced: []
+transfer_patterns_introduced: [suffix-al-stays]
+vocab_introduced: [ser, no]
+anchor_sentences:
+  - en: "It is illegal"
+    es: "Es ilegal"
+    drills: [suffix-al-stays]
+    source: teacher
+  - en: "He is liberal"
+    es: "Es liberal"
+    drills: [suffix-al-stays]
+    source: teacher
+  - en: "It's not normal"
+    es: "No es normal"
+    drills: [suffix-al-stays, negation-no-before-verb]
+    source: teacher
+---
+
+English words ending in `-al` come straight from Latin — which means Spanish already has them. Free vocab on day one. We also get the two smallest useful words in the language: `es` (is) and `no` (not).
+
+## -al stays -al
+
+- normal → normal
+- legal → legal
+- natural → natural
+- metal → metal
+- illegal → ilegal *(one `l`)*
+- liberal → liberal
+
+One thing to retrain: stress falls on the final syllable — nor-MAL, le-GAL, na-tu-RAL. English wants to front-load the stress; resist that.
+
+## `es` covers *is / it is / he is*
+
+`es` does double duty. You don't need a separate word for `it` or `he` when context already tells you who we're talking about.
+
+- Es legal — It is legal
+- Es liberal — He is liberal
+
+## Negation: `no` goes right before the verb
+
+That's the whole rule. No auxiliary, no "do" / "does" — just `no` in front of the verb.
+
+- No es normal — It's not normal
+```
 </exemplar-grammar>
 
 <exemplar-transfer>
-(intentionally empty in v1 — populate after first run)
+=== FILE: lessons/lesson-03.md ===
+```markdown
+---
+id: 3
+title: "The -tion power-up: free nouns AND free verbs"
+source_refs: ["ReferenceNotes.md#4"]
+prerequisite_lessons: [2]
+rules_introduced: []
+rules_reinforced: []
+transfer_patterns_introduced: [suffix-tion-to-cion]
+vocab_introduced: []
+anchor_sentences:
+  - en: "preparation"
+    es: "preparacion"
+    drills: [suffix-tion-to-cion]
+    source: teacher
+  - en: "to prepare"
+    es: "preparar"
+    drills: [suffix-tion-to-cion]
+    source: teacher
+  - en: "confirmation"
+    es: "confirmacion"
+    drills: [suffix-tion-to-cion]
+    source: teacher
+  - en: "to cancel"
+    es: "cancelar"
+    drills: [suffix-tion-to-cion]
+    source: teacher
+  - en: "organisation"
+    es: "organisacion"
+    drills: [suffix-tion-to-cion]
+    source: teacher
+---
+
+The biggest cognate shortcut in Spanish. Every English `-tion` word gives you a Spanish noun AND a Spanish verb — for free.
+
+## -tion → -cion, and the derived verb
+
+Replace `-tion` with `-cion`. That's the noun — feminine. To get the matching verb: drop the `-cion`, add `-ar`.
+
+- preparation → preparacion → preparar *(to prepare)*
+- confirmation → confirmacion → confirmar *(to confirm)*
+- organisation → organisacion → organisar *(to organise)*
+- exploration → exploracion → explorar *(to explore)*
+- cancellation → cancelacion → cancelar *(to cancel)*
+- generation → generacion → generar *(to generate)*
+
+Any English `-tion` word you can think of is already Spanish. Both halves — the noun and the verb — come over together.
+```
 </exemplar-transfer>
 ```
 
