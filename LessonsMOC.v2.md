@@ -4,6 +4,8 @@ The app is a **practice-only** companion to a separate video + notes channel. Th
 
 The spine is structural-skill order, not vocabulary-rule order. Cognate rules are not phases here; they appear as transformation patterns inside the translation drills themselves (and live explicitly in the video/notes).
 
+The MOC takes the learner from zero to a solid B2: full subjunctive (forms, triggers, conjunctions, sequence of tenses), `si`-clauses across all three types, passive and impersonal constructions, reported speech, periphrastic verb constructions, the verbs of becoming, accidental `se`, and the deeper preposition / negation / discourse work. Regional dialect forms (`vosotros` for Spain, voseo for the River Plate) are deliberately omitted — the app teaches a neutral standard.
+
 ## Unit anatomy
 
 Every unit ships with:
@@ -38,7 +40,21 @@ cond.<aspect>
 gustar.<aspect>
 prep.<aspect>
 cmd.<aspect>
-subj.<aspect>
+subj.<pres|imperf|perfect|pluperfect|trigger|conj|relative>.<aspect>
+si-clause.<type>
+relative.<pronoun>
+report.<aspect>
+passive.<type>
+periph.<verb>
+becoming.<verb>
+se-special.<aspect>
+neg.<aspect>
+discourse.<aspect>
+por-para.<use>
+compare.<aspect>
+morpho.<aspect>
+verb-pair.<pair>
+num-time.<aspect>
 lex.<topic>
 ```
 
@@ -278,20 +294,192 @@ The hardest aspect distinction in the language; gets a dedicated phase.
 | 105 | Ustedes commands | `cmd.ustedes` | 103 | |
 | 106 | Tú negative — uses present subjunctive forms | `cmd.tu.neg` | 105 | |
 
-## Phase 25 — Subjunctive (bridge to Module 2)
+## Phase 25 — Subjunctive: forms and core triggers
+
+The subjunctive is a **mood**, not a tense — it surfaces in subordinate clauses when the main clause expresses will, emotion, doubt, or impersonal valuation. This phase teaches the present-subjunctive forms and the four trigger families.
 
 | # | Unit | Skill tag | Prereqs | Drill |
 |---|---|---|---|---|
-| 107 | Present subjunctive forms (regular + key irregulars: sea, esté, vaya, dé, sepa, haya) | `subj.forms` | 106 | |
-| 108 | `Quiero que` + subjunctive | `subj.quiero-que` | 107 | "I want him to come / I want you to know." |
-| 109 | Impersonal triggers: `es importante que`, `es necesario que`, `es mejor que` | `subj.impersonal` | 107 | |
+| 107 | Present subjunctive — regular forms (`-ar` → `-e`, `-er`/`-ir` → `-a`) | `subj.pres.regular` | 106 | hablar → hable, comer → coma, vivir → viva — all five persons. |
+| 108 | Present subjunctive — yo-derived (irregular `yo` form drives the whole subjunctive paradigm: tener → tenga, hacer → haga, decir → diga, conocer → conozca, salir → salga) | `subj.pres.yo-derived` | 107, 38 | |
+| 109 | Present subjunctive — fully irregular: sea, esté, vaya, dé, sepa, haya | `subj.pres.irregular` | 107 | |
+| 110 | Will / influence triggers: `querer que`, `pedir que`, `decir que` (request reading), `esperar que`, `exigir que`, `recomendar que`, `aconsejar que` | `subj.trigger.influence` | 109 | |
+| 111 | Emotion triggers: `alegrarse de que`, `sentir que`, `temer que`, `gustar que`, `molestar que`, `sorprender que` | `subj.trigger.emotion` | 109 | |
+| 112 | Doubt / denial triggers: `dudar que`, `no creer que`, `no pensar que`, `es posible que`, `es imposible que`, `no es verdad que` | `subj.trigger.doubt` | 109 | Note the subjunctive flips off when the trigger is affirmed: `creo que viene` (ind) vs `no creo que venga` (subj). |
+| 113 | Impersonal triggers: `es importante que`, `es necesario que`, `es mejor que`, `es raro que`, `ojalá (que)` | `subj.trigger.impersonal` | 109 | |
+| 114 | Trigger interleaved | `subj.trigger.mixed` | 110–113 | |
 
-## Phase 26 — Capstone
+## Phase 26 — Subjunctive after conjunctions
 
 | # | Unit | Skill tag | Prereqs | Drill |
 |---|---|---|---|---|
-| 110 | Big interleaved review — 80 items sampling all 25 phases | `capstone.review` | all | |
-| 111 | Translation gauntlet — 50 multi-clause stacked sentences | `capstone.gauntlet` | all | "I would have liked to know if she was going to stay until you arrived, but I didn't see her." |
+| 115 | Time conjunctions when future-pointing: `cuando`, `en cuanto`, `hasta que`, `antes de que`, `después de que`, `mientras`, `tan pronto como` | `subj.conj.time` | 109 | "When he arrives, we'll eat" → `Cuando llegue, comeremos`. |
+| 116 | Time conjunctions: indicative vs subjunctive (already-happened / habitual = ind, future / uncertain = subj) | `subj.conj.time.contrast` | 115 | Forced choice between `Cuando llega` and `Cuando llegue`. |
+| 117 | Purpose conjunctions: `para que`, `a fin de que` | `subj.conj.purpose` | 109 | |
+| 118 | Condition / exception conjunctions: `a menos que`, `con tal de que`, `sin que`, `en caso de que` | `subj.conj.condition` | 109 | |
+| 119 | `Aunque` + indicative vs subjunctive (factual concession vs hypothetical) | `subj.conj.aunque` | 109 | "Even though he's tired" (ind) vs "Even if he were tired" (subj). |
+| 120 | Conjunction interleaved | `subj.conj.mixed` | 115–119 | |
+
+## Phase 27 — Imperfect subjunctive
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 121 | Imperfect subjunctive — formation rule: 3rd-person plural preterite minus `-ron`, plus `-ra` family endings (`-ra, -ras, -ra, -´ramos, -ran`) | `subj.imperf.formation` | 81, 109 | hablaron → hablara; comieron → comiera; vivieron → viviera. |
+| 122 | Imperfect subjunctive — irregular stems inherited from preterite: tuviera, estuviera, fuera, hiciera, dijera, pudiera, supiera, viniera, quisiera, trajera | `subj.imperf.irregular` | 121, 78, 79 | |
+| 123 | `-se` variant (hablase, comiese): recognize as accepted alternate; production focus stays on `-ra` | `subj.imperf.se-variant` | 121 | |
+| 124 | Sequence of tenses: past trigger + imperfect subjunctive (`Quería que viniera`, `Le pedí que lo hiciera`, `Era importante que estuvieras`) | `subj.imperf.sequence` | 121 | |
+| 125 | After `como si` (as if) — always imperfect or past perfect subjunctive, never indicative | `subj.imperf.como-si` | 121 | "He talks as if he knew" → `Habla como si supiera`. |
+| 126 | Polite uses: `quisiera`, `debiera`, `pudiera` (softer than the conditional) | `subj.imperf.politeness` | 121 | |
+
+## Phase 28 — Compound subjunctive forms
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 127 | Present perfect subjunctive: `haya` + participle (`Espero que haya llegado`, `No creo que lo haya hecho`) | `subj.perfect` | 109, 71 | |
+| 128 | Past perfect subjunctive: `hubiera` + participle (`Si hubiera sabido`, `Como si hubiera visto un fantasma`) | `subj.pluperfect` | 121, 71 | |
+
+## Phase 29 — `Si`-clauses (the conditional construction)
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 129 | Type 1 — real / likely: `Si` + present indicative, present or future indicative | `si-clause.real` | 88 | "If I have time, I'll go" → `Si tengo tiempo, voy / iré`. |
+| 130 | Type 2 — hypothetical: `Si` + imperfect subjunctive, conditional | `si-clause.hypothetical` | 92, 121 | "If I had time, I'd go" → `Si tuviera tiempo, iría`. |
+| 131 | Type 3 — counterfactual past: `Si` + past perfect subjunctive, conditional perfect | `si-clause.counterfactual` | 94, 128 | "If I had known, I would have come" → `Si hubiera sabido, habría venido`. |
+| 132 | Mixed type — counterfactual past with present consequence (`Si hubiera estudiado, ahora hablaría español`) | `si-clause.mixed` | 130, 131 | |
+| 133 | Si-clause forced-choice 40-item drill | `si-clause.selection` | 129–132 | The hardest selection task in Spanish grammar — needs heavy reps. |
+
+## Phase 30 — Relative clauses
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 134 | `que` (subject or object, people or things) — the workhorse relative | `relative.que` | — | |
+| 135 | `quien` / `quienes` — people, often after a preposition (`la persona con quien hablo`) | `relative.quien` | 134 | |
+| 136 | `el que` / `la que` / `los que` / `las que` / `lo que` — disambiguating; `lo que` for "what / the thing that" | `relative.el-que` | 134 | |
+| 137 | `el cual` / `la cual` / `los cuales` / `las cuales` — formal, after long prepositions (`detrás del cual`, `delante de la cual`) | `relative.el-cual` | 136 | |
+| 138 | `cuyo` / `cuya` / `cuyos` / `cuyas` — possessive "whose"; agrees with the thing possessed | `relative.cuyo` | 134 | |
+| 139 | Relative adverbs: `donde`, `cuando`, `como` | `relative.adverb` | 134 | |
+| 140 | Restrictive vs non-restrictive (the comma changes the meaning) | `relative.restrictive` | 134 | "Mis hermanos que viven en Madrid" (only those who) vs "Mis hermanos, que viven en Madrid" (all of them, by the way). |
+| 141 | Subjunctive in relative clauses: existing antecedent (ind) vs non-existing / uncertain antecedent (subj) | `subj.relative` | 109, 134 | "Busco a la persona que sabe…" vs "Busco a alguien que sepa…". |
+
+## Phase 31 — Reported speech
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 142 | Reported statements: tense backshift (present → imperfect, preterite/perfect → past perfect, future → conditional) | `report.statement` | 121, 91 | "Dice que viene" → "Dijo que venía / había venido / vendría." |
+| 143 | Reported questions: `si` for yes/no, wh-words for content; no inversion | `report.question` | 142 | "Me preguntó si quería ir / qué quería." |
+| 144 | Reported commands: `decir / pedir / ordenar` + `que` + subjunctive (present subj after present trigger; imperfect subj after past trigger) | `report.command` | 109, 121 | "Me dijo que viniera." |
+| 145 | Time and place adjustments (`hoy → ese día`, `mañana → al día siguiente`, `aquí → allí`, `este → ese`) | `report.deixis` | 142 | |
+
+## Phase 32 — Passive and impersonal constructions
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 146 | True passive: `ser` + participle (+ optional `por` agent) — used less in Spanish than English | `passive.ser` | 71 | "The book was written by her" → `El libro fue escrito por ella`. |
+| 147 | Passive `se` (the most common passive in Spanish): `Se venden libros`, `Se cerró la puerta`, `Se construyeron las casas` | `passive.se` | 28 | Verb agrees with the grammatical subject. |
+| 148 | Impersonal `se`: `Se dice que`, `Se come bien aquí`, `Se vive bien` — verb stays singular; no specific subject | `passive.se.impersonal` | 28 | |
+| 149 | Selection: ser-passive vs passive-se vs impersonal-se | `passive.selection` | 146–148 | |
+
+## Phase 33 — Periphrastic verb constructions
+
+The big set of "auxiliary + verb" patterns that English handles with adverbs ("just," "again," "usually," "still") or full clauses ("I've been doing X for two years").
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 150 | `Acabar de` + inf — "just did X" | `periph.acabar-de` | 28 | `Acabo de comer` = I just ate. |
+| 151 | `Soler` + inf — "usually X / used to X" (stem-changing: suelo / sueles / suele) | `periph.soler` | 33 | |
+| 152 | `Llevar` + tiempo + gerund — "have been Xing for [time]" | `periph.llevar-gerund` | 67 | `Llevo tres años estudiando` = I've been studying for three years. |
+| 153 | `Volver a` + inf — "do X again" | `periph.volver-a` | 28 | |
+| 154 | `Seguir` / `continuar` + gerund — "continue Xing / still X" | `periph.seguir-gerund` | 67 | |
+| 155 | `Dejar de` + inf — "stop Xing" | `periph.dejar-de` | 28 | |
+| 156 | `Empezar a` / `comenzar a` / `ponerse a` + inf — "start Xing" (the last is more sudden) | `periph.start` | 28 | |
+| 157 | `Estar a punto de` + inf — "be about to X" | `periph.estar-a-punto-de` | 56 | |
+| 158 | `Tratar de` / `intentar` + inf — "try to X" | `periph.try` | 28 | |
+| 159 | Periphrasis interleaved | `periph.mixed` | 150–158 | |
+
+## Phase 34 — Verbs of becoming
+
+English `become` covers what Spanish splits across six verbs by mechanism and permanence.
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 160 | `Ponerse` + adj — temporary state, often emotional (`Se puso triste`, `Se puso rojo`) | `becoming.ponerse` | 45 | |
+| 161 | `Volverse` + adj/noun — sudden character change, often involuntary (`Se volvió loco`) | `becoming.volverse` | 45 | |
+| 162 | `Hacerse` + noun/adj — gradual change, often by effort (profession, religion: `Se hizo médico`, `Se hizo rico`) | `becoming.hacerse` | 45 | |
+| 163 | `Llegar a ser` + noun — achievement after a process (`Llegó a ser presidente`) | `becoming.llegar-a-ser` | 28 | |
+| 164 | `Convertirse en` + noun — transformation (`Se convirtió en una estrella`) | `becoming.convertirse` | 45 | |
+| 165 | `Quedarse` + adj — resulting state, often after loss or change (`Se quedó solo`, `Se quedó dormido`) | `becoming.quedarse` | 45 | |
+| 166 | Becoming-verb selection drill | `becoming.selection` | 160–165 | Forced choice across the six: which becoming verb fits this English sentence? |
+
+## Phase 35 — Special `se` constructions
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 167 | Accidental / unplanned `se`: `Se me cayó`, `Se me olvidó`, `Se me rompió`, `Se le ocurrió` (the speaker disclaims agency) | `se-special.accidental` | 45 | "I dropped it" → `Se me cayó` (lit. it fell from me). |
+| 168 | Aspectual `se`: `comerse`, `beberse`, `dormirse`, `irse` — adds completion or intensity (`Me comí toda la pizza`) | `se-special.aspectual` | 45 | |
+
+## Phase 36 — Negation refinements
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 169 | Double negation: `no… nunca`, `no… nadie`, `no… nada`, `no… ningún/ninguna` — pre-verb position drops the `no` (`Nunca como carne` vs `No como carne nunca`) | `neg.double` | — | |
+| 170 | `ni… ni` — neither… nor | `neg.ni-ni` | — | |
+| 171 | Contrast pairs: `tampoco` vs `también`, `ya no` vs `todavía no` | `neg.contrast-pairs` | — | |
+
+## Phase 37 — Connectives and discourse markers
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 172 | `Pero` vs `sino` vs `sino que` (`sino` after a negation contrasting two nouns/adjs; `sino que` before a clause) | `discourse.pero-sino` | — | "No es alto sino bajo" vs "No estudia sino que trabaja." |
+| 173 | `Aunque` deeper dive — concession in extended discourse | `discourse.aunque` | 119 | |
+| 174 | Markers: `sin embargo`, `en cambio`, `además`, `por lo tanto`, `así que`, `pues`, `mientras que` | `discourse.markers` | — | Productive use across multi-sentence outputs. |
+
+## Phase 38 — `Por` vs `Para` (deep)
+
+`Por` and `para` each have ~6 distinct uses; the single unit in Phase 23 was a placeholder.
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 175 | `Por`: cause / reason ("because of"), exchange ("for, in exchange for"), substitution ("on behalf of") | `por-para.por.cause-exchange` | 99 | |
+| 176 | `Por`: duration, time of day, motion through, agent in passive | `por-para.por.time-motion` | 99 | |
+| 177 | `Para`: destination, deadline, recipient | `por-para.para.dest-deadline` | 99 | |
+| 178 | `Para`: purpose ("in order to"), opinion ("for me, …"), comparison ("for a beginner, …") | `por-para.para.purpose-opinion` | 99 | |
+| 179 | `Por` vs `para` forced-choice drill — minimum-pair items | `por-para.selection` | 175–178 | |
+
+## Phase 39 — Comparatives, superlatives, diminutives
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 180 | Irregular comparatives: `mejor`, `peor`, `mayor`, `menor` | `compare.irregular` | 65 | |
+| 181 | Equality: `tan + adj/adv + como`, `tanto/a/os/as + noun + como`, `tanto como` (with verbs) | `compare.equality` | 65 | |
+| 182 | Absolute superlative `-ísimo` and its spelling shifts (`rico → riquísimo`, `amable → amabilísimo`, `blanco → blanquísimo`, `feliz → felicísimo`) | `compare.absolute` | 61 | |
+| 183 | Diminutives `-ito` / `-ita` and meaning shifts (size, affection, attenuation: `un momentito`, `un cafecito`, `ahorita`) | `morpho.diminutive` | — | |
+
+## Phase 40 — Verb-pair selection (advanced)
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 184 | `Pedir` (request something) vs `preguntar` (ask a question) | `verb-pair.pedir-preguntar` | 28 | |
+| 185 | `Llevar` (take, bring along, wear) vs `traer` (bring here) | `verb-pair.llevar-traer` | 28 | Direction relative to the speaker is the cue. |
+| 186 | `Ir` vs `irse` (the `-se` adds emphasis on departure); `salir` vs `irse` | `verb-pair.ir-irse-salir` | 48 | |
+| 187 | Ser vs estar — advanced cases: `estar muerto`, `ser/estar feliz`, `ser/estar joven`, `ser/estar guapo`, `ser/estar listo` | `verb-pair.ser-estar.advanced` | 60 | |
+| 188 | `Saber` vs `conocer` — review with new domains (skills, recipes, places, languages, people) | `verb-pair.saber-conocer.review` | 43 | |
+
+## Phase 41 — Numbers, time, dates
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 189 | Ordinals: `primero/primer`, `segundo`, `tercero/tercer`, `cuarto`, …, `décimo`; apocope before masculine singular nouns (`el primer día`) | `num-time.ordinal` | — | |
+| 190 | Fractions and percentages: `un tercio`, `dos tercios`, `el 25 por ciento`, `la mitad`, `el doble` | `num-time.fraction` | — | |
+| 191 | Date format and prepositions: `el lunes`, `en marzo`, `en 2024`, `hace dos días`, `dentro de una semana`, `a los veinte años` | `num-time.date` | — | |
+| 192 | Big numbers: `mil`, `un millón`, `mil millones`; reading aloud (`mil novecientos ochenta y cuatro`) | `num-time.big` | — | |
+
+## Phase 42 — Capstone B2
+
+| # | Unit | Skill tag | Prereqs | Drill |
+|---|---|---|---|---|
+| 193 | Big interleaved review — 120 items sampling all 41 phases, weighted toward each learner's tag-level error history | `capstone.review` | all | |
+| 194 | Multi-clause translation gauntlet — 60 B2 sentences combining subjunctive, si-clauses, reported speech, passive, periphrasis, becoming verbs | `capstone.gauntlet` | all | "If I had known they were saying he had become a doctor, I would have called him a long time ago." |
+| 195 | Sustained narrative production — write a short story using all four past forms (preterite, imperfect, present perfect, past perfect) and at least one passage of reported speech | `capstone.narrative` | all | |
 
 ---
 
