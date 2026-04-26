@@ -1,0 +1,205 @@
+version: 1
+policy:
+  open_ended_derivation_allowed: false
+  generation_mode: whitelist_only
+  purpose: >
+    Approved English-to-Spanish vocabulary families for beginner lesson and
+    exercise generation. These patterns are useful, but generation should only
+    use the whitelisted examples or later validated additions.
+  statuses:
+    safe_productive: "Safe to use in learner-facing exercises when the lesson allows the family."
+    recognition_only: "Useful for noticing patterns or reading support, but not for unrestricted generation."
+    teacher_only: "Useful for explanation or planning, but too loose to drive generated items."
+
+families:
+  - family_id: transparent_cognates_core
+    status: safe_productive
+    lesson_min: 1
+    generator_policy: use_whitelisted_examples_only
+    notes: >
+      Transparent or near-transparent cognates that give beginners early payoff
+      without forcing risky spelling guesses.
+    examples:
+      - english: normal
+        spanish: normal
+        pos: adjective
+      - english: natural
+        spanish: natural
+        pos: adjective
+      - english: real
+        spanish: real
+        pos: adjective
+      - english: personal
+        spanish: personal
+        pos: adjective
+      - english: legal
+        spanish: legal
+        pos: adjective
+      - english: illegal
+        spanish: ilegal
+        pos: adjective
+
+  - family_id: mente_adverbs
+    status: safe_productive
+    lesson_min: 3
+    generator_policy: use_whitelisted_examples_only
+    notes: >
+      Good for controlled expansion once the learner already knows the base
+      adjective. Keep usage narrow and explicit.
+    examples:
+      - english: really
+        spanish: realmente
+        base: real
+        pos: adverb
+      - english: constantly
+        spanish: constantemente
+        base: constante
+        pos: adverb
+      - english: possibly
+        spanish: posiblemente
+        base: posible
+        pos: adverb
+
+  - family_id: cion_nouns_core
+    status: recognition_only
+    lesson_min: 4
+    generator_policy: use_whitelisted_examples_only
+    notes: >
+      Useful for recognition and carefully controlled production. Written
+      accents and spelling normalization must be preserved.
+    examples:
+      - english: conversation
+        spanish: conversacion
+        normalized_spanish: conversación
+        pos: noun
+        gender: feminine
+      - english: generation
+        spanish: generacion
+        normalized_spanish: generación
+        pos: noun
+        gender: feminine
+      - english: confirmation
+        spanish: confirmacion
+        normalized_spanish: confirmación
+        pos: noun
+        gender: feminine
+      - english: organization
+        spanish: organizacion
+        normalized_spanish: organización
+        pos: noun
+        gender: feminine
+      - english: situation
+        spanish: situacion
+        normalized_spanish: situación
+        pos: noun
+        gender: feminine
+
+  - family_id: dad_idad_edad_nouns
+    status: recognition_only
+    lesson_min: 12
+    generator_policy: use_whitelisted_examples_only
+    notes: >
+      Very useful for reading support and later vocabulary growth, but too broad
+      to use as a free productive rule in early stages.
+    examples:
+      - english: clarity
+        spanish: claridad
+        pos: noun
+        gender: feminine
+      - english: possibility
+        spanish: posibilidad
+        pos: noun
+        gender: feminine
+      - english: nationality
+        spanish: nacionalidad
+        pos: noun
+        gender: feminine
+      - english: university
+        spanish: universidad
+        pos: noun
+        gender: feminine
+      - english: sincerity
+        spanish: sinceridad
+        pos: noun
+        gender: feminine
+
+  - family_id: ivo_adjectives
+    status: recognition_only
+    lesson_min: 18
+    generator_policy: use_whitelisted_examples_only
+    notes: >
+      Transparent enough to help with reading and controlled exercises, but not
+      safe as an unrestricted generation rule.
+    examples:
+      - english: creative
+        spanish: creativo
+        pos: adjective
+      - english: positive
+        spanish: positivo
+        pos: adjective
+      - english: negative
+        spanish: negativo
+        pos: adjective
+      - english: aggressive
+        spanish: agresivo
+        pos: adjective
+      - english: intuitive
+        spanish: intuitivo
+        pos: adjective
+
+  - family_id: ante_ente_adjectives
+    status: recognition_only
+    lesson_min: 6
+    generator_policy: use_whitelisted_examples_only
+    notes: >
+      Helpful as a noticing pattern. Keep examples curated because spelling and
+      false confidence are the main risks.
+    examples:
+      - english: important
+        spanish: importante
+        pos: adjective
+      - english: different
+        spanish: diferente
+        pos: adjective
+      - english: constant
+        spanish: constante
+        pos: adjective
+      - english: possible
+        spanish: posible
+        pos: adjective
+
+  - family_id: cion_to_ar_verbs
+    status: teacher_only
+    lesson_min: 999
+    generator_policy: do_not_generate_from_rule
+    notes: >
+      Sometimes pedagogically useful to explain lexical relationships, but too
+      risky as a productive rule. Only use validated verb items individually.
+    examples:
+      - english: organization -> organize
+        spanish: organización -> organizar
+        pos: noun_verb_family
+      - english: confirmation -> confirm
+        spanish: confirmación -> confirmar
+        pos: noun_verb_family
+      - english: preparation -> prepare
+        spanish: preparación -> preparar
+        pos: noun_verb_family
+
+approved_for_early_generation:
+  lesson_01:
+    - transparent_cognates_core
+  lesson_02:
+    - transparent_cognates_core
+  lesson_03:
+    - transparent_cognates_core
+    - mente_adverbs
+  lesson_04:
+    - transparent_cognates_core
+    - cion_nouns_core
+
+generator_rules:
+  - "Never derive a new word unless its family is explicitly allowed by the lesson spec."
+  - "Prefer normalized Spanish spellings in learner-facing output."
+  - "If a family is recognition_only, use it for explanation or multiple-choice support before using it in free production."
+  - "Do not stack a new grammar structure and a risky derived word in the same beginner item."
