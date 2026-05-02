@@ -114,6 +114,17 @@ fn seed_units(conn: &Connection) -> rusqlite::Result<()> {
     Ok(())
 }
 
+/// Dev utility: wipe all generated exercise items and reset generation state.
+#[tauri::command]
+pub fn wipe_exercise_items(state: tauri::State<'_, Db>) -> Result<(), String> {
+    let conn = state.0.lock().map_err(|e| e.to_string())?;
+    conn.execute("DELETE FROM exercise_items", [])
+        .map_err(|e| e.to_string())?;
+    conn.execute("UPDATE units SET generation_state = 'idle'", [])
+        .map_err(|e| e.to_string())?;
+    Ok(())
+}
+
 #[tauri::command]
 pub fn db_health(state: tauri::State<'_, Db>) -> Result<String, String> {
     let conn = state.0.lock().map_err(|e| e.to_string())?;

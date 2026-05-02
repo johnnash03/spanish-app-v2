@@ -20,16 +20,17 @@ pub fn run() {
                 .map_err(|e| format!("failed to open db at {:?}: {}", db_path, e))?;
             app.manage(db);
 
-            // App-open pre-warm: generate banks for the nearest idle units in background.
-            let app_handle = app.handle().clone();
-            tauri::async_runtime::spawn(async move {
-                let _ = generate::prewarm_units_internal(app_handle).await;
-            });
+            // App-open pre-warm disabled during testing — generate on visit only.
+            // let app_handle = app.handle().clone();
+            // tauri::async_runtime::spawn(async move {
+            //     let _ = generate::prewarm_units_internal(app_handle).await;
+            // });
 
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
             db::db_health,
+            db::wipe_exercise_items,
             openai::openai_ping,
             generate::trigger_generation,
             generate::get_unit_generation_state,

@@ -48,15 +48,14 @@ Items 4–10: LIGHT STACKING
 - Introduce one prior skill alongside the primary skill
 
 Items 11+: FULL STACKING
-- stackedTags must contain 2–3 tags from the available stacking tags
+- stackedTags must contain tags from the available stacking tags, up to the
+  "Max stacking tags per item" limit provided in the user message
 - Combine the primary skill with multiple prior skills simultaneously
 
-BACKGROUND VOCABULARY RULE:
-The learner has mastered everything up to this unit. Background vocabulary (any
-construction listed under "Background vocabulary" in the user message) may appear
-freely in any item — including minimum-pair items — without being added to stackedTags.
-Vary background vocabulary naturally across items. Do not repeat the same opener,
-verb, or construction in every sentence just because it appears in the stacking tags.
+CRITICAL — TAG NAMES:
+stackedTags values must be taken ONLY from the "Available stacking tags" list in the
+user message. Never invent tag names. If no stacking tags are provided, stackedTags
+must be [] for every item.
 
 STYLE RULES:
 1. Tone: neutral everyday English — conversational, not formal or slangy.
@@ -82,7 +81,6 @@ pub struct UnitInfo {
     pub title: String,
     pub phase: u32,
     pub stacking_tags: Vec<TagDescription>,
-    pub background_tags: Vec<TagDescription>,
     pub existing_sources: Vec<String>,
     pub item_count: u32,
 }
@@ -93,22 +91,23 @@ pub struct TagDescription {
 }
 
 pub fn build_user_message(unit: &UnitInfo) -> String {
-    let ratio = stack_ratio(unit.phase, &unit.skill_tag);
+    // Clamp ratio to 0 when there are no valid prior skills to stack with.
+    let effective_ratio = if unit.stacking_tags.is_empty() {
+        0
+    } else {
+        stack_ratio(unit.phase, &unit.skill_tag)
+    };
+    let max_tags_per_item = unit.stacking_tags.len().min(3);
+
     let mut msg = format!(
         "Unit skill: {} — {}\nPhase: {}\nStack ratio: {}% of items should be stacked\nItems to generate: {}",
-        unit.skill_tag, unit.title, unit.phase, ratio, unit.item_count
+        unit.skill_tag, unit.title, unit.phase, effective_ratio, unit.item_count
     );
 
     if !unit.stacking_tags.is_empty() {
+        msg.push_str(&format!("\nMax stacking tags per item: {}", max_tags_per_item));
         msg.push_str("\n\nAvailable stacking tags (deliberately test these — include in stackedTags):");
         for t in &unit.stacking_tags {
-            msg.push_str(&format!("\n- {} — {}", t.tag, t.title));
-        }
-    }
-
-    if !unit.background_tags.is_empty() {
-        msg.push_str("\n\nBackground vocabulary (use freely in sentences, do NOT include in stackedTags):");
-        for t in &unit.background_tags {
             msg.push_str(&format!("\n- {} — {}", t.tag, t.title));
         }
     }
@@ -204,44 +203,22 @@ use futures_util::StreamExt;
 use tauri::{AppHandle, Manager};
 
 const ITEMS_PER_UNIT: u32 = 20;
-/// Maximum number of stacking prereqs to include in prompt (keeps token count bounded).
-const MAX_STACKING_TAGS: usize = 8;
-/// Maximum number of background tags to include.
-const MAX_BACKGROUND_TAGS: usize = 15;
+/// Most recent prior units to include as stacking pool.
+const MAX_STACKING_TAGS: usize = 15;
 
 /// Load unit info from DB for prompt building.
 fn load_unit_info(
     conn: &rusqlite::Connection,
     skill_tag: &str,
 ) -> rusqlite::Result<UnitInfo> {
-    let (title, phase, prereqs_json): (String, u32, String) = conn.query_row(
-        "SELECT title, phase, prerequisites FROM units WHERE skill_tag = ?1",
+    let (title, phase): (String, u32) = conn.query_row(
+        "SELECT title, phase FROM units WHERE skill_tag = ?1",
         rusqlite::params![skill_tag],
-        |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)),
+        |r| Ok((r.get(0)?, r.get(1)?)),
     )?;
 
-    let prereq_tags: Vec<String> =
-        serde_json::from_str(&prereqs_json).unwrap_or_default();
-
-    // Stacking tags: direct prerequisites (capped for prompt size)
-    let mut stacking_tags = Vec::new();
-    for tag in prereq_tags.iter().take(MAX_STACKING_TAGS) {
-        if let Ok(prereq_title) = conn.query_row(
-            "SELECT title FROM units WHERE skill_tag = ?1",
-            rusqlite::params![tag],
-            |r| r.get::<_, String>(0),
-        ) {
-            stacking_tags.push(TagDescription {
-                tag: tag.clone(),
-                title: prereq_title,
-            });
-        }
-    }
-
-    // Background tags: units that come before this one but aren't direct prereqs
-    // We use unit_number ordering and exclude direct prereqs + primary tag
-    let prereq_set: std::collections::HashSet<&str> =
-        prereq_tags.iter().map(String::as_str).collect();
+    // Stacking tags: the 15 most recent prior units (by unit_number).
+    // These are all skills the learner has already encountered — valid to stack with.
     let mut stmt = conn.prepare(
         "SELECT skill_tag, title FROM units
          WHERE unit_number < (SELECT unit_number FROM units WHERE skill_tag = ?1)
@@ -249,18 +226,15 @@ fn load_unit_info(
          ORDER BY unit_number DESC
          LIMIT ?2",
     )?;
-    let bg_rows = stmt.query_map(
-        rusqlite::params![skill_tag, MAX_BACKGROUND_TAGS as i64 + prereq_tags.len() as i64],
-        |r| Ok((r.get::<_, String>(0)?, r.get::<_, String>(1)?)),
-    )?;
-
-    let mut background_tags = Vec::new();
-    for row in bg_rows {
-        let (tag, ttl) = row?;
-        if !prereq_set.contains(tag.as_str()) && background_tags.len() < MAX_BACKGROUND_TAGS {
-            background_tags.push(TagDescription { tag, title: ttl });
-        }
-    }
+    let stacking_tags: Vec<TagDescription> = stmt
+        .query_map(rusqlite::params![skill_tag, MAX_STACKING_TAGS as i64], |r| {
+            Ok(TagDescription {
+                tag: r.get(0)?,
+                title: r.get(1)?,
+            })
+        })?
+        .filter_map(|r| r.ok())
+        .collect();
 
     // Existing sources to avoid
     let mut stmt2 = conn.prepare(
@@ -276,7 +250,6 @@ fn load_unit_info(
         title,
         phase,
         stacking_tags,
-        background_tags,
         existing_sources,
         item_count: ITEMS_PER_UNIT,
     })
@@ -517,31 +490,8 @@ pub async fn trigger_generation(
         }
     }
 
-    // Kick off prefetch for adjacent unit (background, silent failure)
-    if let Some(next_tag) = next_skill_tag {
-        let next_state: String = {
-            let conn = state.0.lock().map_err(|e| e.to_string())?;
-            conn.query_row(
-                "SELECT COALESCE(generation_state, 'idle') FROM units WHERE skill_tag = ?1",
-                rusqlite::params![&next_tag],
-                |r| r.get(0),
-            )
-            .unwrap_or_else(|_| "idle".to_string())
-        };
-
-        if next_state == "idle" {
-            let empty = {
-                let conn = state.0.lock().map_err(|e| e.to_string())?;
-                bank_is_empty(&conn, &next_tag).unwrap_or(true)
-            };
-            if empty {
-                let app_clone = app.clone();
-                tauri::async_runtime::spawn(async move {
-                    run_generation(app_clone, next_tag, true).await;
-                });
-            }
-        }
-    }
+    // Prefetch for adjacent unit disabled during testing — generate on visit only.
+    let _ = next_skill_tag;
 
     // Return current state (may have just changed to "generating")
     let conn = state.0.lock().map_err(|e| e.to_string())?;
@@ -694,19 +644,31 @@ mod tests {
             title: "Quiero + inf, affirmative".to_string(),
             phase: 1,
             stacking_tags: vec![],
-            background_tags: vec![],
             existing_sources: vec![],
             item_count: 20,
         };
         let msg = build_user_message(&unit);
         assert!(msg.contains("opener.quiero"));
         assert!(msg.contains("Phase: 1"));
-        assert!(msg.contains("30%"));
         assert!(msg.contains("Items to generate: 20"));
     }
 
     #[test]
-    fn user_message_includes_stacking_tags() {
+    fn user_message_clamps_ratio_to_zero_when_no_stacking_tags() {
+        let unit = UnitInfo {
+            skill_tag: "opener.quiero".to_string(),
+            title: "Quiero + inf, affirmative".to_string(),
+            phase: 1,
+            stacking_tags: vec![],
+            existing_sources: vec![],
+            item_count: 20,
+        };
+        let msg = build_user_message(&unit);
+        assert!(msg.contains("Stack ratio: 0%"), "ratio must be 0 when pool is empty");
+    }
+
+    #[test]
+    fn user_message_includes_stacking_tags_and_max_tags() {
         let unit = UnitInfo {
             skill_tag: "opener.quiero.neg".to_string(),
             title: "Quiero + inf, negative".to_string(),
@@ -715,28 +677,28 @@ mod tests {
                 tag: "opener.quiero".to_string(),
                 title: "Quiero + inf, affirmative".to_string(),
             }],
-            background_tags: vec![],
             existing_sources: vec![],
             item_count: 20,
         };
         let msg = build_user_message(&unit);
         assert!(msg.contains("Available stacking tags"));
         assert!(msg.contains("opener.quiero"));
+        assert!(msg.contains("Max stacking tags per item: 1"));
     }
 
     #[test]
-    fn user_message_omits_stacking_section_when_no_prereqs() {
+    fn user_message_omits_stacking_section_when_no_prior_units() {
         let unit = UnitInfo {
             skill_tag: "opener.quiero".to_string(),
             title: "Quiero + inf, affirmative".to_string(),
             phase: 1,
             stacking_tags: vec![],
-            background_tags: vec![],
             existing_sources: vec![],
             item_count: 20,
         };
         let msg = build_user_message(&unit);
         assert!(!msg.contains("Available stacking tags"));
+        assert!(!msg.contains("Max stacking tags per item"));
     }
 
     #[test]
@@ -746,13 +708,29 @@ mod tests {
             title: "Quiero + inf, affirmative".to_string(),
             phase: 1,
             stacking_tags: vec![],
-            background_tags: vec![],
             existing_sources: vec!["I want to eat".to_string()],
             item_count: 20,
         };
         let msg = build_user_message(&unit);
         assert!(msg.contains("Existing English cues to avoid"));
         assert!(msg.contains("I want to eat"));
+    }
+
+    #[test]
+    fn user_message_caps_max_tags_at_3() {
+        let unit = UnitInfo {
+            skill_tag: "some.advanced.tag".to_string(),
+            title: "Advanced unit".to_string(),
+            phase: 10,
+            stacking_tags: (0..10).map(|i| TagDescription {
+                tag: format!("tag.{}", i),
+                title: format!("Tag {}", i),
+            }).collect(),
+            existing_sources: vec![],
+            item_count: 20,
+        };
+        let msg = build_user_message(&unit);
+        assert!(msg.contains("Max stacking tags per item: 3"));
     }
 
     // Incremental JSON extractor tests
@@ -805,5 +783,7 @@ mod tests {
         assert!(STABLE_SYSTEM_PROMPT.contains("STYLE RULES"));
         assert!(STABLE_SYSTEM_PROMPT.contains("stackedTags"));
         assert!(STABLE_SYSTEM_PROMPT.contains("primaryTag"));
+        assert!(STABLE_SYSTEM_PROMPT.contains("CRITICAL"), "must have CRITICAL tag constraint");
+        assert!(!STABLE_SYSTEM_PROMPT.contains("Background vocabulary"), "background vocab concept removed");
     }
 }
