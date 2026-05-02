@@ -1,11 +1,20 @@
 export type UnitStatus = "not-started" | "in-progress" | "complete";
 
+export type GenerationState = "idle" | "generating" | "ready" | "failed";
+
+export interface NoteEntry {
+  term: string;
+  definition: string;
+}
+
 export interface Unit {
   n: number;
   name: string;
   description: string;
   status: UnitStatus;
   phase: number;
+  generationState?: GenerationState;
+  notes?: NoteEntry[];
 }
 
 export interface Phase {

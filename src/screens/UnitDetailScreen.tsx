@@ -28,6 +28,10 @@ export function UnitDetailScreen({ unitN, go }: UnitDetailScreenProps) {
 
   const unmetPrereqs = hasUnmetPrereqs(unitN);
   const missingNames = getMissingPrereqNames(unitN);
+  const gen = unit.generationState ?? "ready";
+  const isGenerating = gen === "generating";
+  const isFailed = gen === "failed";
+  const canStart = !isGenerating && !isFailed;
 
   return (
     <div className="app fade-in">
@@ -97,11 +101,92 @@ export function UnitDetailScreen({ unitN, go }: UnitDetailScreenProps) {
           </div>
         )}
 
+        {/* Notes glossary */}
+        {unit.notes && unit.notes.length > 0 && (
+          <div style={{ marginTop: 40 }}>
+            <div className="eyebrow" style={{ marginBottom: 14 }}>
+              Vocabulary notes
+            </div>
+            <div
+              style={{
+                background: "var(--paper-2)",
+                border: "1px solid var(--rule-soft)",
+                borderRadius: "var(--r-lg)",
+                overflow: "hidden",
+              }}
+            >
+              {unit.notes.map((note, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: 16,
+                    padding: "13px 20px",
+                    borderBottom:
+                      i < unit.notes!.length - 1
+                        ? "1px solid var(--rule-soft)"
+                        : "none",
+                    alignItems: "baseline",
+                  }}
+                >
+                  <span
+                    className="serif"
+                    style={{
+                      fontSize: 14,
+                      color: "var(--ink)",
+                      fontStyle: "italic",
+                    }}
+                  >
+                    {note.term}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      color: "var(--ink-3)",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {note.definition}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Generation failure */}
+        {isFailed && (
+          <div style={{ marginTop: 36 }}>
+            <Callout variant="bad">
+              Exercise generation failed. Your notes are ready, but exercises
+              couldn't be prepared.
+            </Callout>
+            <div style={{ marginTop: 12 }}>
+              <Button variant="secondary" size="sm">
+                Retry generation
+              </Button>
+            </div>
+          </div>
+        )}
+
         {/* Start practice CTA */}
-        <div style={{ marginTop: 40 }}>
-          <Button variant="primary" size="lg">
+        <div
+          style={{
+            marginTop: 40,
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+          }}
+        >
+          <Button variant="primary" size="lg" disabled={!canStart}>
             Start practice
           </Button>
+          {isGenerating && (
+            <span style={{ fontSize: 13, color: "var(--ink-3)" }}>
+              Preparing your exercises…
+            </span>
+          )}
         </div>
       </div>
     </div>
