@@ -1,0 +1,1284 @@
+[
+  {
+    "skillTag": "opener.quiero",
+    "title": "Quiero + inf, affirmative",
+    "phase": 1,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "opener.quiero.neg",
+    "title": "Quiero + inf, negative",
+    "phase": 1,
+    "prerequisites": ["opener.quiero"]
+  },
+  {
+    "skillTag": "opener.puedo",
+    "title": "Puedo + inf",
+    "phase": 1,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "opener.debo",
+    "title": "Debo + inf",
+    "phase": 1,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "opener.tengo-que",
+    "title": "Tengo que + inf",
+    "phase": 1,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "opener.voy-a",
+    "title": "Voy a + inf",
+    "phase": 1,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "opener.mixed",
+    "title": "Openers interleaved",
+    "phase": 1,
+    "prerequisites": [
+      "opener.quiero",
+      "opener.puedo",
+      "opener.debo",
+      "opener.tengo-que",
+      "opener.voy-a"
+    ]
+  },
+  {
+    "skillTag": "clitic.do.sg.attach",
+    "title": "lo / la after infinitive",
+    "phase": 2,
+    "prerequisites": ["opener.quiero"]
+  },
+  {
+    "skillTag": "clitic.do.pl.attach",
+    "title": "los / las after infinitive",
+    "phase": 2,
+    "prerequisites": ["clitic.do.sg.attach"]
+  },
+  {
+    "skillTag": "clitic.do.person.attach",
+    "title": "me / te / nos after infinitive",
+    "phase": 2,
+    "prerequisites": ["opener.quiero", "opener.puedo"]
+  },
+  {
+    "skillTag": "clitic.do.attach.mixed",
+    "title": "Mixed direct-object clitics + opener",
+    "phase": 2,
+    "prerequisites": [
+      "clitic.do.sg.attach",
+      "clitic.do.pl.attach",
+      "clitic.do.person.attach"
+    ]
+  },
+  {
+    "skillTag": "clitic.io.attach",
+    "title": "le / les after infinitive",
+    "phase": 3,
+    "prerequisites": ["clitic.do.attach.mixed"]
+  },
+  {
+    "skillTag": "clitic.both.attach",
+    "title": "Two pronouns: me lo / te lo / nos lo after infinitive",
+    "phase": 3,
+    "prerequisites": ["clitic.do.attach.mixed"]
+  },
+  {
+    "skillTag": "clitic.both.se-lo",
+    "title": "le + lo collision → se lo",
+    "phase": 3,
+    "prerequisites": ["clitic.io.attach", "clitic.both.attach"]
+  },
+  {
+    "skillTag": "clitic.both.mixed",
+    "title": "Two-pronoun + opener interleaved",
+    "phase": 3,
+    "prerequisites": ["clitic.both.attach", "clitic.both.se-lo"]
+  },
+  {
+    "skillTag": "question.yes-no",
+    "title": "Yes/no questions (intonation + ¿…?)",
+    "phase": 4,
+    "prerequisites": ["opener.mixed"]
+  },
+  {
+    "skillTag": "question.wh",
+    "title": "Wh-questions: qué, quién, dónde, cuándo, cómo, por qué, cuánto",
+    "phase": 4,
+    "prerequisites": ["question.yes-no"]
+  },
+  {
+    "skillTag": "question.embedded",
+    "title": "Embedded questions after saber",
+    "phase": 4,
+    "prerequisites": ["question.wh"]
+  },
+  {
+    "skillTag": "conj.pres.ar.yo",
+    "title": "-ar yo (-o)",
+    "phase": 5,
+    "prerequisites": ["opener.quiero"]
+  },
+  {
+    "skillTag": "conj.pres.ar.3sg",
+    "title": "-ar él / ella / usted (-a)",
+    "phase": 5,
+    "prerequisites": ["conj.pres.ar.yo"]
+  },
+  {
+    "skillTag": "conj.pres.ar.tu",
+    "title": "-ar tú (-as)",
+    "phase": 5,
+    "prerequisites": ["conj.pres.ar.3sg"]
+  },
+  {
+    "skillTag": "conj.pres.ar.3pl",
+    "title": "-ar ellos / ustedes (-an)",
+    "phase": 5,
+    "prerequisites": ["conj.pres.ar.3sg"]
+  },
+  {
+    "skillTag": "conj.pres.ar.nos",
+    "title": "-ar nosotros (-amos)",
+    "phase": 5,
+    "prerequisites": ["conj.pres.ar.3sg"]
+  },
+  {
+    "skillTag": "conj.pres.ar.mixed",
+    "title": "-ar all persons interleaved",
+    "phase": 5,
+    "prerequisites": [
+      "conj.pres.ar.yo",
+      "conj.pres.ar.3sg",
+      "conj.pres.ar.tu",
+      "conj.pres.ar.3pl",
+      "conj.pres.ar.nos"
+    ]
+  },
+  {
+    "skillTag": "conj.pres.er.mixed",
+    "title": "-er all persons",
+    "phase": 6,
+    "prerequisites": ["conj.pres.ar.mixed"]
+  },
+  {
+    "skillTag": "conj.pres.ir.mixed",
+    "title": "-ir all persons",
+    "phase": 6,
+    "prerequisites": ["conj.pres.er.mixed"]
+  },
+  {
+    "skillTag": "conj.pres.we.contrast",
+    "title": "-er vs -ir we form contrast (-emos vs -imos)",
+    "phase": 6,
+    "prerequisites": ["conj.pres.er.mixed", "conj.pres.ir.mixed"]
+  },
+  {
+    "skillTag": "conj.pres.regular.mixed",
+    "title": "All three families interleaved",
+    "phase": 6,
+    "prerequisites": [
+      "conj.pres.ar.mixed",
+      "conj.pres.er.mixed",
+      "conj.pres.ir.mixed"
+    ]
+  },
+  {
+    "skillTag": "clitic.do.before-finite",
+    "title": "DO clitic before finite verb (lo veo)",
+    "phase": 7,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "clitic.io.before-finite",
+    "title": "IO clitic before finite verb (le hablo)",
+    "phase": 7,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "clitic.both.before-finite",
+    "title": "Two clitics before finite verb (me lo da, se lo digo)",
+    "phase": 7,
+    "prerequisites": ["clitic.do.before-finite", "clitic.io.before-finite"]
+  },
+  {
+    "skillTag": "clitic.placement.choice",
+    "title": "Placement choice with opener + inf (both legal)",
+    "phase": 7,
+    "prerequisites": ["clitic.do.attach.mixed", "clitic.do.before-finite"]
+  },
+  {
+    "skillTag": "stem.e-ie.pres",
+    "title": "e → ie: pensar, querer, empezar, cerrar, entender, perder, preferir",
+    "phase": 8,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "stem.o-ue.pres",
+    "title": "o → ue: poder, dormir, encontrar, mostrar, volver, contar",
+    "phase": 8,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "stem.e-i.pres",
+    "title": "e → i: pedir, servir, repetir, seguir",
+    "phase": 8,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "stem.we-form.regularity",
+    "title": "We-form does not change",
+    "phase": 8,
+    "prerequisites": ["stem.e-ie.pres", "stem.o-ue.pres", "stem.e-i.pres"]
+  },
+  {
+    "skillTag": "stem.pres.mixed",
+    "title": "Stem-changers interleaved with regulars",
+    "phase": 8,
+    "prerequisites": [
+      "stem.e-ie.pres",
+      "stem.o-ue.pres",
+      "stem.e-i.pres",
+      "stem.we-form.regularity"
+    ]
+  },
+  {
+    "skillTag": "irreg.yo.go-class",
+    "title": "-go class: tengo, vengo, pongo, salgo, hago, digo, traigo",
+    "phase": 9,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "irreg.yo.zco-class",
+    "title": "-zco class: conozco, conduzco, traduzco",
+    "phase": 9,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "irreg.yo.oy-class",
+    "title": "-oy class: soy, doy, voy, estoy",
+    "phase": 9,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "irreg.yo.se",
+    "title": "sé (saber)",
+    "phase": 9,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "lex.tener-idioms",
+    "title": "Tener que + inf; tener for possession and tener-idioms",
+    "phase": 9,
+    "prerequisites": ["irreg.yo.go-class"]
+  },
+  {
+    "skillTag": "lex.saber-conocer",
+    "title": "Saber vs conocer selection",
+    "phase": 9,
+    "prerequisites": ["irreg.yo.se"]
+  },
+  {
+    "skillTag": "irreg.full.high-freq",
+    "title": "Decir, hacer, dar, ver full paradigms",
+    "phase": 9,
+    "prerequisites": ["conj.pres.regular.mixed", "irreg.yo.go-class"]
+  },
+  {
+    "skillTag": "reflex.pres.basic",
+    "title": "Reflexive concept: me, te, se, nos, se",
+    "phase": 10,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "reflex.inf.placement",
+    "title": "Reflexive infinitive placement (both legal)",
+    "phase": 10,
+    "prerequisites": ["clitic.placement.choice", "reflex.pres.basic"]
+  },
+  {
+    "skillTag": "reflex.reciprocal",
+    "title": "Reciprocal nos (nos vemos, nos hablamos)",
+    "phase": 10,
+    "prerequisites": ["reflex.pres.basic"]
+  },
+  {
+    "skillTag": "reflex.contrast",
+    "title": "Reflexive vs non-reflexive same verb",
+    "phase": 10,
+    "prerequisites": ["reflex.pres.basic"]
+  },
+  {
+    "skillTag": "reflex.routine.narrative",
+    "title": "Daily-routine narrative drill",
+    "phase": 10,
+    "prerequisites": [
+      "reflex.pres.basic",
+      "reflex.inf.placement",
+      "reflex.reciprocal",
+      "reflex.contrast"
+    ]
+  },
+  {
+    "skillTag": "ser.singular.identify",
+    "title": "Ser singular: identification, profession, nationality",
+    "phase": 11,
+    "prerequisites": ["irreg.yo.oy-class"]
+  },
+  {
+    "skillTag": "ser.plural",
+    "title": "Ser plural",
+    "phase": 11,
+    "prerequisites": ["ser.singular.identify"]
+  },
+  {
+    "skillTag": "ser.de",
+    "title": "Ser + de (origin / material / possession)",
+    "phase": 11,
+    "prerequisites": ["ser.singular.identify"]
+  },
+  {
+    "skillTag": "ser.characteristic",
+    "title": "Ser + adjective (characteristic) — agreement enforced",
+    "phase": 11,
+    "prerequisites": ["ser.plural"]
+  },
+  {
+    "skillTag": "estar.singular.location",
+    "title": "Estar singular + location",
+    "phase": 12,
+    "prerequisites": ["irreg.yo.oy-class"]
+  },
+  {
+    "skillTag": "estar.plural",
+    "title": "Estar plural",
+    "phase": 12,
+    "prerequisites": ["estar.singular.location"]
+  },
+  {
+    "skillTag": "estar.state",
+    "title": "Estar + adjective (state)",
+    "phase": 12,
+    "prerequisites": ["estar.plural"]
+  },
+  {
+    "skillTag": "lex.hay-vs-esta",
+    "title": "Hay (there is / there are) — invariant; contrasted with está",
+    "phase": 12,
+    "prerequisites": ["estar.singular.location"]
+  },
+  {
+    "skillTag": "ser-vs-estar.char-state",
+    "title": "Forced choice: characteristic vs state",
+    "phase": 13,
+    "prerequisites": ["ser.characteristic", "estar.state"]
+  },
+  {
+    "skillTag": "ser-vs-estar.shifting",
+    "title": "Adjectives that shift meaning across ser / estar",
+    "phase": 13,
+    "prerequisites": ["ser-vs-estar.char-state"]
+  },
+  {
+    "skillTag": "ser-vs-estar.mixed",
+    "title": "Mixed forced-choice 30-item drill",
+    "phase": 13,
+    "prerequisites": ["ser-vs-estar.char-state", "ser-vs-estar.shifting"]
+  },
+  {
+    "skillTag": "adj.agreement",
+    "title": "Adjective agreement (gender + number)",
+    "phase": 14,
+    "prerequisites": ["ser.characteristic"]
+  },
+  {
+    "skillTag": "adj.placement",
+    "title": "Adjective placement (after noun; the small before-noun set)",
+    "phase": 14,
+    "prerequisites": ["adj.agreement"]
+  },
+  {
+    "skillTag": "adj.demonstrative",
+    "title": "Demonstratives: este / ese / aquel + plurals",
+    "phase": 14,
+    "prerequisites": ["adj.agreement"]
+  },
+  {
+    "skillTag": "adj.possessive",
+    "title": "Possessives: mi / tu / su / nuestro / vuestro",
+    "phase": 14,
+    "prerequisites": ["adj.agreement"]
+  },
+  {
+    "skillTag": "adj.comparison",
+    "title": "Comparatives & superlatives: más / menos / que / como, el más + adj + de",
+    "phase": 14,
+    "prerequisites": ["adj.agreement"]
+  },
+  {
+    "skillTag": "adj.quantifier",
+    "title": "Quantifiers: mucho / poco / tanto / demasiado / todo / cada",
+    "phase": 14,
+    "prerequisites": ["adj.agreement"]
+  },
+  {
+    "skillTag": "cont.formation",
+    "title": "Estar + -ando / -iendo formation",
+    "phase": 15,
+    "prerequisites": ["estar.state"]
+  },
+  {
+    "skillTag": "cont.scope",
+    "title": "Continuous restricted to right-now (vs simple present for near-future)",
+    "phase": 15,
+    "prerequisites": ["cont.formation"]
+  },
+  {
+    "skillTag": "cont.clitic-placement",
+    "title": "Clitic with continuous: lo estoy haciendo / estoy haciéndolo",
+    "phase": 15,
+    "prerequisites": ["clitic.placement.choice", "cont.formation"]
+  },
+  {
+    "skillTag": "perfect.haber",
+    "title": "Haber: he, has, ha, hemos, han",
+    "phase": 16,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "perfect.participle.regular",
+    "title": "Regular participle: -ado / -ido",
+    "phase": 16,
+    "prerequisites": ["perfect.haber"]
+  },
+  {
+    "skillTag": "perfect.participle.irregular",
+    "title": "Irregular participles: visto, hecho, dicho, puesto, vuelto, escrito, abierto, roto, muerto",
+    "phase": 16,
+    "prerequisites": ["perfect.participle.regular"]
+  },
+  {
+    "skillTag": "perfect.clitic",
+    "title": "Clitic must precede haber (lo he hecho; never he lo hecho)",
+    "phase": 16,
+    "prerequisites": ["perfect.participle.regular"]
+  },
+  {
+    "skillTag": "perfect.reflex",
+    "title": "Reflexive perfect: me he perdido, nos hemos enamorado",
+    "phase": 16,
+    "prerequisites": ["reflex.routine.narrative", "perfect.participle.regular"]
+  },
+  {
+    "skillTag": "pret.ar.regular",
+    "title": "Preterite -ar regular: -é, -aste, -ó, -amos, -aron",
+    "phase": 17,
+    "prerequisites": ["conj.pres.ar.mixed"]
+  },
+  {
+    "skillTag": "pret.er-ir.regular",
+    "title": "Preterite -er / -ir regular: -í, -iste, -ió, -imos, -ieron",
+    "phase": 17,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "pret.spelling-change",
+    "title": "Spelling-change preterite: llegué, busqué, empecé, pagué, toqué",
+    "phase": 17,
+    "prerequisites": ["pret.ar.regular"]
+  },
+  {
+    "skillTag": "pret.strong.t-class",
+    "title": "Strong preterite, t-class: tener, estar, poder, poner, saber, hacer, querer, venir",
+    "phase": 17,
+    "prerequisites": ["pret.er-ir.regular"]
+  },
+  {
+    "skillTag": "pret.j-stem",
+    "title": "j-stem preterite: decir, traer, traducir",
+    "phase": 17,
+    "prerequisites": ["pret.strong.t-class"]
+  },
+  {
+    "skillTag": "pret.ir-ser",
+    "title": "Ir and ser share preterite: fui / fuiste / fue / fuimos / fueron",
+    "phase": 17,
+    "prerequisites": ["pret.er-ir.regular"]
+  },
+  {
+    "skillTag": "pret.mixed",
+    "title": "Preterite mixed (regular + irregular)",
+    "phase": 17,
+    "prerequisites": [
+      "pret.ar.regular",
+      "pret.er-ir.regular",
+      "pret.spelling-change",
+      "pret.strong.t-class",
+      "pret.j-stem",
+      "pret.ir-ser"
+    ]
+  },
+  {
+    "skillTag": "imperf.ar",
+    "title": "Imperfect -ar (-aba family)",
+    "phase": 18,
+    "prerequisites": ["conj.pres.ar.mixed"]
+  },
+  {
+    "skillTag": "imperf.er-ir",
+    "title": "Imperfect -er / -ir (-ía family)",
+    "phase": 18,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "imperf.irregular",
+    "title": "Three irregulars: era (ser), iba (ir), veía (ver)",
+    "phase": 18,
+    "prerequisites": ["imperf.ar", "imperf.er-ir"]
+  },
+  {
+    "skillTag": "pret-vs-imperf.contrast",
+    "title": "Aspect contrast: completed event vs background / habit",
+    "phase": 19,
+    "prerequisites": ["pret.mixed", "imperf.irregular"]
+  },
+  {
+    "skillTag": "pret-vs-imperf.discourse",
+    "title": "Discourse pattern: imperfect background + preterite event",
+    "phase": 19,
+    "prerequisites": ["pret-vs-imperf.contrast"]
+  },
+  {
+    "skillTag": "pret-vs-imperf.mixed",
+    "title": "Forced-choice 50-item drill",
+    "phase": 19,
+    "prerequisites": ["pret-vs-imperf.contrast", "pret-vs-imperf.discourse"]
+  },
+  {
+    "skillTag": "future.regular",
+    "title": "Regular future: endings on the infinitive (-é, -ás, -á, -emos, -án)",
+    "phase": 20,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "future.irregular",
+    "title": "Irregular future stems: tendr-, vendr-, har-, dir-, podr-, querr-, sabr-, pondr-, saldr-, habr-",
+    "phase": 20,
+    "prerequisites": ["future.regular"]
+  },
+  {
+    "skillTag": "future.perfect",
+    "title": "Future perfect: habré + participle",
+    "phase": 20,
+    "prerequisites": ["perfect.participle.regular", "future.irregular"]
+  },
+  {
+    "skillTag": "cond.regular",
+    "title": "Regular conditional (-ía family on the infinitive)",
+    "phase": 21,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "cond.irregular",
+    "title": "Irregular conditional stems (same set as future)",
+    "phase": 21,
+    "prerequisites": ["cond.regular"]
+  },
+  {
+    "skillTag": "cond.politeness",
+    "title": "Politeness uses: me gustaría, podrías, deberías, querría",
+    "phase": 21,
+    "prerequisites": ["cond.regular"]
+  },
+  {
+    "skillTag": "cond.perfect",
+    "title": "Conditional perfect: habría + participle (would have)",
+    "phase": 21,
+    "prerequisites": ["perfect.participle.regular", "cond.regular"]
+  },
+  {
+    "skillTag": "gustar.basic",
+    "title": "Me gusta / me gustan — inverted construction",
+    "phase": 22,
+    "prerequisites": ["clitic.io.before-finite"]
+  },
+  {
+    "skillTag": "gustar.emphasis",
+    "title": "A mí / a ti emphasis & contrast",
+    "phase": 22,
+    "prerequisites": ["gustar.basic"]
+  },
+  {
+    "skillTag": "gustar.family",
+    "title": "Same pattern verbs: encantar, interesar, parecer, doler, faltar, quedar",
+    "phase": 22,
+    "prerequisites": ["gustar.basic"]
+  },
+  {
+    "skillTag": "gustar.cond-perf",
+    "title": "Me gustaría + inf and me habría gustado + inf",
+    "phase": 22,
+    "prerequisites": ["cond.politeness", "cond.perfect", "gustar.basic"]
+  },
+  {
+    "skillTag": "prep.por-para",
+    "title": "Por vs para",
+    "phase": 23,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "prep.verb-specific",
+    "title": "Verbs whose preposition differs from English",
+    "phase": 23,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "prep.pronouns",
+    "title": "Prepositional pronouns: mí, ti, él, ella, nosotros, ustedes",
+    "phase": 23,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "prep.con-go",
+    "title": "Conmigo / contigo",
+    "phase": 23,
+    "prerequisites": ["prep.pronouns"]
+  },
+  {
+    "skillTag": "cmd.tu.affirm.regular",
+    "title": "Tú affirmative regular (drop final -s)",
+    "phase": 24,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "cmd.tu.affirm.irregular",
+    "title": "Tú affirmative irregulars: di, haz, ven, ten, sé, ve, sal, pon",
+    "phase": 24,
+    "prerequisites": ["cmd.tu.affirm.regular"]
+  },
+  {
+    "skillTag": "cmd.ustedes",
+    "title": "Ustedes commands",
+    "phase": 24,
+    "prerequisites": ["cmd.tu.affirm.regular"]
+  },
+  {
+    "skillTag": "cmd.tu.neg",
+    "title": "Tú negative — uses present subjunctive forms",
+    "phase": 24,
+    "prerequisites": ["cmd.ustedes"]
+  },
+  {
+    "skillTag": "subj.pres.regular",
+    "title": "Present subjunctive — regular forms (-ar → -e, -er/-ir → -a)",
+    "phase": 25,
+    "prerequisites": ["cmd.tu.neg"]
+  },
+  {
+    "skillTag": "subj.pres.yo-derived",
+    "title": "Present subjunctive — yo-derived (irregular yo form drives the paradigm)",
+    "phase": 25,
+    "prerequisites": ["subj.pres.regular", "irreg.yo.go-class"]
+  },
+  {
+    "skillTag": "subj.pres.irregular",
+    "title": "Present subjunctive — fully irregular: sea, esté, vaya, dé, sepa, haya",
+    "phase": 25,
+    "prerequisites": ["subj.pres.regular"]
+  },
+  {
+    "skillTag": "subj.trigger.influence",
+    "title": "Will / influence triggers: querer que, pedir que, esperar que, exigir que",
+    "phase": 25,
+    "prerequisites": ["subj.pres.irregular"]
+  },
+  {
+    "skillTag": "subj.trigger.emotion",
+    "title": "Emotion triggers: alegrarse de que, sentir que, temer que, gustar que",
+    "phase": 25,
+    "prerequisites": ["subj.pres.irregular"]
+  },
+  {
+    "skillTag": "subj.trigger.doubt",
+    "title": "Doubt / denial triggers: dudar que, no creer que, es posible que",
+    "phase": 25,
+    "prerequisites": ["subj.pres.irregular"]
+  },
+  {
+    "skillTag": "subj.trigger.impersonal",
+    "title": "Impersonal triggers: es importante que, es necesario que, ojalá (que)",
+    "phase": 25,
+    "prerequisites": ["subj.pres.irregular"]
+  },
+  {
+    "skillTag": "subj.trigger.mixed",
+    "title": "Trigger interleaved",
+    "phase": 25,
+    "prerequisites": [
+      "subj.trigger.influence",
+      "subj.trigger.emotion",
+      "subj.trigger.doubt",
+      "subj.trigger.impersonal"
+    ]
+  },
+  {
+    "skillTag": "relative.que",
+    "title": "que (subject or object, people or things)",
+    "phase": 26,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "relative.quien",
+    "title": "quien / quienes — people, often after a preposition",
+    "phase": 26,
+    "prerequisites": ["relative.que"]
+  },
+  {
+    "skillTag": "relative.el-que",
+    "title": "el que / la que / los que / las que / lo que",
+    "phase": 26,
+    "prerequisites": ["relative.que"]
+  },
+  {
+    "skillTag": "relative.el-cual",
+    "title": "el cual / la cual / los cuales / las cuales — formal, after long prepositions",
+    "phase": 26,
+    "prerequisites": ["relative.el-que"]
+  },
+  {
+    "skillTag": "relative.cuyo",
+    "title": "cuyo / cuya / cuyos / cuyas — possessive whose",
+    "phase": 26,
+    "prerequisites": ["relative.que"]
+  },
+  {
+    "skillTag": "relative.adverb",
+    "title": "Relative adverbs: donde, cuando, como",
+    "phase": 26,
+    "prerequisites": ["relative.que"]
+  },
+  {
+    "skillTag": "relative.restrictive",
+    "title": "Restrictive vs non-restrictive (comma changes the meaning)",
+    "phase": 26,
+    "prerequisites": ["relative.que"]
+  },
+  {
+    "skillTag": "subj.relative",
+    "title": "Subjunctive in relative clauses: existing vs non-existing antecedent",
+    "phase": 26,
+    "prerequisites": ["subj.pres.irregular", "relative.que"]
+  },
+  {
+    "skillTag": "passive.ser",
+    "title": "True passive: ser + participle (+ optional por agent)",
+    "phase": 27,
+    "prerequisites": ["perfect.participle.regular"]
+  },
+  {
+    "skillTag": "passive.se",
+    "title": "Passive se (the most common passive in Spanish)",
+    "phase": 27,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "passive.se.impersonal",
+    "title": "Impersonal se: Se dice que, Se come bien aquí",
+    "phase": 27,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "passive.selection",
+    "title": "Selection: ser-passive vs passive-se vs impersonal-se",
+    "phase": 27,
+    "prerequisites": ["passive.ser", "passive.se", "passive.se.impersonal"]
+  },
+  {
+    "skillTag": "subj.conj.time",
+    "title": "Time conjunctions when future-pointing: cuando, en cuanto, hasta que",
+    "phase": 28,
+    "prerequisites": ["subj.pres.irregular"]
+  },
+  {
+    "skillTag": "subj.conj.time.contrast",
+    "title": "Time conjunctions: indicative vs subjunctive (already-happened vs future)",
+    "phase": 28,
+    "prerequisites": ["subj.conj.time"]
+  },
+  {
+    "skillTag": "subj.conj.purpose",
+    "title": "Purpose conjunctions: para que, a fin de que",
+    "phase": 28,
+    "prerequisites": ["subj.pres.irregular"]
+  },
+  {
+    "skillTag": "subj.conj.condition",
+    "title": "Condition / exception conjunctions: a menos que, con tal de que, sin que",
+    "phase": 28,
+    "prerequisites": ["subj.pres.irregular"]
+  },
+  {
+    "skillTag": "subj.conj.aunque",
+    "title": "Aunque + indicative vs subjunctive (factual vs hypothetical)",
+    "phase": 28,
+    "prerequisites": ["subj.pres.irregular"]
+  },
+  {
+    "skillTag": "subj.conj.mixed",
+    "title": "Conjunction interleaved",
+    "phase": 28,
+    "prerequisites": [
+      "subj.conj.time",
+      "subj.conj.time.contrast",
+      "subj.conj.purpose",
+      "subj.conj.condition",
+      "subj.conj.aunque"
+    ]
+  },
+  {
+    "skillTag": "periph.acabar-de",
+    "title": "Acabar de + inf — just did X",
+    "phase": 29,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "periph.soler",
+    "title": "Soler + inf — usually X / used to X",
+    "phase": 29,
+    "prerequisites": ["stem.e-ie.pres"]
+  },
+  {
+    "skillTag": "periph.llevar-gerund",
+    "title": "Llevar + tiempo + gerund — have been Xing for [time]",
+    "phase": 29,
+    "prerequisites": ["cont.formation"]
+  },
+  {
+    "skillTag": "periph.volver-a",
+    "title": "Volver a + inf — do X again",
+    "phase": 29,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "periph.seguir-gerund",
+    "title": "Seguir / continuar + gerund — continue Xing / still X",
+    "phase": 29,
+    "prerequisites": ["cont.formation"]
+  },
+  {
+    "skillTag": "periph.dejar-de",
+    "title": "Dejar de + inf — stop Xing",
+    "phase": 29,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "periph.start",
+    "title": "Empezar a / comenzar a / ponerse a + inf — start Xing",
+    "phase": 29,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "periph.estar-a-punto-de",
+    "title": "Estar a punto de + inf — be about to X",
+    "phase": 29,
+    "prerequisites": ["estar.state"]
+  },
+  {
+    "skillTag": "periph.try",
+    "title": "Tratar de / intentar + inf — try to X",
+    "phase": 29,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "periph.mixed",
+    "title": "Periphrasis interleaved",
+    "phase": 29,
+    "prerequisites": [
+      "periph.acabar-de",
+      "periph.soler",
+      "periph.llevar-gerund",
+      "periph.volver-a",
+      "periph.seguir-gerund",
+      "periph.dejar-de",
+      "periph.start",
+      "periph.estar-a-punto-de",
+      "periph.try"
+    ]
+  },
+  {
+    "skillTag": "becoming.ponerse",
+    "title": "Ponerse + adj — temporary state, often emotional",
+    "phase": 30,
+    "prerequisites": ["reflex.pres.basic"]
+  },
+  {
+    "skillTag": "becoming.volverse",
+    "title": "Volverse + adj/noun — sudden character change, often involuntary",
+    "phase": 30,
+    "prerequisites": ["reflex.pres.basic"]
+  },
+  {
+    "skillTag": "becoming.hacerse",
+    "title": "Hacerse + noun/adj — gradual change, often by effort",
+    "phase": 30,
+    "prerequisites": ["reflex.pres.basic"]
+  },
+  {
+    "skillTag": "becoming.llegar-a-ser",
+    "title": "Llegar a ser + noun — achievement after a process",
+    "phase": 30,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "becoming.convertirse",
+    "title": "Convertirse en + noun — transformation",
+    "phase": 30,
+    "prerequisites": ["reflex.pres.basic"]
+  },
+  {
+    "skillTag": "becoming.quedarse",
+    "title": "Quedarse + adj — resulting state, often after loss or change",
+    "phase": 30,
+    "prerequisites": ["reflex.pres.basic"]
+  },
+  {
+    "skillTag": "becoming.selection",
+    "title": "Becoming-verb selection drill",
+    "phase": 30,
+    "prerequisites": [
+      "becoming.ponerse",
+      "becoming.volverse",
+      "becoming.hacerse",
+      "becoming.llegar-a-ser",
+      "becoming.convertirse",
+      "becoming.quedarse"
+    ]
+  },
+  {
+    "skillTag": "subj.imperf.formation",
+    "title": "Imperfect subjunctive — formation rule: 3rd-person plural preterite minus -ron + -ra endings",
+    "phase": 31,
+    "prerequisites": ["pret.mixed", "subj.pres.irregular"]
+  },
+  {
+    "skillTag": "subj.imperf.irregular",
+    "title": "Imperfect subjunctive — irregular stems inherited from preterite",
+    "phase": 31,
+    "prerequisites": [
+      "subj.imperf.formation",
+      "pret.strong.t-class",
+      "pret.j-stem"
+    ]
+  },
+  {
+    "skillTag": "subj.imperf.se-variant",
+    "title": "-se variant (hablase, comiese): recognize as alternate; production focus stays on -ra",
+    "phase": 31,
+    "prerequisites": ["subj.imperf.formation"]
+  },
+  {
+    "skillTag": "subj.imperf.sequence",
+    "title": "Sequence of tenses: past trigger + imperfect subjunctive",
+    "phase": 31,
+    "prerequisites": ["subj.imperf.formation"]
+  },
+  {
+    "skillTag": "subj.imperf.como-si",
+    "title": "After como si (as if) — always imperfect or past perfect subjunctive",
+    "phase": 31,
+    "prerequisites": ["subj.imperf.formation"]
+  },
+  {
+    "skillTag": "subj.imperf.politeness",
+    "title": "Polite uses: quisiera, debiera, pudiera",
+    "phase": 31,
+    "prerequisites": ["subj.imperf.formation"]
+  },
+  {
+    "skillTag": "se-special.accidental",
+    "title": "Accidental / unplanned se: Se me cayó, Se me olvidó",
+    "phase": 32,
+    "prerequisites": ["reflex.pres.basic"]
+  },
+  {
+    "skillTag": "se-special.aspectual",
+    "title": "Aspectual se: comerse, beberse, dormirse, irse — completion or intensity",
+    "phase": 32,
+    "prerequisites": ["reflex.pres.basic"]
+  },
+  {
+    "skillTag": "subj.perfect",
+    "title": "Present perfect subjunctive: haya + participle",
+    "phase": 33,
+    "prerequisites": ["subj.pres.irregular", "perfect.participle.regular"]
+  },
+  {
+    "skillTag": "subj.pluperfect",
+    "title": "Past perfect subjunctive: hubiera + participle",
+    "phase": 33,
+    "prerequisites": ["subj.imperf.formation", "perfect.participle.regular"]
+  },
+  {
+    "skillTag": "neg.double",
+    "title": "Double negation: no… nunca, no… nadie, no… nada, no… ningún/ninguna",
+    "phase": 34,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "neg.ni-ni",
+    "title": "ni… ni — neither… nor",
+    "phase": 34,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "neg.contrast-pairs",
+    "title": "Contrast pairs: tampoco vs también, ya no vs todavía no",
+    "phase": 34,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "si-clause.real",
+    "title": "Type 1 — real / likely: Si + present indicative, present or future indicative",
+    "phase": 35,
+    "prerequisites": ["future.regular"]
+  },
+  {
+    "skillTag": "si-clause.hypothetical",
+    "title": "Type 2 — hypothetical: Si + imperfect subjunctive, conditional",
+    "phase": 35,
+    "prerequisites": ["cond.irregular", "subj.imperf.formation"]
+  },
+  {
+    "skillTag": "si-clause.counterfactual",
+    "title": "Type 3 — counterfactual past: Si + past perfect subjunctive, conditional perfect",
+    "phase": 35,
+    "prerequisites": ["cond.perfect", "subj.pluperfect"]
+  },
+  {
+    "skillTag": "si-clause.mixed",
+    "title": "Mixed type — counterfactual past with present consequence",
+    "phase": 35,
+    "prerequisites": ["si-clause.hypothetical", "si-clause.counterfactual"]
+  },
+  {
+    "skillTag": "si-clause.selection",
+    "title": "Si-clause forced-choice 40-item drill",
+    "phase": 35,
+    "prerequisites": [
+      "si-clause.real",
+      "si-clause.hypothetical",
+      "si-clause.counterfactual",
+      "si-clause.mixed"
+    ]
+  },
+  {
+    "skillTag": "discourse.pero-sino",
+    "title": "Pero vs sino vs sino que",
+    "phase": 36,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "discourse.aunque",
+    "title": "Aunque deeper dive — concession in extended discourse",
+    "phase": 36,
+    "prerequisites": ["subj.conj.aunque"]
+  },
+  {
+    "skillTag": "discourse.markers",
+    "title": "Markers: sin embargo, en cambio, además, por lo tanto, así que, pues, mientras que",
+    "phase": 36,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "report.statement",
+    "title": "Reported statements: tense backshift",
+    "phase": 37,
+    "prerequisites": ["subj.imperf.formation", "cond.regular"]
+  },
+  {
+    "skillTag": "report.question",
+    "title": "Reported questions: si for yes/no, wh-words for content",
+    "phase": 37,
+    "prerequisites": ["report.statement"]
+  },
+  {
+    "skillTag": "report.command",
+    "title": "Reported commands: decir / pedir / ordenar + que + subjunctive",
+    "phase": 37,
+    "prerequisites": ["subj.pres.irregular", "subj.imperf.formation"]
+  },
+  {
+    "skillTag": "report.deixis",
+    "title": "Time and place adjustments (hoy → ese día, mañana → al día siguiente)",
+    "phase": 37,
+    "prerequisites": ["report.statement"]
+  },
+  {
+    "skillTag": "por-para.por.cause-exchange",
+    "title": "Por: cause / reason, exchange, substitution",
+    "phase": 38,
+    "prerequisites": ["prep.por-para"]
+  },
+  {
+    "skillTag": "por-para.por.time-motion",
+    "title": "Por: duration, time of day, motion through, agent in passive",
+    "phase": 38,
+    "prerequisites": ["prep.por-para"]
+  },
+  {
+    "skillTag": "por-para.para.dest-deadline",
+    "title": "Para: destination, deadline, recipient",
+    "phase": 38,
+    "prerequisites": ["prep.por-para"]
+  },
+  {
+    "skillTag": "por-para.para.purpose-opinion",
+    "title": "Para: purpose, opinion, comparison",
+    "phase": 38,
+    "prerequisites": ["prep.por-para"]
+  },
+  {
+    "skillTag": "por-para.selection",
+    "title": "Por vs para forced-choice drill — minimum-pair items",
+    "phase": 38,
+    "prerequisites": [
+      "por-para.por.cause-exchange",
+      "por-para.por.time-motion",
+      "por-para.para.dest-deadline",
+      "por-para.para.purpose-opinion"
+    ]
+  },
+  {
+    "skillTag": "compare.irregular",
+    "title": "Irregular comparatives: mejor, peor, mayor, menor",
+    "phase": 39,
+    "prerequisites": ["adj.comparison"]
+  },
+  {
+    "skillTag": "compare.equality",
+    "title": "Equality: tan + adj/adv + como, tanto/a/os/as + noun + como",
+    "phase": 39,
+    "prerequisites": ["adj.comparison"]
+  },
+  {
+    "skillTag": "compare.absolute",
+    "title": "Absolute superlative -ísimo and its spelling shifts",
+    "phase": 39,
+    "prerequisites": ["adj.agreement"]
+  },
+  {
+    "skillTag": "morpho.diminutive",
+    "title": "Diminutives -ito / -ita and meaning shifts",
+    "phase": 39,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "verb-pair.pedir-preguntar",
+    "title": "Pedir (request something) vs preguntar (ask a question)",
+    "phase": 40,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "verb-pair.llevar-traer",
+    "title": "Llevar (take, bring along, wear) vs traer (bring here)",
+    "phase": 40,
+    "prerequisites": ["conj.pres.regular.mixed"]
+  },
+  {
+    "skillTag": "verb-pair.ir-irse-salir",
+    "title": "Ir vs irse (the -se adds emphasis on departure); salir vs irse",
+    "phase": 40,
+    "prerequisites": ["reflex.contrast"]
+  },
+  {
+    "skillTag": "verb-pair.ser-estar.advanced",
+    "title": "Ser vs estar — advanced cases: estar muerto, ser/estar feliz",
+    "phase": 40,
+    "prerequisites": ["ser-vs-estar.mixed"]
+  },
+  {
+    "skillTag": "verb-pair.saber-conocer.review",
+    "title": "Saber vs conocer — review with new domains",
+    "phase": 40,
+    "prerequisites": ["lex.saber-conocer"]
+  },
+  {
+    "skillTag": "num-time.ordinal",
+    "title": "Ordinals: primero/primer, segundo, tercero/tercer; apocope before masculine singular nouns",
+    "phase": 41,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "num-time.fraction",
+    "title": "Fractions and percentages: un tercio, dos tercios, el 25 por ciento",
+    "phase": 41,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "num-time.date",
+    "title": "Date format and prepositions: el lunes, en marzo, hace dos días, dentro de una semana",
+    "phase": 41,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "num-time.big",
+    "title": "Big numbers: mil, un millón, mil millones",
+    "phase": 41,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "capstone.review",
+    "title": "Big interleaved review — sampling all 41 phases, weighted toward error history",
+    "phase": 42,
+    "prerequisites": [
+      "opener.mixed",
+      "clitic.both.mixed",
+      "conj.pres.regular.mixed",
+      "stem.pres.mixed",
+      "irreg.full.high-freq",
+      "reflex.routine.narrative",
+      "ser-vs-estar.mixed",
+      "adj.quantifier",
+      "cont.clitic-placement",
+      "perfect.reflex",
+      "pret.mixed",
+      "imperf.irregular",
+      "pret-vs-imperf.mixed",
+      "future.perfect",
+      "cond.perfect",
+      "gustar.cond-perf",
+      "cmd.tu.neg",
+      "subj.trigger.mixed",
+      "passive.selection",
+      "subj.conj.mixed",
+      "periph.mixed",
+      "becoming.selection",
+      "subj.imperf.politeness",
+      "se-special.aspectual",
+      "subj.pluperfect",
+      "si-clause.selection",
+      "discourse.markers",
+      "report.deixis",
+      "por-para.selection",
+      "compare.absolute",
+      "verb-pair.saber-conocer.review",
+      "num-time.big"
+    ]
+  },
+  {
+    "skillTag": "capstone.gauntlet",
+    "title": "Multi-clause translation gauntlet — 60 B2 sentences",
+    "phase": 42,
+    "prerequisites": ["capstone.review"]
+  },
+  {
+    "skillTag": "capstone.narrative",
+    "title": "Sustained narrative production using all four past forms and reported speech",
+    "phase": 42,
+    "prerequisites": ["capstone.review"]
+  }
+]
