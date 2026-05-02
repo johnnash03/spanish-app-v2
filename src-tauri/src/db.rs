@@ -54,8 +54,6 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
         );
         CREATE INDEX IF NOT EXISTS idx_units_phase
             ON units(phase);
-        CREATE INDEX IF NOT EXISTS idx_units_order
-            ON units(unit_number);
 
         CREATE TABLE IF NOT EXISTS vocab_words (
             lemma           TEXT    PRIMARY KEY,
@@ -68,14 +66,17 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
         ",
     )?;
 
-    // v2: add columns to existing DBs that were created before this migration
-    for col_sql in &[
-        "ALTER TABLE units ADD COLUMN unit_number INTEGER",
+    // v2: add columns to existing DBs that were created before this migration.
+    // Errors are ignored — "duplicate column name" means the column already exists.
+    let _ = conn.execute_batch("ALTER TABLE units ADD COLUMN unit_number INTEGER");
+    let _ = conn.execute_batch(
         "ALTER TABLE units ADD COLUMN generation_state TEXT NOT NULL DEFAULT 'idle'",
-    ] {
-        // Ignore "duplicate column" errors — the column already exists
-        let _ = conn.execute_batch(col_sql);
-    }
+    );
+
+    // Create the ordering index only after unit_number is guaranteed to exist.
+    conn.execute_batch(
+        "CREATE INDEX IF NOT EXISTS idx_units_order ON units(unit_number)",
+    )?;
 
     seed_units(conn)
 }
