@@ -20,7 +20,7 @@ pub fn run() {
 
             // App-open pre-warm: generate banks for the nearest idle units in background.
             let app_handle = app.handle().clone();
-            tokio::spawn(async move {
+            tauri::async_runtime::spawn(async move {
                 let _ = generate::prewarm_units_internal(app_handle).await;
             });
 

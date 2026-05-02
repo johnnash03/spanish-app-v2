@@ -511,7 +511,7 @@ pub async fn trigger_generation(
             }
             let app_clone = app.clone();
             let tag_clone = skill_tag.clone();
-            tokio::spawn(async move {
+            tauri::async_runtime::spawn(async move {
                 run_generation(app_clone, tag_clone, false).await;
             });
         }
@@ -536,7 +536,7 @@ pub async fn trigger_generation(
             };
             if empty {
                 let app_clone = app.clone();
-                tokio::spawn(async move {
+                tauri::async_runtime::spawn(async move {
                     run_generation(app_clone, next_tag, true).await;
                 });
             }
@@ -585,7 +585,7 @@ pub async fn retry_generation(
     }
     let app_clone = app.clone();
     let tag_clone = skill_tag.clone();
-    tokio::spawn(async move {
+    tauri::async_runtime::spawn(async move {
         run_generation(app_clone, tag_clone, false).await;
     });
     Ok(())
@@ -623,7 +623,7 @@ pub async fn prewarm_units_internal(app: AppHandle) -> Result<(), String> {
             let _ = set_generation_state(&conn, &skill_tag, "generating");
         }
         let app_clone = app.clone();
-        tokio::spawn(async move {
+        tauri::async_runtime::spawn(async move {
             run_generation(app_clone, skill_tag, true).await;
         });
     }
