@@ -12,6 +12,7 @@ export const PHASES: Phase[] = [
           "Learn the subject pronouns and master ser — the first of two Spanish verbs meaning 'to be.' Practice identity, origin, and description.",
         status: "complete",
         phase: 1,
+        skillTag: "opener.quiero",
         generationState: "ready",
         notes: [
           {
@@ -42,6 +43,7 @@ export const PHASES: Phase[] = [
           "Master estar, the second 'to be' verb. Focus on location, temporary states, and the essential ser vs. estar contrast.",
         status: "complete",
         phase: 1,
+        skillTag: "opener.quiero.neg",
         generationState: "ready",
         notes: [
           {
@@ -73,6 +75,7 @@ export const PHASES: Phase[] = [
           "Build the present-tense conjugation pattern for regular -ar verbs across all six persons.",
         status: "complete",
         phase: 1,
+        skillTag: "opener.puedo",
         generationState: "ready",
         notes: [
           {
@@ -96,6 +99,7 @@ export const PHASES: Phase[] = [
           "Extend the present tense to -er and -ir verbs. Note where -er and -ir endings coincide.",
         status: "complete",
         phase: 1,
+        skillTag: "opener.debo",
         generationState: "ready",
         notes: [
           {
@@ -124,6 +128,7 @@ export const PHASES: Phase[] = [
           "Understand how grammatical gender works in Spanish and when to use definite vs. indefinite articles.",
         status: "complete",
         phase: 1,
+        skillTag: "opener.tengo-que",
         generationState: "ready",
         notes: [
           {
@@ -160,6 +165,7 @@ export const PHASES: Phase[] = [
           "Introduction to the preterite: what it signals, when Spanish reaches for it, and the key contrast with the imperfect.",
         status: "complete",
         phase: 2,
+        skillTag: "opener.voy-a",
         generationState: "ready",
         notes: [
           {
@@ -186,6 +192,7 @@ export const PHASES: Phase[] = [
           "Build the regular preterite conjugations for -ar, -er, and -ir verbs. Practice yo / tú / él / nosotros forms with action verbs you already know.",
         status: "in-progress",
         phase: 2,
+        skillTag: "opener.mixed",
         generationState: "ready",
         notes: [
           {
@@ -217,6 +224,7 @@ export const PHASES: Phase[] = [
           "Tackle the most common irregular preterite stems: ir/ser, tener, estar, hacer, and more.",
         status: "not-started",
         phase: 2,
+        skillTag: "clitic.do.sg.attach",
         generationState: "generating",
         notes: [
           {
@@ -251,6 +259,7 @@ export const PHASES: Phase[] = [
           "Learn the imperfect tense for ongoing past states, habitual actions, and scene-setting.",
         status: "not-started",
         phase: 2,
+        skillTag: "clitic.do.pl.attach",
         generationState: "failed",
         notes: [
           {

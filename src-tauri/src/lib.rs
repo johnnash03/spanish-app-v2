@@ -1,4 +1,5 @@
 mod db;
+mod generate;
 mod openai;
 
 use tauri::Manager;
@@ -16,11 +17,22 @@ pub fn run() {
             let db = db::Db::open(&db_path)
                 .map_err(|e| format!("failed to open db at {:?}: {}", db_path, e))?;
             app.manage(db);
+
+            // App-open pre-warm: generate banks for the nearest idle units in background.
+            let app_handle = app.handle().clone();
+            tokio::spawn(async move {
+                let _ = generate::prewarm_units_internal(app_handle).await;
+            });
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
             db::db_health,
-            openai::openai_ping
+            openai::openai_ping,
+            generate::trigger_generation,
+            generate::get_unit_generation_state,
+            generate::retry_generation,
+            generate::prewarm_units,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

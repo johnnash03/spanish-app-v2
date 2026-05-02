@@ -45,13 +45,17 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
             ON exercise_items(primary_tag);
 
         CREATE TABLE IF NOT EXISTS units (
-            skill_tag     TEXT PRIMARY KEY,
-            title         TEXT NOT NULL,
-            phase         INTEGER NOT NULL,
-            prerequisites TEXT NOT NULL DEFAULT '[]'
+            skill_tag        TEXT    PRIMARY KEY,
+            title            TEXT    NOT NULL,
+            phase            INTEGER NOT NULL,
+            prerequisites    TEXT    NOT NULL DEFAULT '[]',
+            unit_number      INTEGER,
+            generation_state TEXT    NOT NULL DEFAULT 'idle'
         );
         CREATE INDEX IF NOT EXISTS idx_units_phase
             ON units(phase);
+        CREATE INDEX IF NOT EXISTS idx_units_order
+            ON units(unit_number);
 
         CREATE TABLE IF NOT EXISTS vocab_words (
             lemma           TEXT    PRIMARY KEY,
@@ -63,6 +67,15 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
         );
         ",
     )?;
+
+    // v2: add columns to existing DBs that were created before this migration
+    for col_sql in &[
+        "ALTER TABLE units ADD COLUMN unit_number INTEGER",
+        "ALTER TABLE units ADD COLUMN generation_state TEXT NOT NULL DEFAULT 'idle'",
+    ] {
+        // Ignore "duplicate column" errors — the column already exists
+        let _ = conn.execute_batch(col_sql);
+    }
 
     seed_units(conn)
 }
@@ -80,12 +93,14 @@ fn seed_units(conn: &Connection) -> rusqlite::Result<()> {
     let units: Vec<UnitRow> =
         serde_json::from_str(UNITS_SEED).expect("units_seed.json is valid JSON");
 
-    for u in &units {
+    for (idx, u) in units.iter().enumerate() {
         let prereqs_json = serde_json::to_string(&u.prerequisites).expect("prereqs serialize");
+        let unit_number = (idx + 1) as i64;
         conn.execute(
-            "INSERT OR IGNORE INTO units (skill_tag, title, phase, prerequisites)
-             VALUES (?1, ?2, ?3, ?4)",
-            params![u.skill_tag, u.title, u.phase, prereqs_json],
+            "INSERT INTO units (skill_tag, title, phase, prerequisites, unit_number, generation_state)
+             VALUES (?1, ?2, ?3, ?4, ?5, 'idle')
+             ON CONFLICT(skill_tag) DO UPDATE SET unit_number = excluded.unit_number",
+            params![u.skill_tag, u.title, u.phase, prereqs_json, unit_number],
         )?;
     }
 
@@ -138,7 +153,6 @@ mod tests {
     #[test]
     fn migration_is_idempotent() {
         let conn = in_memory();
-        // Running migrations a second time must not error.
         run_migrations(&conn).unwrap();
     }
 
@@ -176,5 +190,45 @@ mod tests {
             let parsed: Result<Vec<String>, _> = serde_json::from_str(&prereqs);
             assert!(parsed.is_ok(), "unit {tag} has invalid prerequisites JSON");
         }
+    }
+
+    #[test]
+    fn all_units_have_sequential_unit_numbers() {
+        let conn = in_memory();
+        let null_count: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM units WHERE unit_number IS NULL",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(null_count, 0, "all units must have a unit_number");
+    }
+
+    #[test]
+    fn unit_numbers_are_unique() {
+        let conn = in_memory();
+        let distinct: i64 = conn
+            .query_row("SELECT COUNT(DISTINCT unit_number) FROM units", [], |r| {
+                r.get(0)
+            })
+            .unwrap();
+        let total: i64 = conn
+            .query_row("SELECT COUNT(*) FROM units", [], |r| r.get(0))
+            .unwrap();
+        assert_eq!(distinct, total, "unit_numbers must be unique");
+    }
+
+    #[test]
+    fn units_default_generation_state_is_idle() {
+        let conn = in_memory();
+        let non_idle: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM units WHERE generation_state != 'idle'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(non_idle, 0, "all units must start with idle generation_state");
     }
 }

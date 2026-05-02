@@ -13,6 +13,7 @@ export interface Unit {
   description: string;
   status: UnitStatus;
   phase: number;
+  skillTag?: string;
   generationState?: GenerationState;
   notes?: NoteEntry[];
 }

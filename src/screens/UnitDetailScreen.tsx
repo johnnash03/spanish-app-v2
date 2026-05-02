@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { TopBar, Button, Callout } from "../components";
 import { IconArrowRight } from "../components/icons";
 import {
@@ -5,7 +6,13 @@ import {
   hasUnmetPrereqs,
   getMissingPrereqNames,
 } from "../data/mockData";
-import type { Screen } from "../types";
+import {
+  isTauri,
+  triggerGeneration,
+  getUnitGenerationState,
+  retryGeneration,
+} from "../lib/tauri";
+import type { GenerationState, Screen } from "../types";
 
 interface UnitDetailScreenProps {
   unitN: number;
@@ -14,6 +21,44 @@ interface UnitDetailScreenProps {
 
 export function UnitDetailScreen({ unitN, go }: UnitDetailScreenProps) {
   const unit = getUnitByN(unitN);
+  const mockGenState: GenerationState = unit?.generationState ?? "idle";
+  const [genState, setGenState] = useState<GenerationState>(mockGenState);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Trigger generation on mount when running in Tauri
+  useEffect(() => {
+    if (!unit?.skillTag || !isTauri()) return;
+
+    triggerGeneration(unit.skillTag)
+      .then((state) => setGenState(state))
+      .catch(() => {
+        /* ignore – non-critical */
+      });
+  }, [unit?.skillTag]);
+
+  // Poll generation state while generating
+  useEffect(() => {
+    if (!unit?.skillTag || !isTauri()) return;
+    if (genState !== "generating") {
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
+      return;
+    }
+
+    pollRef.current = setInterval(() => {
+      getUnitGenerationState(unit.skillTag!)
+        .then((state) => setGenState(state))
+        .catch(() => {
+          /* ignore */
+        });
+    }, 1000);
+
+    return () => {
+      if (pollRef.current) clearInterval(pollRef.current);
+    };
+  }, [genState, unit?.skillTag]);
 
   if (!unit) {
     return (
@@ -28,10 +73,18 @@ export function UnitDetailScreen({ unitN, go }: UnitDetailScreenProps) {
 
   const unmetPrereqs = hasUnmetPrereqs(unitN);
   const missingNames = getMissingPrereqNames(unitN);
-  const gen = unit.generationState ?? "ready";
-  const isGenerating = gen === "generating";
-  const isFailed = gen === "failed";
+  const isGenerating = genState === "generating";
+  const isFailed = genState === "failed";
   const canStart = !isGenerating && !isFailed;
+
+  function handleRetry() {
+    if (!unit?.skillTag || !isTauri()) return;
+    retryGeneration(unit.skillTag)
+      .then(() => setGenState("generating"))
+      .catch(() => {
+        /* ignore */
+      });
+  }
 
   return (
     <div className="app fade-in">
@@ -163,7 +216,7 @@ export function UnitDetailScreen({ unitN, go }: UnitDetailScreenProps) {
               couldn't be prepared.
             </Callout>
             <div style={{ marginTop: 12 }}>
-              <Button variant="secondary" size="sm">
+              <Button variant="secondary" size="sm" onClick={handleRetry}>
                 Retry generation
               </Button>
             </div>
