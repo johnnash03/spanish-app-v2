@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { TopBar, Button, BadgeCount } from "../components";
 import {
   IconLayers,
@@ -6,6 +7,7 @@ import {
   IconArrowRight,
 } from "../components/icons";
 import { LEARNER } from "../data/mockData";
+import { isTauri, getCurrentUnitNumber, getUnitByN } from "../lib/tauri";
 import type { Screen } from "../types";
 
 interface HomeScreenProps {
@@ -13,6 +15,24 @@ interface HomeScreenProps {
 }
 
 export function HomeScreen({ go }: HomeScreenProps) {
+  const [currentUnitN, setCurrentUnitN] = useState(LEARNER.currentUnit.number);
+  const [currentUnitName, setCurrentUnitName] = useState(
+    LEARNER.currentUnit.name,
+  );
+
+  useEffect(() => {
+    if (!isTauri()) return;
+    getCurrentUnitNumber()
+      .then((n) => {
+        setCurrentUnitN(n);
+        return getUnitByN(n);
+      })
+      .then((u) => {
+        if (u) setCurrentUnitName(u.name);
+      })
+      .catch(() => {});
+  }, []);
+
   const u = LEARNER;
   const hasWeakTags = u.weakTags.length > 0;
   const combinedUnlocked = u.activeWords >= 10;
@@ -24,9 +44,7 @@ export function HomeScreen({ go }: HomeScreenProps) {
       <div className="container" style={{ paddingTop: 28, paddingBottom: 80 }}>
         {/* Continue strip */}
         <button
-          onClick={() =>
-            go({ name: "unitDetail", unitN: u.currentUnit.number })
-          }
+          onClick={() => go({ name: "unitDetail", unitN: currentUnitN })}
           style={{
             width: "100%",
             display: "flex",
@@ -96,13 +114,13 @@ export function HomeScreen({ go }: HomeScreenProps) {
             </div>
             <div style={{ marginTop: 22, flex: 1 }}>
               <div className="serif" style={{ fontSize: 22, lineHeight: 1.25 }}>
-                Unit {u.currentUnit.number}
+                Unit {currentUnitN}
               </div>
               <div
                 className="serif muted"
                 style={{ fontSize: 16, marginTop: 2 }}
               >
-                {u.currentUnit.name}
+                {currentUnitName}
               </div>
               <div className="muted" style={{ fontSize: 13, marginTop: 14 }}>
                 {u.currentUnit.toward} of {u.currentUnit.of} toward mastery
@@ -164,11 +182,9 @@ export function HomeScreen({ go }: HomeScreenProps) {
             >
               <Button
                 variant="primary"
-                onClick={() =>
-                  go({ name: "unitDetail", unitN: u.currentUnit.number })
-                }
+                onClick={() => go({ name: "unitDetail", unitN: currentUnitN })}
               >
-                Continue Unit {u.currentUnit.number}
+                Continue Unit {currentUnitN}
               </Button>
               <button
                 className="text-link"

@@ -10,12 +10,13 @@ export interface NoteEntry {
 export interface Unit {
   n: number;
   name: string;
-  description: string;
+  description?: string;
   status: UnitStatus;
   phase: number;
   skillTag?: string;
   generationState?: GenerationState;
   notes?: NoteEntry[];
+  prerequisites?: string[];
 }
 
 export interface Phase {
