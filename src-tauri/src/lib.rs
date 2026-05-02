@@ -1,6 +1,7 @@
 mod db;
 mod generate;
 mod openai;
+mod session;
 
 use tauri::Manager;
 
@@ -33,6 +34,8 @@ pub fn run() {
             generate::get_unit_generation_state,
             generate::retry_generation,
             generate::prewarm_units,
+            session::assemble_session_queue,
+            session::submit_session_attempts,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

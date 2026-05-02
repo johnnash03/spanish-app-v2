@@ -17,6 +17,12 @@ impl Db {
     }
 }
 
+/// Exposed for tests in other modules.
+#[cfg(test)]
+pub fn run_migrations_for_test(conn: &Connection) -> rusqlite::Result<()> {
+    run_migrations(conn)
+}
+
 fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
     conn.execute_batch(
         "

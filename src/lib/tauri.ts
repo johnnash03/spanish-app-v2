@@ -22,3 +22,21 @@ export async function getUnitGenerationState(
 export async function retryGeneration(skillTag: string): Promise<void> {
   await invoke("retry_generation", { skillTag });
 }
+
+export async function assembleSessionQueue(
+  activeUnitTag: string,
+): Promise<import("../types").SessionItem[]> {
+  return invoke("assemble_session_queue", { activeUnitTag });
+}
+
+export async function submitSessionAttempts(
+  attempts: import("../types").LocalAttempt[],
+): Promise<void> {
+  await invoke("submit_session_attempts", {
+    attempts: attempts.map((a) => ({
+      itemId: a.itemId,
+      tag: a.tag,
+      learnerAnswer: a.learnerAnswer,
+    })),
+  });
+}

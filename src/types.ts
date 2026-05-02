@@ -58,7 +58,23 @@ export interface LearnerState {
   };
 }
 
+export interface SessionItem {
+  id: string;
+  source: string;
+  primaryTag: string;
+  stackedTags: string[];
+}
+
+export interface LocalAttempt {
+  itemId: string;
+  tag: string;
+  learnerAnswer: string;
+  source: string;
+}
+
 export type Screen =
   | { name: "home" }
   | { name: "units" }
-  | { name: "unitDetail"; unitN: number };
+  | { name: "unitDetail"; unitN: number }
+  | { name: "session"; unitSkillTag: string }
+  | { name: "sessionReview"; attempts: LocalAttempt[] };

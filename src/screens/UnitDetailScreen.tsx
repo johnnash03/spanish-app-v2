@@ -232,7 +232,15 @@ export function UnitDetailScreen({ unitN, go }: UnitDetailScreenProps) {
             gap: 16,
           }}
         >
-          <Button variant="primary" size="lg" disabled={!canStart}>
+          <Button
+            variant="primary"
+            size="lg"
+            disabled={!canStart}
+            onClick={() =>
+              unit.skillTag &&
+              go({ name: "session", unitSkillTag: unit.skillTag })
+            }
+          >
             Start practice
           </Button>
           {isGenerating && (
