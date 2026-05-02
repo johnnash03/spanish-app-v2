@@ -21,8 +21,12 @@ interface UnitDetailScreenProps {
 
 export function UnitDetailScreen({ unitN, go }: UnitDetailScreenProps) {
   const unit = getUnitByN(unitN);
-  const mockGenState: GenerationState = unit?.generationState ?? "idle";
-  const [genState, setGenState] = useState<GenerationState>(mockGenState);
+  // In Tauri, start as null (unknown) so the button stays disabled until
+  // triggerGeneration returns the real DB state. Mock data is used only
+  // in the browser preview where isTauri() is false.
+  const [genState, setGenState] = useState<GenerationState | null>(
+    isTauri() ? null : (unit?.generationState ?? "idle"),
+  );
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Trigger generation on mount when running in Tauri
@@ -32,7 +36,7 @@ export function UnitDetailScreen({ unitN, go }: UnitDetailScreenProps) {
     triggerGeneration(unit.skillTag)
       .then((state) => setGenState(state))
       .catch(() => {
-        /* ignore – non-critical */
+        setGenState("idle");
       });
   }, [unit?.skillTag]);
 
@@ -73,9 +77,10 @@ export function UnitDetailScreen({ unitN, go }: UnitDetailScreenProps) {
 
   const unmetPrereqs = hasUnmetPrereqs(unitN);
   const missingNames = getMissingPrereqNames(unitN);
+  const isLoading = genState === null;
   const isGenerating = genState === "generating";
   const isFailed = genState === "failed";
-  const canStart = !isGenerating && !isFailed;
+  const canStart = !isLoading && !isGenerating && !isFailed;
 
   function handleRetry() {
     if (!unit?.skillTag || !isTauri()) return;
@@ -243,9 +248,9 @@ export function UnitDetailScreen({ unitN, go }: UnitDetailScreenProps) {
           >
             Start practice
           </Button>
-          {isGenerating && (
+          {(isLoading || isGenerating) && (
             <span style={{ fontSize: 13, color: "var(--ink-3)" }}>
-              Preparing your exercises…
+              {isLoading ? "Checking…" : "Preparing your exercises…"}
             </span>
           )}
         </div>
