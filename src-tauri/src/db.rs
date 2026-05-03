@@ -180,7 +180,7 @@ mod tests {
         let count: i64 = conn
             .query_row("SELECT COUNT(*) FROM units", [], |r| r.get(0))
             .unwrap();
-        assert_eq!(count, 201, "all 201 units must be seeded");
+        assert_eq!(count, 203, "all 203 units must be seeded");
     }
 
     #[test]

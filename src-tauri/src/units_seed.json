@@ -118,10 +118,16 @@
     ]
   },
   {
+    "skillTag": "gram.personal-a",
+    "title": "Personal \"a\" before animate direct objects",
+    "phase": 2,
+    "prerequisites": ["clitic.do.attach.mixed"]
+  },
+  {
     "skillTag": "clitic.io.attach",
     "title": "le / les after infinitive",
     "phase": 3,
-    "prerequisites": ["clitic.do.attach.mixed"]
+    "prerequisites": ["clitic.do.attach.mixed", "gram.personal-a"]
   },
   {
     "skillTag": "clitic.both.attach",
@@ -160,10 +166,16 @@
     "prerequisites": ["question.wh"]
   },
   {
+    "skillTag": "gram.prep-basic",
+    "title": "Basic prepositions in noun phrases: en, con, de, a",
+    "phase": 4,
+    "prerequisites": ["gram.personal-a"]
+  },
+  {
     "skillTag": "conj.pres.ar.yo",
     "title": "-ar yo (-o)",
     "phase": 5,
-    "prerequisites": ["opener.quiero"]
+    "prerequisites": ["opener.quiero", "gram.prep-basic"]
   },
   {
     "skillTag": "conj.pres.ar.3sg",

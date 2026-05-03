@@ -141,6 +141,39 @@ pub fn build_user_message(unit: &UnitInfo) -> String {
         }
     }
 
+    if unit.skill_tag == "gram.personal-a" {
+        msg.push_str(
+            "\n\nFORMAT CONSTRAINT (personal 'a' unit):\
+             \nDrill the ANIMATE vs INANIMATE contrast using a minimum-pair structure: same verb, \
+             different object type. Animate objects require personal 'a'; inanimate objects do not.\
+             \nUse only openers the learner knows: quiero, puedo, debo, tengo que, voy a.\
+             \nAnimate objects: people and pets (María, mi madre, el médico, el perro).\
+             \nInanimate objects: things (el libro, la música, el coche).\
+             \nNote: 'al' = a + el (e.g. 'ver al médico'). Include at least two al-contraction examples.\
+             \nExamples: \"I want to invite María\" → \"Quiero invitar a María\" | \
+             \"I want to read the book\" → \"Quiero leer el libro\" | \
+             \"Can you see the doctor?\" → \"¿Puedes ver al médico?\"",
+        );
+    }
+
+    if unit.skill_tag == "gram.prep-basic" {
+        msg.push_str(
+            "\n\nFORMAT CONSTRAINT (basic prepositions unit):\
+             \nDrill the four prepositions en, con, de, a in simple noun-phrase contexts.\
+             \nUse only these verbs as vehicles: ser (soy/es/somos), trabajar (trabajo/trabaja), \
+             vivir (vivo/vive), hablar (hablo/habla).\
+             \nDistribute items evenly across all four prepositions. Include both bare noun-phrase \
+             translations (e.g. 'with Pablo → con Pablo') and short full sentences.\
+             \nCRITICAL: 'a' here means directional/locative destination (e.g. 'Voy a la tienda'). \
+             It is NOT personal 'a' and NOT the 'a' in 'voy a + infinitive'. \
+             Make this distinction clear by using only noun destinations, not infinitives or animate objects.\
+             \nExamples: \"I work in the office\" → \"Trabajo en la oficina\" | \
+             \"I'm from Madrid\" → \"Soy de Madrid\" | \
+             \"I talk with Pablo\" → \"Hablo con Pablo\" | \
+             \"She lives in the house\" → \"Vive en la casa\"",
+        );
+    }
+
     if !unit.existing_sources.is_empty() {
         msg.push_str("\n\nExisting English cues to avoid:");
         for s in &unit.existing_sources {
@@ -821,6 +854,38 @@ mod tests {
         };
         let msg = build_user_message(&unit);
         assert!(!msg.contains("FORMAT CONSTRAINT"), "non-cognate unit must not include format constraint");
+    }
+
+    #[test]
+    fn gram_personal_a_unit_includes_animate_contrast_constraint() {
+        let unit = UnitInfo {
+            skill_tag: "gram.personal-a".to_string(),
+            title: "Personal \"a\" before animate direct objects".to_string(),
+            phase: 2,
+            stacking_tags: vec![],
+            existing_sources: vec![],
+            item_count: 20,
+        };
+        let msg = build_user_message(&unit);
+        assert!(msg.contains("FORMAT CONSTRAINT"), "gram.personal-a must include format constraint");
+        assert!(msg.contains("ANIMATE vs INANIMATE"), "must mention animate vs inanimate contrast");
+        assert!(msg.contains("al-contraction"), "must mention al contraction");
+    }
+
+    #[test]
+    fn gram_prep_basic_unit_includes_four_prepositions_constraint() {
+        let unit = UnitInfo {
+            skill_tag: "gram.prep-basic".to_string(),
+            title: "Basic prepositions in noun phrases: en, con, de, a".to_string(),
+            phase: 4,
+            stacking_tags: vec![],
+            existing_sources: vec![],
+            item_count: 20,
+        };
+        let msg = build_user_message(&unit);
+        assert!(msg.contains("FORMAT CONSTRAINT"), "gram.prep-basic must include format constraint");
+        assert!(msg.contains("en, con, de, a"), "must mention all four prepositions");
+        assert!(msg.contains("NOT personal 'a'"), "must clarify distinction from personal 'a'");
     }
 
     // Incremental JSON extractor tests
