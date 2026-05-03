@@ -118,10 +118,19 @@ pub fn build_user_message(unit: &UnitInfo) -> String {
              \nSentences must follow the pattern: [article] cognate noun + es/son + cognate adjective or adverb.\
              \nExamples: \"La preparación es importante\" | \"El sistema es complejo\" | \"Las diferencias son inevitables\"\
              \nArticle gender rules: use 'la' for nouns ending in -ción, -idad, -encia, -anza, -dad; \
-             use 'el' for nouns ending in -ma, -ema, -ema.\
+             use 'el' for nouns ending in -ma, -ema.\
              \nUse plural articles (los/las) and plural verbs (son) when the subject noun is plural.\
              \nDo NOT use any verbs other than es / son. Keep Spanish translations to 4-7 words.",
         );
+        if unit.skill_tag == "lex.cognate.tion" {
+            msg.push_str(
+                "\nADDITIONAL PATTERN (-tion verb derivation): also include sentences where the \
+                 derived -ar infinitive is the subject: infinitive + es + cognate adjective.\
+                 \nExamples: \"To prepare is important\" → \"Preparar es importante\" | \
+                 \"To organize is necessary\" → \"Organizar es necesario\"\
+                 \nAim for roughly half noun-subject sentences and half infinitive-subject sentences.",
+            );
+        }
     }
 
     if !unit.existing_sources.is_empty() {
@@ -762,8 +771,8 @@ mod tests {
     #[test]
     fn cognate_unit_user_message_contains_format_constraint() {
         let unit = UnitInfo {
-            skill_tag: "lex.cognate.tion".to_string(),
-            title: "-tion → -ción + verb derivation".to_string(),
+            skill_tag: "lex.cognate.ible-able".to_string(),
+            title: "-ible/-able stays".to_string(),
             phase: 0,
             stacking_tags: vec![],
             existing_sources: vec![],
@@ -773,6 +782,23 @@ mod tests {
         assert!(msg.contains("FORMAT CONSTRAINT"), "cognate unit must include format constraint");
         assert!(msg.contains("es/son"), "cognate constraint must mention es/son");
         assert!(msg.contains("-ción"), "cognate constraint must mention article gender rules");
+        assert!(!msg.contains("ADDITIONAL PATTERN"), "non-tion unit must not include verb derivation section");
+    }
+
+    #[test]
+    fn cognate_tion_unit_includes_verb_derivation_pattern() {
+        let unit = UnitInfo {
+            skill_tag: "lex.cognate.tion".to_string(),
+            title: "-tion → -ción + verb derivation".to_string(),
+            phase: 0,
+            stacking_tags: vec![],
+            existing_sources: vec![],
+            item_count: 20,
+        };
+        let msg = build_user_message(&unit);
+        assert!(msg.contains("FORMAT CONSTRAINT"));
+        assert!(msg.contains("ADDITIONAL PATTERN"), "tion unit must include infinitive-subject pattern");
+        assert!(msg.contains("Preparar es importante"), "must include an infinitive-subject example");
     }
 
     #[test]
