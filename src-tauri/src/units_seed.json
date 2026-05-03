@@ -1,5 +1,47 @@
 [
   {
+    "skillTag": "lex.cognate.al-ent",
+    "title": "Words ending -al and -ant/-ent (importante, diferente)",
+    "phase": 0,
+    "prerequisites": []
+  },
+  {
+    "skillTag": "lex.cognate.tion",
+    "title": "-tion → -ción + verb derivation (organización, preparación, cancelación)",
+    "phase": 0,
+    "prerequisites": ["lex.cognate.al-ent"]
+  },
+  {
+    "skillTag": "lex.cognate.ible-able",
+    "title": "-ible/-able stays (posible, inevitable, comparable)",
+    "phase": 0,
+    "prerequisites": ["lex.cognate.al-ent"]
+  },
+  {
+    "skillTag": "lex.cognate.ence-ity",
+    "title": "-ence→-encia, -ity→-idad (diferencia, influencia, posibilidad, universidad)",
+    "phase": 0,
+    "prerequisites": ["lex.cognate.al-ent"]
+  },
+  {
+    "skillTag": "lex.cognate.ive-ary",
+    "title": "-ive→-ivo, -ary→-ario (positivo, creativo, necesario, contrario)",
+    "phase": 0,
+    "prerequisites": ["lex.cognate.ence-ity"]
+  },
+  {
+    "skillTag": "lex.cognate.mixed",
+    "title": "Cognate patterns interleaved",
+    "phase": 0,
+    "prerequisites": [
+      "lex.cognate.al-ent",
+      "lex.cognate.tion",
+      "lex.cognate.ible-able",
+      "lex.cognate.ence-ity",
+      "lex.cognate.ive-ary"
+    ]
+  },
+  {
     "skillTag": "opener.quiero",
     "title": "Quiero + inf, affirmative",
     "phase": 1,

@@ -112,6 +112,18 @@ pub fn build_user_message(unit: &UnitInfo) -> String {
         }
     }
 
+    if unit.skill_tag.starts_with("lex.cognate") {
+        msg.push_str(
+            "\n\nFORMAT CONSTRAINT (cognate vocabulary unit):\
+             \nSentences must follow the pattern: [article] cognate noun + es/son + cognate adjective or adverb.\
+             \nExamples: \"La preparación es importante\" | \"El sistema es complejo\" | \"Las diferencias son inevitables\"\
+             \nArticle gender rules: use 'la' for nouns ending in -ción, -idad, -encia, -anza, -dad; \
+             use 'el' for nouns ending in -ma, -ema, -ema.\
+             \nUse plural articles (los/las) and plural verbs (son) when the subject noun is plural.\
+             \nDo NOT use any verbs other than es / son. Keep Spanish translations to 4-7 words.",
+        );
+    }
+
     if !unit.existing_sources.is_empty() {
         msg.push_str("\n\nExisting English cues to avoid:");
         for s in &unit.existing_sources {
@@ -345,6 +357,9 @@ async fn run_generation(app: AppHandle, skill_tag: String, is_prefetch: bool) {
     };
 
     let user_msg = build_user_message(&unit_info);
+
+    // DEBUG: print prompt to terminal
+    eprintln!("\n=== GENERATION PROMPT for {} ===\n{}\n=== END PROMPT ===\n", skill_tag, user_msg);
 
     let client = Client::with_config(OpenAIConfig::new().with_api_key(api_key));
 
@@ -636,6 +651,17 @@ mod tests {
         assert_eq!(stack_ratio(16, "conj.pres.regular.mixed"), 100);
     }
 
+    #[test]
+    fn stack_ratio_phase_0_regular() {
+        // raw = 30 + (0-1)*2 = 28 → snap to 30
+        assert_eq!(stack_ratio(0, "lex.cognate.al-ent"), 30);
+    }
+
+    #[test]
+    fn stack_ratio_phase_0_mixed_is_100() {
+        assert_eq!(stack_ratio(0, "lex.cognate.mixed"), 100);
+    }
+
     // User message builder tests
     #[test]
     fn user_message_contains_skill_tag_and_phase() {
@@ -731,6 +757,36 @@ mod tests {
         };
         let msg = build_user_message(&unit);
         assert!(msg.contains("Max stacking tags per item: 3"));
+    }
+
+    #[test]
+    fn cognate_unit_user_message_contains_format_constraint() {
+        let unit = UnitInfo {
+            skill_tag: "lex.cognate.tion".to_string(),
+            title: "-tion → -ción + verb derivation".to_string(),
+            phase: 0,
+            stacking_tags: vec![],
+            existing_sources: vec![],
+            item_count: 20,
+        };
+        let msg = build_user_message(&unit);
+        assert!(msg.contains("FORMAT CONSTRAINT"), "cognate unit must include format constraint");
+        assert!(msg.contains("es/son"), "cognate constraint must mention es/son");
+        assert!(msg.contains("-ción"), "cognate constraint must mention article gender rules");
+    }
+
+    #[test]
+    fn non_cognate_unit_user_message_omits_format_constraint() {
+        let unit = UnitInfo {
+            skill_tag: "opener.quiero".to_string(),
+            title: "Quiero + inf, affirmative".to_string(),
+            phase: 1,
+            stacking_tags: vec![],
+            existing_sources: vec![],
+            item_count: 20,
+        };
+        let msg = build_user_message(&unit);
+        assert!(!msg.contains("FORMAT CONSTRAINT"), "non-cognate unit must not include format constraint");
     }
 
     // Incremental JSON extractor tests

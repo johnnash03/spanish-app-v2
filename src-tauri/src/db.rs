@@ -180,7 +180,7 @@ mod tests {
         let count: i64 = conn
             .query_row("SELECT COUNT(*) FROM units", [], |r| r.get(0))
             .unwrap();
-        assert_eq!(count, 195, "all 195 units must be seeded");
+        assert_eq!(count, 201, "all 201 units must be seeded");
     }
 
     #[test]
@@ -189,7 +189,7 @@ mod tests {
         let phase_count: i64 = conn
             .query_row("SELECT COUNT(DISTINCT phase) FROM units", [], |r| r.get(0))
             .unwrap();
-        assert_eq!(phase_count, 42, "units must span all 42 phases");
+        assert_eq!(phase_count, 43, "units must span phases 0 through 42");
     }
 
     #[test]
