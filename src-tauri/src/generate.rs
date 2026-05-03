@@ -57,6 +57,14 @@ stackedTags values must be taken ONLY from the "Available stacking tags" list in
 user message. Never invent tag names. If no stacking tags are provided, stackedTags
 must be [] for every item.
 
+CRITICAL — CURRICULUM SEQUENCE:
+This curriculum is deliberately non-standard. Do not apply conventional Spanish pedagogy
+assumptions. The learner has encountered ONLY the grammar and vocabulary introduced by
+the units listed in "Available stacking tags." Even if you consider a concept basic
+(articles, prepositions, personal 'a'), if it does not appear in that list, the learner
+has not seen it and you must not use it. The stacking tags list is the only source of
+truth about what has been taught.
+
 STYLE RULES:
 1. Tone: neutral everyday English — conversational, not formal or slangy.
 2. Vocabulary: simple A2-B1 level. Vocabulary should not be an additional challenge.
@@ -865,7 +873,9 @@ mod tests {
         assert!(STABLE_SYSTEM_PROMPT.contains("STYLE RULES"));
         assert!(STABLE_SYSTEM_PROMPT.contains("stackedTags"));
         assert!(STABLE_SYSTEM_PROMPT.contains("primaryTag"));
-        assert!(STABLE_SYSTEM_PROMPT.contains("CRITICAL"), "must have CRITICAL tag constraint");
+        assert!(STABLE_SYSTEM_PROMPT.contains("CRITICAL — TAG NAMES"), "must have CRITICAL tag constraint");
+        assert!(STABLE_SYSTEM_PROMPT.contains("CRITICAL — CURRICULUM SEQUENCE"), "must have curriculum sequence constraint");
+        assert!(STABLE_SYSTEM_PROMPT.contains("non-standard"), "must warn against conventional pedagogy assumptions");
         assert!(!STABLE_SYSTEM_PROMPT.contains("Background vocabulary"), "background vocab concept removed");
     }
 }
