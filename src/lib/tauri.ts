@@ -91,3 +91,17 @@ export async function submitSessionAttempts(
     })),
   });
 }
+
+export async function evaluateSession(
+  sessionId: string | null,
+  attempts: import("../types").LocalAttempt[],
+): Promise<import("../types").EvalSessionResponse> {
+  return invoke("evaluate_session", {
+    sessionId,
+    attempts: attempts.map((a) => ({
+      itemId: a.itemId,
+      tag: a.tag,
+      learnerAnswer: a.learnerAnswer,
+    })),
+  });
+}

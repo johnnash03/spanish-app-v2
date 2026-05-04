@@ -1,10 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TopBar, Button } from "../components";
-import {
-  assembleSessionQueue,
-  isTauri,
-  submitSessionAttempts,
-} from "../lib/tauri";
+import { assembleSessionQueue, isTauri } from "../lib/tauri";
 import type { LocalAttempt, Screen, SessionItem } from "../types";
 
 interface SessionScreenProps {
@@ -51,10 +47,7 @@ export function SessionScreen({ unitSkillTag, go }: SessionScreenProps) {
   const progressPct = queue.length > 0 ? (cursor / queue.length) * 100 : 0;
 
   const endSession = useCallback(
-    async (finalAttempts: LocalAttempt[]) => {
-      if (isTauri() && finalAttempts.length > 0) {
-        await submitSessionAttempts(finalAttempts).catch(() => {});
-      }
+    (finalAttempts: LocalAttempt[]) => {
       go({ name: "sessionReview", attempts: finalAttempts });
     },
     [go],

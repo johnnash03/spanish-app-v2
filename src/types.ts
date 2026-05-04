@@ -73,6 +73,19 @@ export interface LocalAttempt {
   source: string;
 }
 
+export interface EvaluationResult {
+  itemId: string;
+  correct: boolean;
+  errorTag: string | null;
+  remarks: string[];
+  explanation: string | null;
+}
+
+export interface EvalSessionResponse {
+  sessionId: string;
+  results: EvaluationResult[];
+}
+
 export type Screen =
   | { name: "home" }
   | { name: "units" }

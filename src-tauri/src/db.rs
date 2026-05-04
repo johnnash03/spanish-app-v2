@@ -84,6 +84,24 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
         "CREATE INDEX IF NOT EXISTS idx_units_order ON units(unit_number)",
     )?;
 
+    // v3: evaluation columns on attempt_log.
+    let _ = conn.execute_batch("ALTER TABLE attempt_log ADD COLUMN session_id TEXT");
+    let _ = conn.execute_batch(
+        "ALTER TABLE attempt_log ADD COLUMN eval_state TEXT NOT NULL DEFAULT 'unevaluated'",
+    );
+    let _ = conn.execute_batch("ALTER TABLE attempt_log ADD COLUMN error_tag TEXT");
+    let _ = conn.execute_batch(
+        "ALTER TABLE attempt_log ADD COLUMN remarks TEXT NOT NULL DEFAULT '[]'",
+    );
+    let _ = conn.execute_batch("ALTER TABLE attempt_log ADD COLUMN explanation TEXT");
+
+    // Unique index prevents re-inserting the same item within a session (retry safety).
+    conn.execute_batch(
+        "CREATE UNIQUE INDEX IF NOT EXISTS idx_attempt_log_session_item
+             ON attempt_log(session_id, item_id)
+             WHERE session_id IS NOT NULL",
+    )?;
+
     seed_units(conn)
 }
 
@@ -235,6 +253,44 @@ mod tests {
             .query_row("SELECT COUNT(*) FROM units", [], |r| r.get(0))
             .unwrap();
         assert_eq!(distinct, total, "unit_numbers must be unique");
+    }
+
+    #[test]
+    fn attempt_log_has_eval_columns() {
+        let conn = in_memory();
+        // These columns must exist — inserting with them should succeed.
+        conn.execute(
+            "INSERT INTO attempt_log
+             (id, tag, item_id, correct, learner_answer, timestamp,
+              session_id, eval_state, error_tag, remarks, explanation)
+             VALUES ('x', 't', 'i', 0, 'ans', 1,
+                     'sid-1', 'unevaluated', NULL, '[]', NULL)",
+            [],
+        )
+        .expect("attempt_log must have eval columns");
+    }
+
+    #[test]
+    fn attempt_log_session_item_unique_index_rejects_duplicate() {
+        let conn = in_memory();
+        conn.execute(
+            "INSERT INTO attempt_log
+             (id, tag, item_id, correct, learner_answer, timestamp, session_id, eval_state)
+             VALUES ('a1', 't', 'i1', 0, 'ans', 1, 'sess-1', 'unevaluated')",
+            [],
+        )
+        .unwrap();
+        let result = conn.execute(
+            "INSERT OR IGNORE INTO attempt_log
+             (id, tag, item_id, correct, learner_answer, timestamp, session_id, eval_state)
+             VALUES ('a2', 't', 'i1', 0, 'ans2', 2, 'sess-1', 'unevaluated')",
+            [],
+        );
+        assert!(result.is_ok());
+        let count: i64 = conn
+            .query_row("SELECT COUNT(*) FROM attempt_log WHERE session_id='sess-1'", [], |r| r.get(0))
+            .unwrap();
+        assert_eq!(count, 1, "duplicate (session_id, item_id) must be ignored");
     }
 
     #[test]

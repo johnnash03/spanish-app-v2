@@ -38,6 +38,7 @@ pub fn run() {
             generate::prewarm_units,
             session::assemble_session_queue,
             session::submit_session_attempts,
+            session::evaluate_session,
             units::list_units,
             units::get_unit_by_n,
             units::get_current_unit_number,
