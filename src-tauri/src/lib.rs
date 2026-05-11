@@ -1,4 +1,5 @@
 mod db;
+mod deliberate_practice;
 mod generate;
 mod mastery;
 mod openai;
@@ -44,6 +45,8 @@ pub fn run() {
             units::get_unit_by_n,
             units::get_current_unit_number,
             mastery::get_weak_tags,
+            deliberate_practice::assemble_dp_queue,
+            deliberate_practice::trigger_dp_generation,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

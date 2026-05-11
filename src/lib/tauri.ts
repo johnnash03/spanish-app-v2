@@ -109,3 +109,13 @@ export async function evaluateSession(
 export async function getWeakTags(): Promise<import("../types").WeakTag[]> {
   return invoke("get_weak_tags");
 }
+
+export async function assembleDpQueue(): Promise<
+  import("../types").SessionItem[]
+> {
+  return invoke("assemble_dp_queue");
+}
+
+export async function triggerDpGeneration(): Promise<void> {
+  await invoke("trigger_dp_generation");
+}
