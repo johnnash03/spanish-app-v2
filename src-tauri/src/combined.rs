@@ -620,12 +620,24 @@ pub fn assemble_combined_queue_from_db(
 // ─── New Tauri commands ───────────────────────────────────────────────────────
 
 /// Return unserved exercises that intersect with active SRS vocab, marked served.
+/// Triggers background replenishment when the pool is empty.
 #[tauri::command]
 pub fn assemble_combined_queue(
     state: tauri::State<'_, Db>,
+    app: AppHandle,
 ) -> Result<Vec<CombinedSessionItem>, String> {
-    let conn = state.0.lock().map_err(|e| e.to_string())?;
-    assemble_combined_queue_from_db(&conn).map_err(|e| e.to_string())
+    let items = {
+        let conn = state.0.lock().map_err(|e| e.to_string())?;
+        assemble_combined_queue_from_db(&conn).map_err(|e| e.to_string())?
+    };
+
+    if items.is_empty() {
+        tauri::async_runtime::spawn(async move {
+            run_combined_generation(app).await;
+        });
+    }
+
+    Ok(items)
 }
 
 /// Record a successful SRS review for each provided lemma (if still active).
