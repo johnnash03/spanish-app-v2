@@ -3,6 +3,7 @@ use std::path::PathBuf;
 use std::sync::Mutex;
 
 const UNITS_SEED: &str = include_str!("units_seed.json");
+const VOCAB_SEED: &str = include_str!("vocab_seed.json");
 
 pub struct Db(pub Mutex<Connection>);
 
@@ -104,7 +105,8 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
              WHERE session_id IS NOT NULL",
     )?;
 
-    seed_units(conn)
+    seed_units(conn)?;
+    seed_vocab(conn)
 }
 
 fn seed_units(conn: &Connection) -> rusqlite::Result<()> {
@@ -128,6 +130,32 @@ fn seed_units(conn: &Connection) -> rusqlite::Result<()> {
              VALUES (?1, ?2, ?3, ?4, ?5, 'idle')
              ON CONFLICT(skill_tag) DO UPDATE SET unit_number = excluded.unit_number",
             params![u.skill_tag, u.title, u.phase, prereqs_json, unit_number],
+        )?;
+    }
+
+    Ok(())
+}
+
+fn seed_vocab(conn: &Connection) -> rusqlite::Result<()> {
+    #[derive(serde::Deserialize)]
+    struct VocabRow {
+        lemma: String,
+        translation: String,
+        #[serde(rename = "frequencyRank")]
+        frequency_rank: i64,
+        #[serde(rename = "partOfSpeech")]
+        part_of_speech: String,
+    }
+
+    let words: Vec<VocabRow> =
+        serde_json::from_str(VOCAB_SEED).expect("vocab_seed.json is valid JSON");
+
+    for w in &words {
+        conn.execute(
+            "INSERT OR IGNORE INTO vocab_words
+             (lemma, translation, frequency_rank, part_of_speech, pipeline_state)
+             VALUES (?1, ?2, ?3, ?4, 'untouched')",
+            params![w.lemma, w.translation, w.frequency_rank, w.part_of_speech],
         )?;
     }
 
@@ -331,5 +359,121 @@ mod tests {
             )
             .unwrap();
         assert_eq!(non_idle, 0, "all units must start with idle generation_state");
+    }
+
+    #[test]
+    fn vocab_seeded_with_expected_count() {
+        let conn = in_memory();
+        let count: i64 = conn
+            .query_row("SELECT COUNT(*) FROM vocab_words", [], |r| r.get(0))
+            .unwrap();
+        assert!(count >= 2000, "at least 2000 vocab words must be seeded, got {count}");
+    }
+
+    #[test]
+    fn vocab_all_start_untouched() {
+        let conn = in_memory();
+        let non_untouched: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM vocab_words WHERE pipeline_state != 'untouched'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(non_untouched, 0, "all vocab words must start with pipeline_state='untouched'");
+    }
+
+    #[test]
+    fn vocab_frequency_ranks_are_positive() {
+        let conn = in_memory();
+        let bad: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM vocab_words WHERE frequency_rank <= 0",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(bad, 0, "all frequency_rank values must be positive");
+    }
+
+    #[test]
+    fn vocab_frequency_ranks_are_unique() {
+        let conn = in_memory();
+        let distinct: i64 = conn
+            .query_row(
+                "SELECT COUNT(DISTINCT frequency_rank) FROM vocab_words",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        let total: i64 = conn
+            .query_row("SELECT COUNT(*) FROM vocab_words", [], |r| r.get(0))
+            .unwrap();
+        assert_eq!(distinct, total, "frequency_rank must be unique per word");
+    }
+
+    #[test]
+    fn vocab_seed_is_idempotent() {
+        let conn = in_memory();
+        // Running seed a second time must not change row count or pipeline_state.
+        seed_vocab(&conn).unwrap();
+        let count: i64 = conn
+            .query_row("SELECT COUNT(*) FROM vocab_words", [], |r| r.get(0))
+            .unwrap();
+        assert!(count >= 2000, "row count must not change on re-seed");
+        let non_untouched: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM vocab_words WHERE pipeline_state != 'untouched'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(non_untouched, 0, "re-seed must not overwrite pipeline_state");
+    }
+
+    #[test]
+    fn vocab_seed_preserves_pipeline_state_on_reseed() {
+        let conn = in_memory();
+        // Simulate a word that has advanced to 'learning'.
+        conn.execute(
+            "UPDATE vocab_words SET pipeline_state = 'learning' WHERE lemma = 'comer'",
+            [],
+        )
+        .unwrap();
+        seed_vocab(&conn).unwrap();
+        let state: String = conn
+            .query_row(
+                "SELECT pipeline_state FROM vocab_words WHERE lemma = 'comer'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(state, "learning", "re-seed must not overwrite existing pipeline_state");
+    }
+
+    #[test]
+    fn vocab_has_no_null_translations() {
+        let conn = in_memory();
+        let nulls: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM vocab_words WHERE translation IS NULL OR translation = ''",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(nulls, 0, "all vocab words must have a non-empty translation");
+    }
+
+    #[test]
+    fn vocab_has_multiple_parts_of_speech() {
+        let conn = in_memory();
+        let pos_count: i64 = conn
+            .query_row(
+                "SELECT COUNT(DISTINCT part_of_speech) FROM vocab_words",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert!(pos_count >= 5, "seed must include at least 5 distinct parts of speech");
     }
 }
