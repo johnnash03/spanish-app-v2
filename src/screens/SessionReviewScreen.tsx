@@ -25,6 +25,7 @@ export function SessionReviewScreen({
   const [results, setResults] = useState<EvaluationResult[]>([]);
   const [showReassurance, setShowReassurance] = useState(false);
   const reassuranceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const evalStarted = useRef(false);
 
   function runEval(sid: string | null) {
     setEvalState("loading");
@@ -55,6 +56,8 @@ export function SessionReviewScreen({
   }
 
   useEffect(() => {
+    if (evalStarted.current) return;
+    evalStarted.current = true;
     runEval(null);
     return () => {
       if (reassuranceTimer.current) clearTimeout(reassuranceTimer.current);
@@ -199,10 +202,21 @@ export function SessionReviewScreen({
                         color: "var(--ink-3)",
                         fontStyle: "italic",
                         textDecoration: "line-through",
-                        marginBottom: 4,
+                        marginBottom: 2,
                       }}
                     >
                       {a.learnerAnswer}
+                    </p>
+                    <p
+                      className="serif"
+                      style={{
+                        fontSize: 15,
+                        color: "var(--ink)",
+                        fontStyle: "italic",
+                        marginBottom: 4,
+                      }}
+                    >
+                      {r.canonical}
                     </p>
                     {r.explanation && (
                       <p

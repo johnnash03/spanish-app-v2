@@ -79,6 +79,7 @@ export interface EvaluationResult {
   errorTag: string | null;
   remarks: string[];
   explanation: string | null;
+  canonical: string;
 }
 
 export interface EvalSessionResponse {

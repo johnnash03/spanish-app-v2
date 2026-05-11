@@ -50,6 +50,7 @@ pub struct EvalResult {
     pub error_tag: Option<String>,
     pub remarks: Vec<String>,
     pub explanation: Option<String>,
+    pub canonical: String,
 }
 
 #[derive(Debug, Serialize)]
@@ -87,7 +88,10 @@ EVALUATION RULES
      pronouns, lexical synonyms) even if not identical to the canonical.
 
 2. ACCENTS
-   - Never mark an answer wrong solely due to a missing or incorrect accent.
+   - Never mark an answer wrong solely due to a missing or incorrect accent, even when
+     the accented and unaccented forms are different words (e.g. 'por que' vs 'por qué',
+     'si' vs 'sí'). Use the English sentence to determine intent, then mark correct and
+     add a remark.
    - Always add a remark when an accent is wrong or missing, explaining the difference.
    - Example remark: "Note: 'si' means 'if' — 'sí' means 'yes'. Worth getting right."
 
@@ -142,20 +146,27 @@ Primary skill: stem.e-ie.pres — stem-changing verbs (e→ie) in present tense
 Learner answer: "Quere comer"
 Result: { "correct": false, "errorTag": "stem.e-ie.pres", "remarks": [], "explanation": "'Querer' is a stem-changing verb: the e changes to ie in all present tense forms except nosotros/vosotros. So 'él quere' should be 'él quiere'." }
 
---- EXAMPLE 3: Wrong answer — stacked tag error ---
+--- EXAMPLE 3: Wrong answer — stacked tag error (clitic dropped entirely) ---
 English: "I want to see it"
 Canonical: "Quiero verlo"
 Primary skill: opener.quiero — using 'quiero' + infinitive
 Stacked skills: clitic.do.post — direct object clitic attached to infinitive
 Learner answer: "Quiero ver"
-Result: { "correct": false, "errorTag": "clitic.do.post", "remarks": [], "explanation": "When the direct object is a pronoun ('it' → 'lo'), it must be attached to the infinitive in Spanish: 'verlo', not 'ver'. The pronoun cannot be dropped." }
+Result: { "correct": false, "errorTag": "clitic.do.post", "remarks": [], "explanation": "When the direct object is a pronoun ('it' → 'lo'), the pronoun cannot be dropped. Both 'Quiero verlo' (attached to infinitive) and 'Lo quiero ver' (before conjugated verb) are correct." }
 
---- EXAMPLE 4: Missing accent — correct with remark ---
+--- EXAMPLE 4a: Missing accent — correct with remark ---
 English: "Yes, I know"
 Canonical: "Sí, sé"
 Primary skill: irreg.yo.saber — irregular yo form of saber
 Learner answer: "Si, se"
 Result: { "correct": true, "errorTag": null, "remarks": ["Note: 'si' means 'if' — 'sí' means 'yes'. Worth getting right.", "Note: 'se' is a reflexive pronoun — 'sé' is the yo form of saber. Worth getting right."], "explanation": null }
+
+--- EXAMPLE 4b: Missing accent on interrogative — correct with remark ---
+English: "I understand why you speak."
+Canonical: "Entiendo por qué hablas."
+Primary skill: interrog.por-que — using 'por qué' to mean 'why'
+Learner answer: "Entiendo por que hablas"
+Result: { "correct": true, "errorTag": null, "remarks": ["Note: 'por que' (no accent) means 'for which/because' — 'por qué' (with accent) means 'why'. Worth getting right."], "explanation": null }
 
 --- EXAMPLE 5: Avoids tested construction — correct with remark ---
 English: "I want to see it"
@@ -164,13 +175,21 @@ Primary skill: clitic.do.post — direct object clitic attached to infinitive
 Learner answer: "Yo deseo ver la película"
 Result: { "correct": true, "errorTag": null, "remarks": ["Good Spanish, but this unit practices attaching the clitic to the infinitive (verlo). Try: 'Quiero verlo'."], "explanation": null }
 
+--- EXAMPLE 7: Clitic moved before conjugated verb — CORRECT alternative placement ---
+English: "Why do you want to give it to me?"
+Canonical: "¿Por qué quieres dármelo?"
+Primary skill: clitic.do.post — direct object clitic attached to infinitive
+Stacked skills: clitic.io.post — indirect object clitic attached to infinitive
+Learner answer: "Por que me lo quieres dar"
+Result: { "correct": true, "errorTag": null, "remarks": [], "explanation": null }
+
 --- EXAMPLE 6: Multiple tag errors — attribute to primary tag ---
 English: "Do you want to see it?"
 Canonical: "¿Quieres verlo?"
 Primary skill: stem.e-ie.pres — stem-changing verbs (e→ie) in present tense
 Stacked skills: clitic.do.post — direct object clitic attached to infinitive
 Learner answer: "Quero ver"
-Result: { "correct": false, "errorTag": "stem.e-ie.pres", "remarks": [], "explanation": "'Querer' stem-changes e→ie: 'tú quieres', not 'tú quero'. Also, the direct object pronoun 'lo' must be attached to the infinitive: 'verlo'." }"#;
+Result: { "correct": false, "errorTag": "stem.e-ie.pres", "remarks": [], "explanation": "'Querer' stem-changes e→ie: 'tú quieres', not 'tú quero'. Also, the direct object pronoun 'lo' cannot be dropped — use 'verlo' or 'lo quieres ver'." }"#;
 
 pub fn build_eval_user_message(items: &[EvalInput]) -> String {
     let mut msg = String::from(
@@ -606,6 +625,7 @@ pub async fn evaluate_session(
 
     let client = Client::with_config(OpenAIConfig::new().with_api_key(api_key));
     let user_msg = build_eval_user_message(&eval_inputs);
+    eprintln!("\n=== EVAL PROMPT ===\n{}\n=== END EVAL PROMPT ===\n", user_msg);
 
     let schema = serde_json::json!({
         "type": "object",
@@ -687,6 +707,7 @@ pub async fn evaluate_session(
                 error_tag: ai_item.error_tag.clone(),
                 remarks: ai_item.remarks.clone(),
                 explanation: ai_item.explanation.clone(),
+                canonical: input.canonical.clone(),
             };
             update_attempt_eval(&conn, &sid, &result).map_err(|e| e.to_string())?;
             results.push(result);
@@ -947,6 +968,7 @@ mod tests {
             error_tag: None,
             remarks: vec![],
             explanation: None,
+            canonical: "Quiero comer".to_string(),
         };
         update_attempt_eval(&conn, "sess-1", &result).unwrap();
 
@@ -959,5 +981,25 @@ mod tests {
             .unwrap();
         assert_eq!(eval_state, "evaluated");
         assert_eq!(correct, 1);
+    }
+
+    #[test]
+    fn eval_result_includes_canonical_from_input() {
+        let input = make_eval_input("i1", "I want to eat", "Quiero comer", "tag.a", "Tag A", "quiero comer");
+        let ai_item = OpenAiEvalItem {
+            correct: true,
+            error_tag: None,
+            remarks: vec![],
+            explanation: None,
+        };
+        let result = EvalResult {
+            item_id: input.item_id.clone(),
+            correct: ai_item.correct,
+            error_tag: ai_item.error_tag.clone(),
+            remarks: ai_item.remarks.clone(),
+            explanation: ai_item.explanation.clone(),
+            canonical: input.canonical.clone(),
+        };
+        assert_eq!(result.canonical, "Quiero comer");
     }
 }
