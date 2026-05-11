@@ -406,7 +406,11 @@ export function HomeScreen({ go }: HomeScreenProps) {
                   </div>
                 </div>
                 <div style={{ marginTop: 22 }}>
-                  <Button variant="secondary" style={{ width: "100%" }}>
+                  <Button
+                    variant="secondary"
+                    style={{ width: "100%" }}
+                    onClick={() => go({ name: "combinedSession" })}
+                  >
                     Practice
                   </Button>
                 </div>

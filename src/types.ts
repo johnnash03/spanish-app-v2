@@ -64,6 +64,7 @@ export interface SessionItem {
   source: string;
   primaryTag: string;
   stackedTags: string[];
+  vocabLemmas?: string[];
 }
 
 export interface LocalAttempt {
@@ -133,4 +134,10 @@ export type Screen =
     }
   | { name: "vocabIntake" }
   | { name: "vocabSession" }
-  | { name: "vocabReview"; results: VocabCardResult[] };
+  | { name: "vocabReview"; results: VocabCardResult[] }
+  | { name: "combinedSession" }
+  | {
+      name: "combinedReview";
+      attempts: LocalAttempt[];
+      vocabLemmasByItemId: Record<string, string[]>;
+    };

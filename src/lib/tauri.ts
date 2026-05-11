@@ -174,3 +174,15 @@ export async function recordVocabReview(
 export async function markVocabWordMastered(lemma: string): Promise<boolean> {
   return invoke<boolean>("mark_vocab_word_mastered", { lemma });
 }
+
+export async function assembleCombinedQueue(): Promise<
+  import("../types").SessionItem[]
+> {
+  return invoke("assemble_combined_queue");
+}
+
+export async function recordCombinedSessionReviews(
+  correctLemmas: string[],
+): Promise<void> {
+  await invoke("record_combined_session_reviews", { correctLemmas });
+}

@@ -11,6 +11,8 @@ import { PracticeReviewScreen } from "./screens/PracticeReviewScreen";
 import { VocabIntakeScreen } from "./screens/VocabIntakeScreen";
 import { VocabSessionScreen } from "./screens/VocabSessionScreen";
 import { VocabReviewScreen } from "./screens/VocabReviewScreen";
+import { CombinedSessionScreen } from "./screens/CombinedSessionScreen";
+import { CombinedReviewScreen } from "./screens/CombinedReviewScreen";
 import type { Screen } from "./types";
 
 function App() {
@@ -66,6 +68,20 @@ function App() {
 
   if (screen.name === "vocabReview") {
     return <VocabReviewScreen results={screen.results} go={setScreen} />;
+  }
+
+  if (screen.name === "combinedSession") {
+    return <CombinedSessionScreen go={setScreen} />;
+  }
+
+  if (screen.name === "combinedReview") {
+    return (
+      <CombinedReviewScreen
+        attempts={screen.attempts}
+        vocabLemmasByItemId={screen.vocabLemmasByItemId}
+        go={setScreen}
+      />
+    );
   }
 
   return <HomeScreen go={setScreen} />;
