@@ -60,6 +60,15 @@ pub fn promote_to_new(conn: &Connection, lemmas: &[String]) -> rusqlite::Result<
     Ok(())
 }
 
+pub fn mark_word_mastered(conn: &Connection, lemma: &str) -> rusqlite::Result<bool> {
+    let rows = conn.execute(
+        "UPDATE vocab_words SET pipeline_state = 'mastered'
+         WHERE lemma = ?1 AND pipeline_state != 'mastered'",
+        params![lemma],
+    )?;
+    Ok(rows > 0)
+}
+
 pub fn fetch_pipeline_health(conn: &Connection) -> rusqlite::Result<PipelineHealth> {
     let active_count: i64 = conn.query_row(
         "SELECT COUNT(*) FROM vocab_words WHERE pipeline_state IN ('new', 'learning')",
@@ -94,6 +103,17 @@ pub fn commit_intake_batch(
 pub fn get_pipeline_health(db: tauri::State<'_, Db>) -> Result<PipelineHealth, String> {
     let conn = db.0.lock().map_err(|e| e.to_string())?;
     fetch_pipeline_health(&conn).map_err(|e| e.to_string())
+}
+
+/// Power-user: skip SRS and mark a word as mastered immediately.
+/// Returns true if the word was updated, false if it was already mastered or not found.
+#[tauri::command]
+pub fn mark_vocab_word_mastered(
+    db: tauri::State<'_, Db>,
+    lemma: String,
+) -> Result<bool, String> {
+    let conn = db.0.lock().map_err(|e| e.to_string())?;
+    mark_word_mastered(&conn, &lemma).map_err(|e| e.to_string())
 }
 
 #[cfg(test)]
@@ -297,5 +317,54 @@ mod tests {
         let health = fetch_pipeline_health(&conn).unwrap();
         assert_eq!(health.active_count, 0);
         assert_eq!(health.band, "light");
+    }
+
+    // ── mark_word_mastered ────────────────────────────────────────────────────
+
+    #[test]
+    fn marks_untouched_word_as_mastered() {
+        let conn = setup();
+        insert_word(&conn, "correr", 500, "untouched");
+        let changed = mark_word_mastered(&conn, "correr").unwrap();
+        assert!(changed);
+        let state: String = conn
+            .query_row(
+                "SELECT pipeline_state FROM vocab_words WHERE lemma = 'correr'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(state, "mastered");
+    }
+
+    #[test]
+    fn marks_learning_word_as_mastered() {
+        let conn = setup();
+        insert_word(&conn, "beber", 501, "learning");
+        let changed = mark_word_mastered(&conn, "beber").unwrap();
+        assert!(changed);
+        let state: String = conn
+            .query_row(
+                "SELECT pipeline_state FROM vocab_words WHERE lemma = 'beber'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(state, "mastered");
+    }
+
+    #[test]
+    fn already_mastered_word_returns_false() {
+        let conn = setup();
+        insert_word(&conn, "vivir", 502, "mastered");
+        let changed = mark_word_mastered(&conn, "vivir").unwrap();
+        assert!(!changed);
+    }
+
+    #[test]
+    fn unknown_lemma_returns_false() {
+        let conn = setup();
+        let changed = mark_word_mastered(&conn, "nonexistent_word_xyz").unwrap();
+        assert!(!changed);
     }
 }

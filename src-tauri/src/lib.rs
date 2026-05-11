@@ -53,6 +53,7 @@ pub fn run() {
             vocab::get_next_untouched_words,
             vocab::commit_intake_batch,
             vocab::get_pipeline_health,
+            vocab::mark_vocab_word_mastered,
             srs::get_due_vocab_cards,
             srs::record_vocab_review,
         ])
