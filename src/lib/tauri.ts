@@ -105,3 +105,7 @@ export async function evaluateSession(
     })),
   });
 }
+
+export async function getWeakTags(): Promise<import("../types").WeakTag[]> {
+  return invoke("get_weak_tags");
+}

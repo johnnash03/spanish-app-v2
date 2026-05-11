@@ -1,5 +1,6 @@
 mod db;
 mod generate;
+mod mastery;
 mod openai;
 mod session;
 mod units;
@@ -42,6 +43,7 @@ pub fn run() {
             units::list_units,
             units::get_unit_by_n,
             units::get_current_unit_number,
+            mastery::get_weak_tags,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

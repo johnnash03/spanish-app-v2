@@ -1,4 +1,5 @@
 use crate::db::Db;
+use crate::mastery;
 use rusqlite::params;
 use serde::Serialize;
 
@@ -43,27 +44,38 @@ pub fn list_units(state: tauri::State<'_, Db>) -> Result<Vec<UnitRow>, String> {
         .filter_map(|r| r.ok())
         .collect();
 
-    // Tags that have at least one attempt
-    let attempted: std::collections::HashSet<String> = {
+    // Fetch all attempts at once for efficiency, grouped by tag.
+    // Sorted by tag then timestamp so we can split per-tag slices.
+    let all_attempts: Vec<(String, bool)> = {
         let mut s = conn
-            .prepare("SELECT DISTINCT tag FROM attempt_log")
+            .prepare(
+                "SELECT tag, correct FROM attempt_log ORDER BY tag ASC, timestamp ASC",
+            )
             .map_err(|e| e.to_string())?;
-        let tags: Vec<String> = s
-            .query_map([], |r| r.get::<_, String>(0))
+        let rows: Vec<(String, bool)> = s
+            .query_map([], |r| Ok((r.get::<_, String>(0)?, r.get::<_, i64>(1)?)))
             .map_err(|e| e.to_string())?
             .filter_map(|r| r.ok())
+            .map(|(tag, c)| (tag, c != 0))
             .collect();
-        tags.into_iter().collect()
+        rows
     };
+
+    // Build tag → Vec<bool> map.
+    let mut attempts_by_tag: std::collections::HashMap<String, Vec<bool>> =
+        std::collections::HashMap::new();
+    for (tag, correct) in all_attempts {
+        attempts_by_tag.entry(tag).or_default().push(correct);
+    }
 
     let units = rows
         .into_iter()
         .map(|(n, name, phase, skill_tag, gen_state, prereqs_json)| {
-            let status = if attempted.contains(&skill_tag) {
-                "in-progress"
-            } else {
-                "not-started"
-            };
+            let attempts = attempts_by_tag
+                .get(&skill_tag)
+                .map(Vec::as_slice)
+                .unwrap_or(&[]);
+            let status = mastery::derive_unit_status(attempts).to_string();
             let prerequisites: Vec<String> =
                 serde_json::from_str(&prereqs_json).unwrap_or_default();
             UnitRow {
@@ -72,7 +84,7 @@ pub fn list_units(state: tauri::State<'_, Db>) -> Result<Vec<UnitRow>, String> {
                 phase,
                 skill_tag,
                 generation_state: gen_state,
-                status: status.to_string(),
+                status,
                 prerequisites,
             }
         })
@@ -108,14 +120,9 @@ pub fn get_unit_by_n(
         Err(rusqlite::Error::QueryReturnedNoRows) => Ok(None),
         Err(e) => Err(e.to_string()),
         Ok((num, name, phase, skill_tag, gen_state, prereqs_json)) => {
-            let has_attempts: bool = conn
-                .query_row(
-                    "SELECT COUNT(*) FROM attempt_log WHERE tag = ?1",
-                    params![&skill_tag],
-                    |r| r.get::<_, i64>(0),
-                )
-                .unwrap_or(0)
-                > 0;
+            let attempts = mastery::fetch_attempts(&conn, &skill_tag)
+                .unwrap_or_default();
+            let status = mastery::derive_unit_status(&attempts).to_string();
             let prerequisites: Vec<String> =
                 serde_json::from_str(&prereqs_json).unwrap_or_default();
             Ok(Some(UnitRow {
@@ -124,11 +131,7 @@ pub fn get_unit_by_n(
                 phase,
                 skill_tag,
                 generation_state: gen_state,
-                status: if has_attempts {
-                    "in-progress".to_string()
-                } else {
-                    "not-started".to_string()
-                },
+                status,
                 prerequisites,
             }))
         }
