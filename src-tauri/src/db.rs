@@ -69,13 +69,6 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
             pipeline_state  TEXT    NOT NULL DEFAULT 'untouched',
             next_review     INTEGER
         );
-
-        CREATE TABLE IF NOT EXISTS vocab_pool_state (
-            id          INTEGER PRIMARY KEY CHECK(id = 1),
-            state       TEXT    NOT NULL DEFAULT 'idle',
-            updated_at  INTEGER NOT NULL DEFAULT 0
-        );
-        INSERT OR IGNORE INTO vocab_pool_state(id, state, updated_at) VALUES(1, 'idle', 0);
         ",
     )?;
 
@@ -90,11 +83,6 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
     conn.execute_batch(
         "CREATE INDEX IF NOT EXISTS idx_units_order ON units(unit_number)",
     )?;
-
-    // v4: category column on exercise_items to distinguish grammar vs vocab exercises.
-    let _ = conn.execute_batch(
-        "ALTER TABLE exercise_items ADD COLUMN category TEXT NOT NULL DEFAULT 'grammar'",
-    );
 
     // v3: evaluation columns on attempt_log.
     let _ = conn.execute_batch("ALTER TABLE attempt_log ADD COLUMN session_id TEXT");
@@ -186,7 +174,7 @@ mod tests {
     #[test]
     fn migration_creates_all_tables() {
         let conn = in_memory();
-        for table in &["attempt_log", "exercise_items", "units", "vocab_words", "vocab_pool_state"] {
+        for table in &["attempt_log", "exercise_items", "units", "vocab_words"] {
             let count: i64 = conn
                 .query_row(
                     "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=?1",
@@ -303,57 +291,6 @@ mod tests {
             .query_row("SELECT COUNT(*) FROM attempt_log WHERE session_id='sess-1'", [], |r| r.get(0))
             .unwrap();
         assert_eq!(count, 1, "duplicate (session_id, item_id) must be ignored");
-    }
-
-    #[test]
-    fn vocab_pool_state_singleton_seeded() {
-        let conn = in_memory();
-        let state: String = conn
-            .query_row(
-                "SELECT state FROM vocab_pool_state WHERE id = 1",
-                [],
-                |r| r.get(0),
-            )
-            .unwrap();
-        assert_eq!(state, "idle");
-    }
-
-    #[test]
-    fn exercise_items_has_category_column() {
-        let conn = in_memory();
-        conn.execute(
-            "INSERT INTO exercise_items (id, source, canonical, primary_tag, stacked_tags, created_at, category)
-             VALUES ('vid1', 'I want food', 'Quiero comida', 'comida', '[]', 1, 'vocab')",
-            [],
-        )
-        .expect("exercise_items must have category column");
-        let cat: String = conn
-            .query_row(
-                "SELECT category FROM exercise_items WHERE id = 'vid1'",
-                [],
-                |r| r.get(0),
-            )
-            .unwrap();
-        assert_eq!(cat, "vocab");
-    }
-
-    #[test]
-    fn exercise_items_category_defaults_to_grammar() {
-        let conn = in_memory();
-        conn.execute(
-            "INSERT INTO exercise_items (id, source, canonical, primary_tag, stacked_tags, created_at)
-             VALUES ('gid1', 'I want to eat', 'Quiero comer', 'opener.quiero', '[]', 1)",
-            [],
-        )
-        .expect("insert without category should use default");
-        let cat: String = conn
-            .query_row(
-                "SELECT category FROM exercise_items WHERE id = 'gid1'",
-                [],
-                |r| r.get(0),
-            )
-            .unwrap();
-        assert_eq!(cat, "grammar");
     }
 
     #[test]

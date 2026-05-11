@@ -92,21 +92,6 @@ export async function submitSessionAttempts(
   });
 }
 
-export interface VocabPoolStats {
-  state: "idle" | "generating" | "failed";
-  poolSize: number;
-}
-
-export async function triggerVocabReplenishment(
-  force = false,
-): Promise<VocabPoolStats> {
-  return invoke("trigger_vocab_replenishment", { force });
-}
-
-export async function getVocabPoolState(): Promise<VocabPoolStats> {
-  return invoke("get_vocab_pool_state");
-}
-
 export async function evaluateSession(
   sessionId: string | null,
   attempts: import("../types").LocalAttempt[],
