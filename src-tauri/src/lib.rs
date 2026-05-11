@@ -3,6 +3,7 @@ mod generate;
 mod openai;
 mod session;
 mod units;
+mod vocab_gen;
 
 use tauri::Manager;
 
@@ -42,6 +43,8 @@ pub fn run() {
             units::list_units,
             units::get_unit_by_n,
             units::get_current_unit_number,
+            vocab_gen::trigger_vocab_replenishment,
+            vocab_gen::get_vocab_pool_state,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
