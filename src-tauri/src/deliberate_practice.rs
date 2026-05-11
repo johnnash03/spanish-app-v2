@@ -13,6 +13,9 @@ use futures_util::StreamExt;
 use rusqlite::{params, Connection};
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
+use std::sync::atomic::{AtomicBool, Ordering};
+
+static DP_GENERATION_RUNNING: AtomicBool = AtomicBool::new(false);
 use tauri::{AppHandle, Manager};
 
 const DP_WINDOW: usize = 10;
@@ -360,6 +363,17 @@ fn dp_bank_count(conn: &Connection, tag: &str) -> rusqlite::Result<i64> {
 }
 
 async fn run_dp_generation(app: AppHandle, batch: Vec<DpWeakTag>) {
+    if DP_GENERATION_RUNNING
+        .compare_exchange(false, true, Ordering::SeqCst, Ordering::SeqCst)
+        .is_err()
+    {
+        return;
+    }
+    run_dp_generation_inner(app, batch).await;
+    DP_GENERATION_RUNNING.store(false, Ordering::SeqCst);
+}
+
+async fn run_dp_generation_inner(app: AppHandle, batch: Vec<DpWeakTag>) {
     let api_key = match std::env::var("OPENAI_API_KEY") {
         Ok(k) => k,
         Err(_) => return,

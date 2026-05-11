@@ -252,6 +252,15 @@ pub fn extract_complete_items(buffer: &str) -> (Vec<GeneratedItem>, usize) {
 
 // ─── Generation pipeline ─────────────────────────────────────────────────────
 
+use std::collections::HashSet;
+use std::sync::{Mutex, OnceLock};
+
+static GENERATING_TAGS: OnceLock<Mutex<HashSet<String>>> = OnceLock::new();
+
+fn generating_tags() -> &'static Mutex<HashSet<String>> {
+    GENERATING_TAGS.get_or_init(|| Mutex::new(HashSet::new()))
+}
+
 use crate::db::Db;
 use async_openai::{
     config::OpenAIConfig,
@@ -379,6 +388,14 @@ fn set_generation_state(
 /// Run the full generation pipeline for a unit.
 /// `is_prefetch` = true means failures are silent (no state → "failed").
 async fn run_generation(app: AppHandle, skill_tag: String, is_prefetch: bool) {
+    if !generating_tags().lock().unwrap().insert(skill_tag.clone()) {
+        return;
+    }
+    run_generation_inner(app, skill_tag.clone(), is_prefetch).await;
+    generating_tags().lock().unwrap().remove(&skill_tag);
+}
+
+async fn run_generation_inner(app: AppHandle, skill_tag: String, is_prefetch: bool) {
     let api_key = match std::env::var("OPENAI_API_KEY") {
         Ok(k) => k,
         Err(_) => {
