@@ -9,6 +9,8 @@ import { PracticeEntryScreen } from "./screens/PracticeEntryScreen";
 import { PracticeSessionScreen } from "./screens/PracticeSessionScreen";
 import { PracticeReviewScreen } from "./screens/PracticeReviewScreen";
 import { VocabIntakeScreen } from "./screens/VocabIntakeScreen";
+import { VocabSessionScreen } from "./screens/VocabSessionScreen";
+import { VocabReviewScreen } from "./screens/VocabReviewScreen";
 import type { Screen } from "./types";
 
 function App() {
@@ -56,6 +58,14 @@ function App() {
 
   if (screen.name === "vocabIntake") {
     return <VocabIntakeScreen go={setScreen} />;
+  }
+
+  if (screen.name === "vocabSession") {
+    return <VocabSessionScreen go={setScreen} />;
+  }
+
+  if (screen.name === "vocabReview") {
+    return <VocabReviewScreen results={screen.results} go={setScreen} />;
   }
 
   return <HomeScreen go={setScreen} />;

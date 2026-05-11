@@ -331,7 +331,10 @@ export function HomeScreen({ go }: HomeScreenProps) {
                 marginTop: 22,
               }}
             >
-              <Button variant="accent">
+              <Button
+                variant="accent"
+                onClick={() => go({ name: "vocabSession" })}
+              >
                 Review <BadgeCount>{u.dueCount} due</BadgeCount>
               </Button>
               <button

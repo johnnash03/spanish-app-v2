@@ -122,6 +122,76 @@ pub fn fetch_due_cards(conn: &Connection, now_secs: i64, limit: i64) -> rusqlite
     Ok(cards)
 }
 
+/// Interval threshold (days) above which a card uses self-rated recall instead of MC.
+pub const SELF_RATED_THRESHOLD_DAYS: i64 = 7;
+
+#[derive(Debug, Serialize)]
+pub struct SrsCardWithDistractors {
+    pub lemma: String,
+    pub translation: String,
+    #[serde(rename = "frequencyRank")]
+    pub frequency_rank: i64,
+    #[serde(rename = "partOfSpeech")]
+    pub part_of_speech: String,
+    #[serde(rename = "pipelineState")]
+    pub pipeline_state: String,
+    #[serde(rename = "intervalDays")]
+    pub interval_days: i64,
+    pub repetitions: i64,
+    /// Self-rated recall (true) vs multiple choice (false).
+    #[serde(rename = "selfRated")]
+    pub self_rated: bool,
+    /// Wrong translations for MC mode (3 items). Empty for self-rated cards.
+    pub distractors: Vec<String>,
+}
+
+pub fn fetch_session_cards(
+    conn: &Connection,
+    now_secs: i64,
+    limit: i64,
+) -> rusqlite::Result<Vec<SrsCardWithDistractors>> {
+    let cards = fetch_due_cards(conn, now_secs, limit)?;
+
+    let mut result = Vec::with_capacity(cards.len());
+    for card in cards {
+        let self_rated = card.interval_days >= SELF_RATED_THRESHOLD_DAYS;
+        let distractors = if self_rated {
+            vec![]
+        } else {
+            fetch_distractors(conn, &card.lemma, 3)?
+        };
+        result.push(SrsCardWithDistractors {
+            lemma: card.lemma,
+            translation: card.translation,
+            frequency_rank: card.frequency_rank,
+            part_of_speech: card.part_of_speech,
+            pipeline_state: card.pipeline_state,
+            interval_days: card.interval_days,
+            repetitions: card.repetitions,
+            self_rated,
+            distractors,
+        });
+    }
+    Ok(result)
+}
+
+fn fetch_distractors(
+    conn: &Connection,
+    exclude_lemma: &str,
+    count: usize,
+) -> rusqlite::Result<Vec<String>> {
+    let mut stmt = conn.prepare(
+        "SELECT translation FROM vocab_words
+         WHERE lemma != ?1
+         ORDER BY RANDOM()
+         LIMIT ?2",
+    )?;
+    let translations = stmt
+        .query_map(params![exclude_lemma, count as i64], |row| row.get(0))?
+        .collect::<rusqlite::Result<Vec<String>>>()?;
+    Ok(translations)
+}
+
 /// Record a vocab review: update SRS state, advance pipeline_state if appropriate.
 pub fn record_review(
     conn: &Connection,
@@ -185,6 +255,16 @@ pub fn get_due_vocab_cards(
     let conn = db.0.lock().map_err(|e| e.to_string())?;
     let now = now_secs();
     fetch_due_cards(&conn, now, limit).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn get_vocab_session_cards(
+    db: tauri::State<'_, Db>,
+    limit: i64,
+) -> Result<Vec<SrsCardWithDistractors>, String> {
+    let conn = db.0.lock().map_err(|e| e.to_string())?;
+    let now = now_secs();
+    fetch_session_cards(&conn, now, limit).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -430,5 +510,52 @@ mod tests {
         let result = record_review(&conn, "saber", false, 1_000_000).unwrap();
         assert_eq!(result.new_pipeline_state, "learning");
         assert_eq!(result.new_interval_days, 1);
+    }
+
+    // ── fetch_session_cards ───────────────────────────────────────────────────
+
+    #[test]
+    fn mc_card_has_three_distractors() {
+        let conn = setup();
+        insert_word(&conn, "dormir", "new");
+        // interval_days defaults to 1 (< SELF_RATED_THRESHOLD_DAYS) → MC mode.
+
+        let cards = fetch_session_cards(&conn, 9_999_999_999, 10).unwrap();
+        let card = cards.iter().find(|c| c.lemma == "dormir").unwrap();
+        assert!(!card.self_rated);
+        assert_eq!(card.distractors.len(), 3);
+    }
+
+    #[test]
+    fn mc_distractors_do_not_include_correct_translation() {
+        let conn = setup();
+        insert_word(&conn, "dormir", "new");
+        // Overwrite seed translation to something unique.
+        conn.execute(
+            "UPDATE vocab_words SET translation = 'to sleep' WHERE lemma = 'dormir'",
+            [],
+        )
+        .unwrap();
+
+        let cards = fetch_session_cards(&conn, 9_999_999_999, 10).unwrap();
+        let card = cards.iter().find(|c| c.lemma == "dormir").unwrap();
+        assert!(!card.distractors.contains(&"to sleep".to_string()));
+    }
+
+    #[test]
+    fn high_interval_card_is_self_rated_with_no_distractors() {
+        let conn = setup();
+        insert_word(&conn, "llegar", "learning");
+        conn.execute(
+            "UPDATE vocab_words SET srs_interval_days = 7, next_review = NULL
+             WHERE lemma = 'llegar'",
+            [],
+        )
+        .unwrap();
+
+        let cards = fetch_session_cards(&conn, 9_999_999_999, 10).unwrap();
+        let card = cards.iter().find(|c| c.lemma == "llegar").unwrap();
+        assert!(card.self_rated);
+        assert!(card.distractors.is_empty());
     }
 }

@@ -101,6 +101,23 @@ export interface PipelineHealth {
   band: PipelineBand;
 }
 
+export interface SrsCard {
+  lemma: string;
+  translation: string;
+  frequencyRank: number;
+  partOfSpeech: string;
+  pipelineState: string;
+  intervalDays: number;
+  repetitions: number;
+  selfRated: boolean;
+  distractors: string[];
+}
+
+export interface VocabCardResult {
+  card: SrsCard;
+  correct: boolean;
+}
+
 export type Screen =
   | { name: "home" }
   | { name: "units" }
@@ -114,4 +131,6 @@ export type Screen =
       attempts: LocalAttempt[];
       practicedWeakTags: WeakTag[];
     }
-  | { name: "vocabIntake" };
+  | { name: "vocabIntake" }
+  | { name: "vocabSession" }
+  | { name: "vocabReview"; results: VocabCardResult[] };

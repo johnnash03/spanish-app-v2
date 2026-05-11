@@ -1,5 +1,10 @@
 import { invoke } from "@tauri-apps/api/core";
-import type { GenerationState, VocabWord, PipelineHealth } from "../types";
+import type {
+  GenerationState,
+  VocabWord,
+  PipelineHealth,
+  SrsCard,
+} from "../types";
 
 export function isTauri(): boolean {
   return typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
@@ -153,4 +158,19 @@ export async function commitIntakeBatch(lemmas: string[]): Promise<void> {
 
 export async function getPipelineHealth(): Promise<PipelineHealth> {
   return invoke<PipelineHealth>("get_pipeline_health");
+}
+
+export async function getVocabSessionCards(limit: number): Promise<SrsCard[]> {
+  return invoke<SrsCard[]>("get_vocab_session_cards", { limit });
+}
+
+export async function recordVocabReview(
+  lemma: string,
+  correct: boolean,
+): Promise<void> {
+  await invoke("record_vocab_review", { lemma, correct });
+}
+
+export async function markVocabWordMastered(lemma: string): Promise<boolean> {
+  return invoke<boolean>("mark_vocab_word_mastered", { lemma });
 }

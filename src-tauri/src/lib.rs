@@ -55,6 +55,7 @@ pub fn run() {
             vocab::get_pipeline_health,
             vocab::mark_vocab_word_mastered,
             srs::get_due_vocab_cards,
+            srs::get_vocab_session_cards,
             srs::record_vocab_review,
         ])
         .run(tauri::generate_context!())
