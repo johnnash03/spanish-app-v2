@@ -105,6 +105,17 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
              WHERE session_id IS NOT NULL",
     )?;
 
+    // v5: SRS scheduling columns on vocab_words.
+    let _ = conn.execute_batch(
+        "ALTER TABLE vocab_words ADD COLUMN srs_repetitions INTEGER NOT NULL DEFAULT 0",
+    );
+    let _ = conn.execute_batch(
+        "ALTER TABLE vocab_words ADD COLUMN srs_interval_days INTEGER NOT NULL DEFAULT 1",
+    );
+    let _ = conn.execute_batch(
+        "ALTER TABLE vocab_words ADD COLUMN srs_ease_factor REAL NOT NULL DEFAULT 2.5",
+    );
+
     seed_units(conn)?;
     seed_vocab(conn)
 }

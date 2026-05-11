@@ -4,6 +4,7 @@ mod generate;
 mod mastery;
 mod openai;
 mod session;
+mod srs;
 mod units;
 mod vocab;
 
@@ -52,6 +53,8 @@ pub fn run() {
             vocab::get_next_untouched_words,
             vocab::commit_intake_batch,
             vocab::get_pipeline_health,
+            srs::get_due_vocab_cards,
+            srs::record_vocab_review,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
