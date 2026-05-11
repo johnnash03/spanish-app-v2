@@ -87,6 +87,20 @@ export interface EvalSessionResponse {
   results: EvaluationResult[];
 }
 
+export interface VocabWord {
+  lemma: string;
+  translation: string;
+  frequencyRank: number;
+  partOfSpeech: string;
+}
+
+export type PipelineBand = "light" | "healthy" | "full" | "overloaded";
+
+export interface PipelineHealth {
+  activeCount: number;
+  band: PipelineBand;
+}
+
 export type Screen =
   | { name: "home" }
   | { name: "units" }
@@ -99,4 +113,5 @@ export type Screen =
       name: "practiceReview";
       attempts: LocalAttempt[];
       practicedWeakTags: WeakTag[];
-    };
+    }
+  | { name: "vocabIntake" };

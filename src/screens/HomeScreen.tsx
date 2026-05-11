@@ -12,12 +12,25 @@ import {
   getCurrentUnitNumber,
   getUnitByN,
   getPendingSession,
+  getPipelineHealth,
 } from "../lib/tauri";
-import type { LocalAttempt, Screen } from "../types";
+import type {
+  LocalAttempt,
+  Screen,
+  PipelineHealth,
+  PipelineBand,
+} from "../types";
 
 interface HomeScreenProps {
   go: (screen: Screen) => void;
 }
+
+const BAND_LABELS: Record<PipelineBand, { label: string; color: string }> = {
+  light: { label: "Light", color: "var(--accent)" },
+  healthy: { label: "Healthy", color: "var(--accent)" },
+  full: { label: "Full", color: "#8a6c30" },
+  overloaded: { label: "Overloaded", color: "var(--bad)" },
+};
 
 export function HomeScreen({ go }: HomeScreenProps) {
   const [currentUnitN, setCurrentUnitN] = useState(LEARNER.currentUnit.number);
@@ -25,6 +38,9 @@ export function HomeScreen({ go }: HomeScreenProps) {
     LEARNER.currentUnit.name,
   );
   const [pendingSession, setPendingSession] = useState<LocalAttempt[] | null>(
+    null,
+  );
+  const [pipelineHealth, setPipelineHealth] = useState<PipelineHealth | null>(
     null,
   );
 
@@ -42,6 +58,10 @@ export function HomeScreen({ go }: HomeScreenProps) {
 
     getPendingSession()
       .then((attempts) => setPendingSession(attempts))
+      .catch(() => {});
+
+    getPipelineHealth()
+      .then(setPipelineHealth)
       .catch(() => {});
   }, []);
 
@@ -260,12 +280,45 @@ export function HomeScreen({ go }: HomeScreenProps) {
               <div className="muted" style={{ fontSize: 14, marginTop: 4 }}>
                 words mastered
               </div>
-              <div
-                style={{ marginTop: 18, fontSize: 13, color: "var(--ink-2)" }}
-              >
-                Pipeline {u.pipelineStatus.label.toLowerCase()} ·{" "}
-                {u.pipelineStatus.detail}
-              </div>
+              {pipelineHealth ? (
+                <div
+                  style={{
+                    marginTop: 18,
+                    fontSize: 13,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: 999,
+                      background: BAND_LABELS[pipelineHealth.band].color,
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span
+                    style={{
+                      color: BAND_LABELS[pipelineHealth.band].color,
+                      fontWeight: 600,
+                    }}
+                  >
+                    {BAND_LABELS[pipelineHealth.band].label}
+                  </span>
+                  <span className="muted">
+                    · {pipelineHealth.activeCount} active
+                  </span>
+                </div>
+              ) : (
+                <div
+                  style={{ marginTop: 18, fontSize: 13, color: "var(--ink-2)" }}
+                >
+                  Pipeline {u.pipelineStatus.label.toLowerCase()} ·{" "}
+                  {u.pipelineStatus.detail}
+                </div>
+              )}
               <div className="muted" style={{ fontSize: 12, marginTop: 4 }}>
                 {u.learningCount} learning · {u.newCount} new
               </div>
@@ -281,7 +334,12 @@ export function HomeScreen({ go }: HomeScreenProps) {
               <Button variant="accent">
                 Review <BadgeCount>{u.dueCount} due</BadgeCount>
               </Button>
-              <button className="text-link">Learn new words</button>
+              <button
+                className="text-link"
+                onClick={() => go({ name: "vocabIntake" })}
+              >
+                Learn new words
+              </button>
             </div>
           </div>
 

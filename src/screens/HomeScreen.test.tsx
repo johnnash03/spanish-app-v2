@@ -7,6 +7,9 @@ vi.mock("../lib/tauri", () => ({
   getCurrentUnitNumber: vi.fn().mockResolvedValue(1),
   getUnitByN: vi.fn().mockResolvedValue({ n: 1, name: "Present tense" }),
   getPendingSession: vi.fn(),
+  getPipelineHealth: vi
+    .fn()
+    .mockResolvedValue({ activeCount: 9, band: "light" }),
 }));
 
 describe("HomeScreen – pending session banner", () => {

@@ -5,6 +5,7 @@ mod mastery;
 mod openai;
 mod session;
 mod units;
+mod vocab;
 
 use tauri::Manager;
 
@@ -48,6 +49,9 @@ pub fn run() {
             deliberate_practice::assemble_dp_queue,
             deliberate_practice::trigger_dp_generation,
             session::get_pending_session,
+            vocab::get_next_untouched_words,
+            vocab::commit_intake_batch,
+            vocab::get_pipeline_health,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import type { GenerationState } from "../types";
+import type { GenerationState, VocabWord, PipelineHealth } from "../types";
 
 export function isTauri(): boolean {
   return typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
@@ -139,4 +139,18 @@ export async function getPendingSession(): Promise<
     learnerAnswer: r.learnerAnswer,
     source: r.source,
   }));
+}
+
+export async function getNextUntouchedWords(
+  count: number,
+): Promise<VocabWord[]> {
+  return invoke<VocabWord[]>("get_next_untouched_words", { count });
+}
+
+export async function commitIntakeBatch(lemmas: string[]): Promise<void> {
+  await invoke("commit_intake_batch", { lemmas });
+}
+
+export async function getPipelineHealth(): Promise<PipelineHealth> {
+  return invoke<PipelineHealth>("get_pipeline_health");
 }
