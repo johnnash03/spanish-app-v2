@@ -62,6 +62,8 @@ pub fn run() {
             combined::trigger_combined_replenishment,
             combined::get_combined_pool_size,
             combined::submit_combined_exercise_result,
+            combined::assemble_combined_queue,
+            combined::record_combined_session_reviews,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

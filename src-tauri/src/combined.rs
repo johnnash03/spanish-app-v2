@@ -530,6 +530,132 @@ pub fn submit_combined_exercise_result(
     Ok(())
 }
 
+// ─── Combined session item ────────────────────────────────────────────────────
+
+/// SessionItem-compatible struct with vocabLemmas for the combined track.
+#[derive(Debug, Clone, Serialize)]
+pub struct CombinedSessionItem {
+    pub id: String,
+    pub source: String,
+    #[serde(rename = "primaryTag")]
+    pub primary_tag: String,
+    #[serde(rename = "stackedTags")]
+    pub stacked_tags: Vec<String>,
+    #[serde(rename = "vocabLemmas")]
+    pub vocab_lemmas: Vec<String>,
+}
+
+// ─── Queue assembly ───────────────────────────────────────────────────────────
+
+/// Fetch unserved exercises that contain at least one active SRS vocab word.
+/// Marks matching exercises as served and returns them with `vocab_lemmas`
+/// scoped to only the active (new/learning) words present in each exercise.
+pub fn assemble_combined_queue_from_db(
+    conn: &Connection,
+) -> rusqlite::Result<Vec<CombinedSessionItem>> {
+    use std::collections::HashSet;
+
+    let mut stmt = conn.prepare(
+        "SELECT lemma FROM vocab_words WHERE pipeline_state IN ('new', 'learning')",
+    )?;
+    let active_lemmas: HashSet<String> = stmt
+        .query_map([], |r| r.get(0))?
+        .collect::<rusqlite::Result<HashSet<_>>>()?;
+
+    if active_lemmas.is_empty() {
+        return Ok(vec![]);
+    }
+
+    let mut stmt = conn.prepare(
+        "SELECT id, source, grammar_tags, vocab_lemmas
+         FROM combined_exercises WHERE served = 0 ORDER BY created_at ASC",
+    )?;
+    let rows: Vec<(String, String, String, String)> = stmt
+        .query_map([], |r| {
+            Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?))
+        })?
+        .collect::<rusqlite::Result<Vec<_>>>()?;
+    drop(stmt);
+
+    let mut result = Vec::new();
+    for (id, source, grammar_json, vocab_json) in rows {
+        let vocab_words: Vec<String> =
+            serde_json::from_str(&vocab_json).unwrap_or_default();
+        let active_here: Vec<String> = vocab_words
+            .iter()
+            .filter(|l| active_lemmas.contains(l.as_str()))
+            .cloned()
+            .collect();
+
+        if active_here.is_empty() {
+            continue;
+        }
+
+        let grammar_tags: Vec<String> =
+            serde_json::from_str(&grammar_json).unwrap_or_default();
+        let primary_tag = grammar_tags.first().cloned().unwrap_or_default();
+        let stacked_tags = if grammar_tags.len() > 1 {
+            grammar_tags[1..].to_vec()
+        } else {
+            vec![]
+        };
+
+        conn.execute(
+            "UPDATE combined_exercises SET served = 1 WHERE id = ?1",
+            params![id],
+        )?;
+
+        result.push(CombinedSessionItem {
+            id,
+            source,
+            primary_tag,
+            stacked_tags,
+            vocab_lemmas: active_here,
+        });
+    }
+
+    Ok(result)
+}
+
+// ─── New Tauri commands ───────────────────────────────────────────────────────
+
+/// Return unserved exercises that intersect with active SRS vocab, marked served.
+#[tauri::command]
+pub fn assemble_combined_queue(
+    state: tauri::State<'_, Db>,
+) -> Result<Vec<CombinedSessionItem>, String> {
+    let conn = state.0.lock().map_err(|e| e.to_string())?;
+    assemble_combined_queue_from_db(&conn).map_err(|e| e.to_string())
+}
+
+/// Record a successful SRS review for each provided lemma (if still active).
+#[tauri::command]
+pub fn record_combined_session_reviews(
+    state: tauri::State<'_, Db>,
+    correct_lemmas: Vec<String>,
+) -> Result<(), String> {
+    let conn = state.0.lock().map_err(|e| e.to_string())?;
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_secs() as i64;
+
+    for lemma in &correct_lemmas {
+        let active: bool = conn
+            .query_row(
+                "SELECT pipeline_state IN ('new','learning') FROM vocab_words WHERE lemma = ?1",
+                params![lemma],
+                |r| r.get(0),
+            )
+            .unwrap_or(false);
+        if active {
+            let _ = crate::srs::record_review(&conn, lemma, true, now);
+        }
+    }
+
+    Ok(())
+}
+
 // ─── Tests ────────────────────────────────────────────────────────────────────
 
 #[cfg(test)]
@@ -809,6 +935,137 @@ mod tests {
             )
             .unwrap();
         assert_eq!(state, "new");
+    }
+
+    // ── assemble_combined_queue_from_db ───────────────────────────────────────
+
+    fn insert_exercise_with_grammar(conn: &Connection, id: &str, source: &str, grammar: &[&str], vocab: &[&str]) {
+        let grammar_json = serde_json::to_string(grammar).unwrap();
+        let vocab_json = serde_json::to_string(vocab).unwrap();
+        conn.execute(
+            "INSERT INTO combined_exercises (id, source, canonical, grammar_tags, vocab_lemmas, created_at, served)
+             VALUES (?1, ?2, 'canonical', ?3, ?4, 1, 0)",
+            params![id, source, grammar_json, vocab_json],
+        ).unwrap();
+    }
+
+    #[test]
+    fn assemble_queue_returns_exercises_with_active_vocab() {
+        let conn = setup();
+        insert_word(&conn, "comer", "new");
+        insert_exercise_with_grammar(&conn, "e1", "I want to eat", &["opener.quiero"], &["comer"]);
+        let items = assemble_combined_queue_from_db(&conn).unwrap();
+        assert_eq!(items.len(), 1);
+        assert_eq!(items[0].id, "e1");
+        assert_eq!(items[0].vocab_lemmas, vec!["comer"]);
+    }
+
+    #[test]
+    fn assemble_queue_excludes_exercises_with_no_active_vocab() {
+        let conn = setup();
+        insert_word(&conn, "comer", "mastered");
+        insert_exercise_with_grammar(&conn, "e2", "I eat", &["opener.quiero"], &["comer"]);
+        let items = assemble_combined_queue_from_db(&conn).unwrap();
+        assert!(items.is_empty());
+    }
+
+    #[test]
+    fn assemble_queue_marks_returned_exercises_served() {
+        let conn = setup();
+        insert_word(&conn, "beber", "learning");
+        insert_exercise_with_grammar(&conn, "e3", "She drinks", &["opener.quiero"], &["beber"]);
+        let items = assemble_combined_queue_from_db(&conn).unwrap();
+        assert_eq!(items.len(), 1);
+        // Pool should now be empty.
+        assert_eq!(combined_pool_size(&conn).unwrap(), 0);
+    }
+
+    #[test]
+    fn assemble_queue_returns_empty_when_no_active_vocab() {
+        let conn = setup();
+        insert_exercise_with_grammar(&conn, "e4", "He sleeps", &["opener.quiero"], &["dormir"]);
+        let items = assemble_combined_queue_from_db(&conn).unwrap();
+        assert!(items.is_empty());
+    }
+
+    #[test]
+    fn assemble_queue_populates_primary_and_stacked_tags() {
+        let conn = setup();
+        insert_word(&conn, "salir", "new");
+        insert_exercise_with_grammar(
+            &conn, "e5", "I can leave",
+            &["opener.puedo", "verb.salir"],
+            &["salir"],
+        );
+        let items = assemble_combined_queue_from_db(&conn).unwrap();
+        assert_eq!(items.len(), 1);
+        assert_eq!(items[0].primary_tag, "opener.puedo");
+        assert_eq!(items[0].stacked_tags, vec!["verb.salir"]);
+    }
+
+    #[test]
+    fn assemble_queue_only_includes_active_lemmas_in_vocab_lemmas() {
+        let conn = setup();
+        insert_word(&conn, "comer", "new");
+        insert_word(&conn, "beber", "mastered");
+        insert_exercise_with_grammar(
+            &conn, "e6", "I eat and drink",
+            &["opener.quiero"],
+            &["comer", "beber"],
+        );
+        let items = assemble_combined_queue_from_db(&conn).unwrap();
+        assert_eq!(items.len(), 1);
+        assert_eq!(items[0].vocab_lemmas, vec!["comer"]); // beber excluded (mastered)
+    }
+
+    // ── record_combined_session_reviews ───────────────────────────────────────
+
+    #[test]
+    fn record_reviews_advances_srs_for_active_lemmas() {
+        let conn = setup();
+        insert_word(&conn, "traer", "new");
+        let now = 1_000_000_i64;
+        let lemmas = vec!["traer".to_string()];
+        for lemma in &lemmas {
+            let active: bool = conn.query_row(
+                "SELECT pipeline_state IN ('new','learning') FROM vocab_words WHERE lemma = ?1",
+                params![lemma],
+                |r| r.get(0),
+            ).unwrap_or(false);
+            if active {
+                let _ = crate::srs::record_review(&conn, lemma, true, now);
+            }
+        }
+        let state: String = conn.query_row(
+            "SELECT pipeline_state FROM vocab_words WHERE lemma = 'traer'",
+            [],
+            |r| r.get(0),
+        ).unwrap();
+        assert_eq!(state, "learning");
+    }
+
+    #[test]
+    fn record_reviews_skips_mastered_lemmas() {
+        let conn = setup();
+        insert_word(&conn, "venir", "mastered");
+        let lemmas = vec!["venir".to_string()];
+        let now = 1_000_000_i64;
+        for lemma in &lemmas {
+            let active: bool = conn.query_row(
+                "SELECT pipeline_state IN ('new','learning') FROM vocab_words WHERE lemma = ?1",
+                params![lemma],
+                |r| r.get(0),
+            ).unwrap_or(false);
+            if active {
+                let _ = crate::srs::record_review(&conn, lemma, true, now);
+            }
+        }
+        let state: String = conn.query_row(
+            "SELECT pipeline_state FROM vocab_words WHERE lemma = 'venir'",
+            [],
+            |r| r.get(0),
+        ).unwrap();
+        assert_eq!(state, "mastered"); // unchanged
     }
 
     // ── stable system prompt ──────────────────────────────────────────────────
