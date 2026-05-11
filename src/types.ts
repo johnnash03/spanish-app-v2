@@ -92,4 +92,11 @@ export type Screen =
   | { name: "units" }
   | { name: "unitDetail"; unitN: number }
   | { name: "session"; unitSkillTag: string }
-  | { name: "sessionReview"; attempts: LocalAttempt[] };
+  | { name: "sessionReview"; attempts: LocalAttempt[] }
+  | { name: "practiceEntry" }
+  | { name: "practiceSession"; tagId: string | null; tagName: string | null }
+  | {
+      name: "practiceReview";
+      attempts: LocalAttempt[];
+      practicedWeakTags: WeakTag[];
+    };

@@ -145,6 +145,7 @@ export function HomeScreen({ go }: HomeScreenProps) {
 
               {hasWeakTags && (
                 <button
+                  onClick={() => go({ name: "practiceEntry" })}
                   style={{
                     marginTop: 18,
                     display: "inline-flex",

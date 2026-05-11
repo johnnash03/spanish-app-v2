@@ -5,6 +5,9 @@ import { UnitListScreen } from "./screens/UnitListScreen";
 import { UnitDetailScreen } from "./screens/UnitDetailScreen";
 import { SessionScreen } from "./screens/SessionScreen";
 import { SessionReviewScreen } from "./screens/SessionReviewScreen";
+import { PracticeEntryScreen } from "./screens/PracticeEntryScreen";
+import { PracticeSessionScreen } from "./screens/PracticeSessionScreen";
+import { PracticeReviewScreen } from "./screens/PracticeReviewScreen";
 import type { Screen } from "./types";
 
 function App() {
@@ -24,6 +27,30 @@ function App() {
 
   if (screen.name === "sessionReview") {
     return <SessionReviewScreen attempts={screen.attempts} go={setScreen} />;
+  }
+
+  if (screen.name === "practiceEntry") {
+    return <PracticeEntryScreen go={setScreen} />;
+  }
+
+  if (screen.name === "practiceSession") {
+    return (
+      <PracticeSessionScreen
+        tagId={screen.tagId}
+        tagName={screen.tagName}
+        go={setScreen}
+      />
+    );
+  }
+
+  if (screen.name === "practiceReview") {
+    return (
+      <PracticeReviewScreen
+        attempts={screen.attempts}
+        practicedWeakTags={screen.practicedWeakTags}
+        go={setScreen}
+      />
+    );
   }
 
   return <HomeScreen go={setScreen} />;
