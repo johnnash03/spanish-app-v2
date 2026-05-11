@@ -95,10 +95,12 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
     );
     let _ = conn.execute_batch("ALTER TABLE attempt_log ADD COLUMN explanation TEXT");
 
-    // Unique index prevents re-inserting the same item within a session (retry safety).
+    // v4: widen the unique index from (session_id, item_id) to (session_id, item_id, tag)
+    // so stacked-tag rows (same item, different tag) can coexist in one session.
+    let _ = conn.execute_batch("DROP INDEX IF EXISTS idx_attempt_log_session_item");
     conn.execute_batch(
         "CREATE UNIQUE INDEX IF NOT EXISTS idx_attempt_log_session_item
-             ON attempt_log(session_id, item_id)
+             ON attempt_log(session_id, item_id, tag)
              WHERE session_id IS NOT NULL",
     )?;
 
@@ -271,26 +273,51 @@ mod tests {
     }
 
     #[test]
-    fn attempt_log_session_item_unique_index_rejects_duplicate() {
+    fn attempt_log_unique_index_rejects_same_tag_same_item() {
         let conn = in_memory();
         conn.execute(
             "INSERT INTO attempt_log
              (id, tag, item_id, correct, learner_answer, timestamp, session_id, eval_state)
-             VALUES ('a1', 't', 'i1', 0, 'ans', 1, 'sess-1', 'unevaluated')",
+             VALUES ('a1', 'tag.a', 'i1', 0, 'ans', 1, 'sess-1', 'unevaluated')",
             [],
         )
         .unwrap();
-        let result = conn.execute(
+        // Same session, same item, same tag — must be ignored.
+        conn.execute(
             "INSERT OR IGNORE INTO attempt_log
              (id, tag, item_id, correct, learner_answer, timestamp, session_id, eval_state)
-             VALUES ('a2', 't', 'i1', 0, 'ans2', 2, 'sess-1', 'unevaluated')",
+             VALUES ('a2', 'tag.a', 'i1', 0, 'ans2', 2, 'sess-1', 'unevaluated')",
             [],
-        );
-        assert!(result.is_ok());
+        )
+        .unwrap();
         let count: i64 = conn
             .query_row("SELECT COUNT(*) FROM attempt_log WHERE session_id='sess-1'", [], |r| r.get(0))
             .unwrap();
-        assert_eq!(count, 1, "duplicate (session_id, item_id) must be ignored");
+        assert_eq!(count, 1, "duplicate (session_id, item_id, tag) must be ignored");
+    }
+
+    #[test]
+    fn attempt_log_unique_index_allows_different_tags_same_item() {
+        let conn = in_memory();
+        conn.execute(
+            "INSERT INTO attempt_log
+             (id, tag, item_id, correct, learner_answer, timestamp, session_id, eval_state)
+             VALUES ('a1', 'tag.primary', 'i1', 1, 'ans', 1, 'sess-1', 'evaluated')",
+            [],
+        )
+        .unwrap();
+        // Same session, same item, different tag — must be allowed (stacked tag row).
+        conn.execute(
+            "INSERT INTO attempt_log
+             (id, tag, item_id, correct, learner_answer, timestamp, session_id, eval_state)
+             VALUES ('a2', 'tag.stacked', 'i1', 0, '', 2, 'sess-1', 'evaluated')",
+            [],
+        )
+        .unwrap();
+        let count: i64 = conn
+            .query_row("SELECT COUNT(*) FROM attempt_log WHERE session_id='sess-1'", [], |r| r.get(0))
+            .unwrap();
+        assert_eq!(count, 2, "different tags on same item must coexist");
     }
 
     #[test]

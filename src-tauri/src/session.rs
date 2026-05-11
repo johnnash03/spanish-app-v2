@@ -524,15 +524,19 @@ pub fn update_attempt_eval(
     conn: &rusqlite::Connection,
     session_id: &str,
     result: &EvalResult,
+    primary_tag: &str,
 ) -> rusqlite::Result<()> {
     let remarks_json =
         serde_json::to_string(&result.remarks).unwrap_or_else(|_| "[]".to_string());
+    // Primary tag is correct unless it is specifically the errorTag.
+    let primary_correct =
+        result.error_tag.as_deref() != Some(primary_tag);
     conn.execute(
         "UPDATE attempt_log
          SET correct=?1, eval_state='evaluated', error_tag=?2, remarks=?3, explanation=?4
          WHERE session_id=?5 AND item_id=?6",
         params![
-            result.correct as i64,
+            primary_correct as i64,
             result.error_tag,
             remarks_json,
             result.explanation,
@@ -540,6 +544,37 @@ pub fn update_attempt_eval(
             result.item_id,
         ],
     )?;
+    Ok(())
+}
+
+/// Insert one attempt row per stacked tag after evaluation.
+/// Each stacked tag is correct unless it is the errorTag.
+pub fn insert_stacked_tag_attempts(
+    conn: &rusqlite::Connection,
+    session_id: &str,
+    result: &EvalResult,
+    input: &EvalInput,
+) -> rusqlite::Result<()> {
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_secs() as i64;
+    for (i, (tag, _title)) in input.stacked_tags.iter().enumerate() {
+        let correct = result.error_tag.as_deref() != Some(tag.as_str());
+        conn.execute(
+            "INSERT OR IGNORE INTO attempt_log
+             (id, tag, item_id, correct, learner_answer, timestamp, session_id, eval_state)
+             VALUES (?1, ?2, ?3, ?4, '', ?5, ?6, 'evaluated')",
+            params![
+                uuid_v4_session(),
+                tag,
+                result.item_id,
+                correct as i64,
+                now + i as i64 + 1,
+                session_id,
+            ],
+        )?;
+    }
     Ok(())
 }
 
@@ -709,7 +744,10 @@ pub async fn evaluate_session(
                 explanation: ai_item.explanation.clone(),
                 canonical: input.canonical.clone(),
             };
-            update_attempt_eval(&conn, &sid, &result).map_err(|e| e.to_string())?;
+            update_attempt_eval(&conn, &sid, &result, &input.primary_tag)
+                .map_err(|e| e.to_string())?;
+            insert_stacked_tag_attempts(&conn, &sid, &result, input)
+                .map_err(|e| e.to_string())?;
             results.push(result);
         }
     }
@@ -970,7 +1008,7 @@ mod tests {
             explanation: None,
             canonical: "Quiero comer".to_string(),
         };
-        update_attempt_eval(&conn, "sess-1", &result).unwrap();
+        update_attempt_eval(&conn, "sess-1", &result, "tag.a").unwrap();
 
         let (eval_state, correct): (String, i64) = conn
             .query_row(
@@ -1001,5 +1039,200 @@ mod tests {
             canonical: input.canonical.clone(),
         };
         assert_eq!(result.canonical, "Quiero comer");
+    }
+
+    // ─── Tag attempt attribution tests ───────────────────────────────────────
+
+    fn make_eval_input_with_stacked(
+        item_id: &str,
+        primary_tag: &str,
+        stacked: Vec<&str>,
+    ) -> EvalInput {
+        EvalInput {
+            item_id: item_id.to_string(),
+            source: "src".to_string(),
+            canonical: "canonical".to_string(),
+            primary_tag: primary_tag.to_string(),
+            primary_tag_title: "title".to_string(),
+            stacked_tags: stacked
+                .into_iter()
+                .map(|t| (t.to_string(), t.to_string()))
+                .collect(),
+            learner_answer: "ans".to_string(),
+        }
+    }
+
+    fn setup_item_and_attempt(conn: &Connection, item_id: &str, primary_tag: &str) {
+        conn.execute(
+            "INSERT INTO exercise_items (id, source, canonical, primary_tag, stacked_tags, created_at)
+             VALUES (?1, 'src', 'canonical', ?2, '[]', 0)",
+            params![item_id, primary_tag],
+        ).unwrap();
+        let attempt = AttemptInput {
+            item_id: item_id.to_string(),
+            tag: primary_tag.to_string(),
+            learner_answer: "ans".to_string(),
+        };
+        save_attempts_unevaluated(conn, &[attempt], "sess-1").unwrap();
+    }
+
+    #[test]
+    fn wrong_answer_with_primary_error_marks_primary_wrong() {
+        let conn = in_memory();
+        setup_item_and_attempt(&conn, "i1", "tag.primary");
+
+        let result = EvalResult {
+            item_id: "i1".to_string(),
+            correct: false,
+            error_tag: Some("tag.primary".to_string()),
+            remarks: vec![],
+            explanation: None,
+            canonical: "canonical".to_string(),
+        };
+        update_attempt_eval(&conn, "sess-1", &result, "tag.primary").unwrap();
+
+        let correct: i64 = conn
+            .query_row(
+                "SELECT correct FROM attempt_log WHERE item_id='i1' AND tag='tag.primary'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(correct, 0, "primary tag must be wrong when it is the errorTag");
+    }
+
+    #[test]
+    fn wrong_answer_with_stacked_error_marks_primary_correct() {
+        let conn = in_memory();
+        setup_item_and_attempt(&conn, "i1", "tag.primary");
+
+        let result = EvalResult {
+            item_id: "i1".to_string(),
+            correct: false,
+            error_tag: Some("tag.stacked".to_string()),
+            remarks: vec![],
+            explanation: None,
+            canonical: "canonical".to_string(),
+        };
+        update_attempt_eval(&conn, "sess-1", &result, "tag.primary").unwrap();
+
+        let correct: i64 = conn
+            .query_row(
+                "SELECT correct FROM attempt_log WHERE item_id='i1' AND tag='tag.primary'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(correct, 1, "primary tag must be correct when a stacked tag is the errorTag");
+    }
+
+    #[test]
+    fn stacked_tag_gets_wrong_attempt_when_it_is_error_tag() {
+        let conn = in_memory();
+        setup_item_and_attempt(&conn, "i1", "tag.primary");
+
+        let result = EvalResult {
+            item_id: "i1".to_string(),
+            correct: false,
+            error_tag: Some("tag.stacked".to_string()),
+            remarks: vec![],
+            explanation: None,
+            canonical: "canonical".to_string(),
+        };
+        let input = make_eval_input_with_stacked("i1", "tag.primary", vec!["tag.stacked"]);
+        insert_stacked_tag_attempts(&conn, "sess-1", &result, &input).unwrap();
+
+        let correct: i64 = conn
+            .query_row(
+                "SELECT correct FROM attempt_log WHERE item_id='i1' AND tag='tag.stacked'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(correct, 0, "stacked errorTag must be logged as wrong");
+    }
+
+    #[test]
+    fn non_error_stacked_tag_gets_correct_attempt() {
+        let conn = in_memory();
+        setup_item_and_attempt(&conn, "i1", "tag.primary");
+
+        let result = EvalResult {
+            item_id: "i1".to_string(),
+            correct: false,
+            error_tag: Some("tag.stacked.a".to_string()),
+            remarks: vec![],
+            explanation: None,
+            canonical: "canonical".to_string(),
+        };
+        let input = make_eval_input_with_stacked(
+            "i1",
+            "tag.primary",
+            vec!["tag.stacked.a", "tag.stacked.b"],
+        );
+        insert_stacked_tag_attempts(&conn, "sess-1", &result, &input).unwrap();
+
+        let correct_b: i64 = conn
+            .query_row(
+                "SELECT correct FROM attempt_log WHERE item_id='i1' AND tag='tag.stacked.b'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(correct_b, 1, "non-errorTag stacked tag must be logged as correct");
+    }
+
+    #[test]
+    fn correct_answer_logs_all_tags_as_correct() {
+        let conn = in_memory();
+        setup_item_and_attempt(&conn, "i1", "tag.primary");
+
+        let result = EvalResult {
+            item_id: "i1".to_string(),
+            correct: true,
+            error_tag: None,
+            remarks: vec![],
+            explanation: None,
+            canonical: "canonical".to_string(),
+        };
+        let input = make_eval_input_with_stacked("i1", "tag.primary", vec!["tag.stacked"]);
+        update_attempt_eval(&conn, "sess-1", &result, "tag.primary").unwrap();
+        insert_stacked_tag_attempts(&conn, "sess-1", &result, &input).unwrap();
+
+        let count: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM attempt_log WHERE item_id='i1' AND correct=1",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(count, 2, "both primary and stacked must be correct");
+    }
+
+    #[test]
+    fn stacked_attempts_are_idempotent() {
+        let conn = in_memory();
+        setup_item_and_attempt(&conn, "i1", "tag.primary");
+
+        let result = EvalResult {
+            item_id: "i1".to_string(),
+            correct: false,
+            error_tag: Some("tag.stacked".to_string()),
+            remarks: vec![],
+            explanation: None,
+            canonical: "canonical".to_string(),
+        };
+        let input = make_eval_input_with_stacked("i1", "tag.primary", vec!["tag.stacked"]);
+        insert_stacked_tag_attempts(&conn, "sess-1", &result, &input).unwrap();
+        insert_stacked_tag_attempts(&conn, "sess-1", &result, &input).unwrap();
+
+        let count: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM attempt_log WHERE item_id='i1' AND tag='tag.stacked'",
+                [],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(count, 1, "retry must not duplicate stacked tag rows");
     }
 }
