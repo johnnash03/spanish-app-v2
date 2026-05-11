@@ -42,12 +42,17 @@ describe("CombinedSessionScreen", () => {
     expect(screen.queryByText("ar-verbs")).not.toBeInTheDocument();
   });
 
-  it("shows empty state when no exercises are available", async () => {
+  it("shows empty state when no exercises are available after timeout", async () => {
+    vi.useFakeTimers();
     const { assembleCombinedQueue } = await import("../lib/tauri");
-    vi.mocked(assembleCombinedQueue).mockResolvedValueOnce([]);
+    vi.mocked(assembleCombinedQueue).mockResolvedValue([]);
     render(<CombinedSessionScreen go={vi.fn()} />);
-    expect(
-      await screen.findByText(/no exercises available/i),
-    ).toBeInTheDocument();
+    // Let the first poll complete (returns [], starts generating state).
+    await vi.runAllTimersAsync();
+    // Advance past the 120s timeout so the next poll flips to empty.
+    vi.advanceTimersByTime(120_001);
+    await vi.runAllTimersAsync();
+    expect(screen.getByText(/no exercises available/i)).toBeInTheDocument();
+    vi.useRealTimers();
   });
 });

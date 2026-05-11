@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { TopBar, Button } from "../components";
 import { assembleCombinedQueue, isTauri } from "../lib/tauri";
 import type { LocalAttempt, Screen, SessionItem } from "../types";
@@ -7,28 +7,45 @@ interface CombinedSessionScreenProps {
   go: (screen: Screen) => void;
 }
 
-type LoadState = "loading" | "ready" | "empty" | "error";
+type LoadState = "loading" | "generating" | "ready" | "empty" | "error";
+
+const POLL_INTERVAL_MS = 3_000;
+const POLL_TIMEOUT_MS = 120_000;
 
 export function CombinedSessionScreen({ go }: CombinedSessionScreenProps) {
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [queue, setQueue] = useState<SessionItem[]>([]);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const pollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const startTime = useRef(Date.now());
 
   useEffect(() => {
     if (!isTauri()) {
       setLoadState("empty");
       return;
     }
-    assembleCombinedQueue()
-      .then((items) => {
-        if (items.length === 0) {
-          setLoadState("empty");
-        } else {
-          setQueue(items);
-          setLoadState("ready");
-        }
-      })
-      .catch(() => setLoadState("error"));
+
+    function poll() {
+      assembleCombinedQueue()
+        .then((items) => {
+          if (items.length > 0) {
+            setQueue(items);
+            setLoadState("ready");
+          } else if (Date.now() - startTime.current >= POLL_TIMEOUT_MS) {
+            setLoadState("empty");
+          } else {
+            setLoadState("generating");
+            pollTimer.current = setTimeout(poll, POLL_INTERVAL_MS);
+          }
+        })
+        .catch(() => setLoadState("error"));
+    }
+
+    poll();
+
+    return () => {
+      if (pollTimer.current) clearTimeout(pollTimer.current);
+    };
   }, []);
 
   const endSession = useCallback(() => {
@@ -49,7 +66,7 @@ export function CombinedSessionScreen({ go }: CombinedSessionScreenProps) {
     go({ name: "combinedReview", attempts, vocabLemmasByItemId });
   }, [queue, answers, go]);
 
-  if (loadState === "loading") {
+  if (loadState === "loading" || loadState === "generating") {
     return (
       <div className="app fade-in">
         <TopBar showHome onHome={() => go({ name: "home" })} hasRule />
@@ -57,7 +74,11 @@ export function CombinedSessionScreen({ go }: CombinedSessionScreenProps) {
           className="container"
           style={{ paddingTop: 80, textAlign: "center" }}
         >
-          <p className="muted">Assembling your session…</p>
+          <p className="muted">
+            {loadState === "generating"
+              ? "Generating exercises… this takes about a minute."
+              : "Assembling your session…"}
+          </p>
         </div>
       </div>
     );
