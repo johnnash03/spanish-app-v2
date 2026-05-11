@@ -1,5 +1,6 @@
 # Evaluation Rules
-*Pre-dev artifact #3 — Tier 1 Foundation*
+
+_Pre-dev artifact #3 — Tier 1 Foundation_
 
 Defines what "correct" means. Must be settled before any prompt or logic references correctness.
 Evaluation is LLM-based — these rules are injected into the evaluator prompt (artifact #13).
@@ -9,6 +10,7 @@ Evaluation is LLM-based — these rules are injected into the evaluator prompt (
 ## Evaluator Input Contract
 
 The evaluator LLM receives:
+
 - `source` — the English cue shown to the learner
 - `canonical` — the correct Spanish answer
 - `primaryTag` — the skill being drilled, with a brief description of what it tests
@@ -20,8 +22,8 @@ The evaluator LLM receives:
 ```typescript
 interface EvaluationResult {
   correct: boolean;
-  errorTag: string | null;  // one of primaryTag or stackedTags; null if correct
-  remarks: string[];        // informational notes surfaced to the learner post-answer
+  errorTag: string | null; // one of primaryTag or stackedTags; null if correct
+  remarks: string[]; // informational notes surfaced to the learner post-answer
 }
 ```
 
@@ -30,20 +32,25 @@ interface EvaluationResult {
 ## Correctness Rules
 
 ### Accents
+
 Always lenient — an answer is never marked wrong solely due to a missing or incorrect accent.
 Always remark when an accent is wrong or missing, explaining the difference (e.g. "Note: `si` means 'if'; `sí` means 'yes' — worth getting right.").
 
 ### Punctuation
+
 Ignore `¿` and `¡` entirely. No remark. Keyboard limitations make these unreasonable to require.
 
 ### Capitalization
+
 Ignore entirely. Capitalization errors signal nothing about language acquisition.
 
 ### Grammatically valid Spanish that avoids the tested construction
+
 Mark as correct with a remark noting what construction was expected and why it's worth practicing.
-*(Future consideration: tighten this to incorrect once the learner experience is validated — avoiding a construction is not the same as demonstrating mastery of it.)*
+_(Future consideration: tighten this to incorrect once the learner experience is validated — avoiding a construction is not the same as demonstrating mastery of it.)_
 
 ### Partial credit
+
 None. Evaluation is binary correct/incorrect. The `remarks` field handles "you were close" communication. The scheduler treats any wrong answer uniformly.
 
 ---
@@ -61,13 +68,23 @@ The deliberate practice scheduler (artifact #11) consumes `errorTag` to determin
 ## Design Decisions
 
 ### LLM-based evaluation, not string matching
+
 Variant acceptance (clitic placement, optional pronouns, lexical synonyms) is handled natively by the evaluator LLM anchored to the canonical answer. An explicit variants list would add authoring overhead without improving reliability at this stage. Revisit if LLM evaluation proves inconsistent on specific variant classes.
 
 ### Always lenient on accents
+
 Even meaning-changing accents (`que` vs `qué`, `si` vs `sí`) are not penalized. The remark surfaces the distinction pedagogically without blocking progress. This prioritizes learner motivation over strict orthographic enforcement in v1.
 
 ### Single error tag attribution
+
 The scheduler acts on one tag per error event. Splitting errors across multiple tags adds scheduling complexity with marginal benefit — if multiple tags are weak, primary tag retries will naturally resurface stacked context anyway.
 
+### LLM-attributed errorTag drives per-tag attempt logging (revisit if unreliable)
+
+The current implementation logs one attempt row per tag on an item — the errorTag gets a wrong attempt, all other tags (primary and stacked) get a correct attempt. This gives mastery windows more accurate signal than always attributing the error to primaryTag.
+
+The trade-off: this adds complexity on all fronts (DB schema, mastery derivation, session evaluation), and correctness depends entirely on the LLM reliably distinguishing which skill caused the error. If LLM attribution proves unreliable in practice — for example, it frequently blames the wrong tag, or inconsistently handles multi-tag errors — the simpler fallback is to attribute all wrong answers to primaryTag only and drop per-stacked-tag logging entirely. That version is easier to reason about and test, at the cost of noisier mastery data for stacked tags.
+
 ### Tags passed explicitly to evaluator
+
 The LLM cannot reliably infer which skill is under test from the canonical answer alone. Passing `primaryTag` and `stackedTags` with descriptions gives the evaluator the context it needs to attribute errors correctly.
