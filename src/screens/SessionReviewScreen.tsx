@@ -130,6 +130,14 @@ export function SessionReviewScreen({
   });
   const count = attempts.length;
 
+  // Detect error cascade: tag with 3+ errors in this session
+  const errorsByTag = new Map<string, number>();
+  for (const a of wrongItems) {
+    errorsByTag.set(a.tag, (errorsByTag.get(a.tag) ?? 0) + 1);
+  }
+  const cascadeTag =
+    [...errorsByTag.entries()].find(([, n]) => n >= 3)?.[0] ?? null;
+
   return (
     <div className="app fade-in">
       <TopBar showHome onHome={() => go({ name: "home" })} hasRule />
@@ -363,6 +371,51 @@ export function SessionReviewScreen({
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Error cascade CTA */}
+        {cascadeTag && (
+          <div
+            style={{
+              marginTop: 28,
+              padding: "16px 20px",
+              background: "var(--paper-2)",
+              border: "1px solid var(--rule)",
+              borderRadius: "var(--r-md)",
+            }}
+          >
+            <p
+              className="eyebrow"
+              style={{ marginBottom: 6, color: "var(--bad)" }}
+            >
+              Struggling with this skill
+            </p>
+            <p
+              style={{ fontSize: 14, color: "var(--ink-2)", marginBottom: 14 }}
+            >
+              You missed{" "}
+              <strong style={{ color: "var(--ink)" }}>
+                {errorsByTag.get(cascadeTag)}
+              </strong>{" "}
+              items tagged{" "}
+              <span className="mono" style={{ fontSize: 13 }}>
+                {cascadeTag}
+              </span>
+              . A targeted practice session can help.
+            </p>
+            <Button
+              variant="primary"
+              onClick={() =>
+                go({
+                  name: "practiceSession",
+                  tagId: cascadeTag,
+                  tagName: cascadeTag.replace(/-/g, " "),
+                })
+              }
+            >
+              Practice this skill
+            </Button>
           </div>
         )}
 

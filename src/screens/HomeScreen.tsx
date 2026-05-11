@@ -7,8 +7,13 @@ import {
   IconArrowRight,
 } from "../components/icons";
 import { LEARNER } from "../data/mockData";
-import { isTauri, getCurrentUnitNumber, getUnitByN } from "../lib/tauri";
-import type { Screen } from "../types";
+import {
+  isTauri,
+  getCurrentUnitNumber,
+  getUnitByN,
+  getPendingSession,
+} from "../lib/tauri";
+import type { LocalAttempt, Screen } from "../types";
 
 interface HomeScreenProps {
   go: (screen: Screen) => void;
@@ -18,6 +23,9 @@ export function HomeScreen({ go }: HomeScreenProps) {
   const [currentUnitN, setCurrentUnitN] = useState(LEARNER.currentUnit.number);
   const [currentUnitName, setCurrentUnitName] = useState(
     LEARNER.currentUnit.name,
+  );
+  const [pendingSession, setPendingSession] = useState<LocalAttempt[] | null>(
+    null,
   );
 
   useEffect(() => {
@@ -31,6 +39,10 @@ export function HomeScreen({ go }: HomeScreenProps) {
         if (u) setCurrentUnitName(u.name);
       })
       .catch(() => {});
+
+    getPendingSession()
+      .then((attempts) => setPendingSession(attempts))
+      .catch(() => {});
   }, []);
 
   const u = LEARNER;
@@ -42,6 +54,35 @@ export function HomeScreen({ go }: HomeScreenProps) {
       <TopBar />
 
       <div className="container" style={{ paddingTop: 28, paddingBottom: 80 }}>
+        {/* Pending session banner */}
+        {pendingSession && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              background: "var(--paper-2)",
+              border: "1px solid var(--accent)",
+              borderRadius: "var(--r-md)",
+              padding: "12px 18px",
+              marginBottom: 16,
+              gap: 12,
+            }}
+          >
+            <p style={{ fontSize: 14, color: "var(--ink)", margin: 0 }}>
+              You have an unsubmitted session — review now
+            </p>
+            <Button
+              variant="primary"
+              onClick={() =>
+                go({ name: "sessionReview", attempts: pendingSession })
+              }
+            >
+              Review
+            </Button>
+          </div>
+        )}
+
         {/* Continue strip */}
         <button
           onClick={() => go({ name: "unitDetail", unitN: currentUnitN })}

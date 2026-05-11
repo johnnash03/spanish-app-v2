@@ -119,3 +119,24 @@ export async function assembleDpQueue(): Promise<
 export async function triggerDpGeneration(): Promise<void> {
   await invoke("trigger_dp_generation");
 }
+
+export async function getPendingSession(): Promise<
+  import("../types").LocalAttempt[] | null
+> {
+  const result = await invoke<
+    | {
+        itemId: string;
+        tag: string;
+        learnerAnswer: string;
+        source: string;
+      }[]
+    | null
+  >("get_pending_session");
+  if (!result) return null;
+  return result.map((r) => ({
+    itemId: r.itemId,
+    tag: r.tag,
+    learnerAnswer: r.learnerAnswer,
+    source: r.source,
+  }));
+}

@@ -47,6 +47,7 @@ pub fn run() {
             mastery::get_weak_tags,
             deliberate_practice::assemble_dp_queue,
             deliberate_practice::trigger_dp_generation,
+            session::get_pending_session,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -758,6 +758,70 @@ pub async fn evaluate_session(
     })
 }
 
+// ─── Pending session ──────────────────────────────────────────────────────────
+
+#[derive(Debug, Serialize)]
+pub struct PendingAttempt {
+    #[serde(rename = "itemId")]
+    pub item_id: String,
+    pub tag: String,
+    #[serde(rename = "learnerAnswer")]
+    pub learner_answer: String,
+    pub source: String,
+}
+
+fn get_pending_session_internal(
+    conn: &rusqlite::Connection,
+) -> rusqlite::Result<Option<Vec<PendingAttempt>>> {
+    let session_id: Option<String> = {
+        let mut stmt = conn.prepare(
+            "SELECT session_id FROM attempt_log
+             WHERE eval_state = 'unevaluated' AND session_id IS NOT NULL
+             ORDER BY timestamp DESC
+             LIMIT 1",
+        )?;
+        let mut rows = stmt.query([])?;
+        rows.next()?.map(|r| r.get(0)).transpose()?
+    };
+
+    let Some(sid) = session_id else {
+        return Ok(None);
+    };
+
+    let mut stmt = conn.prepare(
+        "SELECT a.item_id, a.tag, a.learner_answer, COALESCE(e.source, '') AS source
+         FROM attempt_log a
+         LEFT JOIN exercise_items e ON e.id = a.item_id
+         WHERE a.session_id = ?1 AND a.eval_state = 'unevaluated'
+         ORDER BY a.timestamp ASC",
+    )?;
+
+    let attempts: Vec<PendingAttempt> = stmt
+        .query_map([&sid], |row| {
+            Ok(PendingAttempt {
+                item_id: row.get(0)?,
+                tag: row.get(1)?,
+                learner_answer: row.get(2)?,
+                source: row.get(3)?,
+            })
+        })?
+        .collect::<rusqlite::Result<Vec<_>>>()?;
+
+    if attempts.is_empty() {
+        return Ok(None);
+    }
+
+    Ok(Some(attempts))
+}
+
+#[tauri::command]
+pub fn get_pending_session(
+    state: tauri::State<'_, crate::db::Db>,
+) -> Result<Option<Vec<PendingAttempt>>, String> {
+    let conn = state.0.lock().map_err(|e| e.to_string())?;
+    get_pending_session_internal(&conn).map_err(|e| e.to_string())
+}
+
 // ─── Tests ────────────────────────────────────────────────────────────────────
 
 #[cfg(test)]
@@ -1234,5 +1298,54 @@ mod tests {
             )
             .unwrap();
         assert_eq!(count, 1, "retry must not duplicate stacked tag rows");
+    }
+
+    #[test]
+    fn get_pending_session_returns_none_when_empty() {
+        let conn = in_memory();
+        let result = get_pending_session_internal(&conn).unwrap();
+        assert!(result.is_none());
+    }
+
+    #[test]
+    fn get_pending_session_returns_unevaluated_attempts() {
+        let conn = in_memory();
+        insert_item(&conn, "i1", "Yo ___ alto.", "Yo soy alto.", "ser-estar");
+        insert_item(&conn, "i2", "Ella ___ feliz.", "Ella está feliz.", "ser-estar");
+
+        let attempts = vec![
+            AttemptInput { item_id: "i1".into(), tag: "ser-estar".into(), learner_answer: "soy".into() },
+            AttemptInput { item_id: "i2".into(), tag: "ser-estar".into(), learner_answer: "está".into() },
+        ];
+        save_attempts_unevaluated(&conn, &attempts, "sess-pending").unwrap();
+
+        let result = get_pending_session_internal(&conn).unwrap();
+        assert!(result.is_some());
+        let pending = result.unwrap();
+        assert_eq!(pending.len(), 2);
+        assert_eq!(pending[0].item_id, "i1");
+        assert_eq!(pending[0].tag, "ser-estar");
+        assert_eq!(pending[0].learner_answer, "soy");
+        assert_eq!(pending[0].source, "Yo ___ alto.");
+    }
+
+    #[test]
+    fn get_pending_session_returns_none_after_evaluation() {
+        let conn = in_memory();
+        insert_item(&conn, "i1", "Yo ___ alto.", "Yo soy alto.", "ser-estar");
+
+        let attempts = vec![
+            AttemptInput { item_id: "i1".into(), tag: "ser-estar".into(), learner_answer: "soy".into() },
+        ];
+        save_attempts_unevaluated(&conn, &attempts, "sess-done").unwrap();
+
+        // Mark as evaluated
+        conn.execute(
+            "UPDATE attempt_log SET eval_state='evaluated' WHERE session_id='sess-done'",
+            [],
+        ).unwrap();
+
+        let result = get_pending_session_internal(&conn).unwrap();
+        assert!(result.is_none());
     }
 }
