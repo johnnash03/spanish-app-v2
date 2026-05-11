@@ -116,6 +116,21 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
         "ALTER TABLE vocab_words ADD COLUMN srs_ease_factor REAL NOT NULL DEFAULT 2.5",
     );
 
+    // v6: combined exercise pool.
+    conn.execute_batch(
+        "CREATE TABLE IF NOT EXISTS combined_exercises (
+            id           TEXT    PRIMARY KEY,
+            source       TEXT    NOT NULL,
+            canonical    TEXT    NOT NULL,
+            grammar_tags TEXT    NOT NULL DEFAULT '[]',
+            vocab_lemmas TEXT    NOT NULL DEFAULT '[]',
+            created_at   INTEGER NOT NULL,
+            served       INTEGER NOT NULL DEFAULT 0
+        );
+        CREATE INDEX IF NOT EXISTS idx_combined_exercises_served
+            ON combined_exercises(served, created_at);",
+    )?;
+
     seed_units(conn)?;
     seed_vocab(conn)
 }

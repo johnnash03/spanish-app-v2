@@ -1,3 +1,4 @@
+mod combined;
 mod db;
 mod deliberate_practice;
 mod generate;
@@ -57,6 +58,10 @@ pub fn run() {
             srs::get_due_vocab_cards,
             srs::get_vocab_session_cards,
             srs::record_vocab_review,
+            combined::get_combined_exercises,
+            combined::trigger_combined_replenishment,
+            combined::get_combined_pool_size,
+            combined::submit_combined_exercise_result,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
