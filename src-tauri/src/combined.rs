@@ -331,6 +331,10 @@ fn combined_uuid() -> String {
 
 // ─── Generation pipeline ──────────────────────────────────────────────────────
 
+use std::sync::atomic::{AtomicBool, Ordering};
+
+static GENERATION_RUNNING: AtomicBool = AtomicBool::new(false);
+
 use crate::db::Db;
 use async_openai::{
     config::OpenAIConfig,
@@ -344,9 +348,19 @@ use futures_util::StreamExt;
 use tauri::{AppHandle, Manager};
 
 async fn run_combined_generation(app: AppHandle) {
+    if GENERATION_RUNNING
+        .compare_exchange(false, true, Ordering::SeqCst, Ordering::SeqCst)
+        .is_err()
+    {
+        return;
+    }
+
     let api_key = match std::env::var("OPENAI_API_KEY") {
         Ok(k) => k,
-        Err(_) => return,
+        Err(_) => {
+            GENERATION_RUNNING.store(false, Ordering::SeqCst);
+            return;
+        }
     };
 
     // Load context from DB.
@@ -422,7 +436,10 @@ async fn run_combined_generation(app: AppHandle) {
                     }
                 }
             }
-            Err(_) => return,
+            Err(_) => {
+                GENERATION_RUNNING.store(false, Ordering::SeqCst);
+                return;
+            }
         }
     }
 
@@ -435,6 +452,8 @@ async fn run_combined_generation(app: AppHandle) {
             let _ = persist_combined_item(&conn, item);
         }
     }
+
+    GENERATION_RUNNING.store(false, Ordering::SeqCst);
 }
 
 // ─── Tauri commands ───────────────────────────────────────────────────────────
