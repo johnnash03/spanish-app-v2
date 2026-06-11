@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "grant": {
     "verb_forms": [],
     "vocab_verb_forms": [],
@@ -8,7 +8,8 @@
       "art.indef",
       "gender.agreement.basic",
       "plural.formation.basic",
-      "neg.no.preverbal"
+      "neg.no.preverbal",
+      "pron.subject.optional"
     ],
     "vocab": [
       "el",
@@ -22,7 +23,18 @@
       "y",
       "o",
       "no",
-      "sí"
+      "sí",
+      "también",
+      "yo",
+      "tú",
+      "él",
+      "ella",
+      "usted",
+      "nosotros",
+      "nosotras",
+      "ellos",
+      "ellas",
+      "ustedes"
     ]
   },
   "cognate_patterns": [

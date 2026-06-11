@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "verbs": [
     { "lemma": "ser", "english": "to be (essence)", "class": "irregular-core" },
     {
@@ -34,21 +34,93 @@
       "class": "irregular-core"
     },
     { "lemma": "venir", "english": "to come", "class": "irregular-core" },
+    { "lemma": "traer", "english": "to bring", "class": "irregular-core" },
+    {
+      "lemma": "salir",
+      "english": "to leave, to go out",
+      "class": "irregular-core"
+    },
+    { "lemma": "oír", "english": "to hear", "class": "irregular-core" },
+    { "lemma": "caer", "english": "to fall", "class": "irregular-core" },
     { "lemma": "querer", "english": "to want", "class": "irregular-core" },
     { "lemma": "hablar", "english": "to speak", "class": "regular-ar" },
+    { "lemma": "trabajar", "english": "to work", "class": "regular-ar" },
+    {
+      "lemma": "gustar",
+      "english": "to please (gustar-family pivot)",
+      "class": "regular-ar"
+    },
     { "lemma": "comer", "english": "to eat", "class": "regular-er" },
+    {
+      "lemma": "deber",
+      "english": "must, to owe (opener citizen)",
+      "class": "regular-er"
+    },
     { "lemma": "vivir", "english": "to live", "class": "regular-ir" },
+    {
+      "lemma": "escribir",
+      "english": "to write (irregular participle escrito)",
+      "class": "regular-ir"
+    },
     { "lemma": "buscar", "english": "to look for", "class": "spelling.-car" },
+    {
+      "lemma": "tocar",
+      "english": "to touch, to play (music)",
+      "class": "spelling.-car"
+    },
     { "lemma": "llegar", "english": "to arrive", "class": "spelling.-gar" },
-    { "lemma": "empezar", "english": "to begin", "class": "spelling.-zar" },
+    { "lemma": "pagar", "english": "to pay", "class": "spelling.-gar" },
+    {
+      "lemma": "empezar",
+      "english": "to begin (also e→ie)",
+      "class": "spelling.-zar"
+    },
     {
       "lemma": "conocer",
       "english": "to know (people, places)",
       "class": "spelling.-cer"
     },
+    {
+      "lemma": "traducir",
+      "english": "to translate (j-stem preterite)",
+      "class": "spelling.-cir"
+    },
+    {
+      "lemma": "elegir",
+      "english": "to choose (also e→i)",
+      "class": "spelling.-gir"
+    },
+    {
+      "lemma": "seguir",
+      "english": "to follow, to continue (also e→i)",
+      "class": "spelling.-guir"
+    },
+    { "lemma": "construir", "english": "to build", "class": "spelling.-uir" },
     { "lemma": "pensar", "english": "to think", "class": "stem.e-ie.ar" },
-    { "lemma": "volver", "english": "to return", "class": "stem.o-ue.er" },
+    {
+      "lemma": "entender",
+      "english": "to understand",
+      "class": "stem.e-ie.er"
+    },
+    { "lemma": "preferir", "english": "to prefer", "class": "stem.e-ie.ir" },
+    {
+      "lemma": "sentir",
+      "english": "to feel (reflexive sentirse)",
+      "class": "stem.e-ie.ir"
+    },
+    { "lemma": "encontrar", "english": "to find", "class": "stem.o-ue.ar" },
+    {
+      "lemma": "volver",
+      "english": "to return (irregular participle vuelto)",
+      "class": "stem.o-ue.er"
+    },
     { "lemma": "dormir", "english": "to sleep", "class": "stem.o-ue.ir" },
-    { "lemma": "pedir", "english": "to ask for", "class": "stem.e-i.ir" }
+    { "lemma": "pedir", "english": "to ask for", "class": "stem.e-i.ir" },
+    { "lemma": "servir", "english": "to serve", "class": "stem.e-i.ir" },
+    {
+      "lemma": "jugar",
+      "english": "to play (games; the only u→ue verb)",
+      "class": "stem.u-ue.ar"
+    }
   ]
 }
