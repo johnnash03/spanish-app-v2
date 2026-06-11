@@ -1,18 +1,20 @@
 import { useState } from "react";
 import "./App.css";
-import { HomeScreen } from "./screens/HomeScreen";
-import { UnitListScreen } from "./screens/UnitListScreen";
-import { UnitDetailScreen } from "./screens/UnitDetailScreen";
-import { SessionScreen } from "./screens/SessionScreen";
-import { SessionReviewScreen } from "./screens/SessionReviewScreen";
-import { PracticeEntryScreen } from "./screens/PracticeEntryScreen";
-import { PracticeSessionScreen } from "./screens/PracticeSessionScreen";
-import { PracticeReviewScreen } from "./screens/PracticeReviewScreen";
-import { VocabIntakeScreen } from "./screens/VocabIntakeScreen";
-import { VocabSessionScreen } from "./screens/VocabSessionScreen";
-import { VocabReviewScreen } from "./screens/VocabReviewScreen";
-import { CombinedSessionScreen } from "./screens/CombinedSessionScreen";
-import { CombinedReviewScreen } from "./screens/CombinedReviewScreen";
+// The legacy (v1) screens are the default UI until the v2 home lands
+// (S14, #45); they then demote to a Legacy menu entry. See PRD #31.
+import { HomeScreen } from "./screens/legacy/HomeScreen";
+import { UnitListScreen } from "./screens/legacy/UnitListScreen";
+import { UnitDetailScreen } from "./screens/legacy/UnitDetailScreen";
+import { SessionScreen } from "./screens/legacy/SessionScreen";
+import { SessionReviewScreen } from "./screens/legacy/SessionReviewScreen";
+import { PracticeEntryScreen } from "./screens/legacy/PracticeEntryScreen";
+import { PracticeSessionScreen } from "./screens/legacy/PracticeSessionScreen";
+import { PracticeReviewScreen } from "./screens/legacy/PracticeReviewScreen";
+import { VocabIntakeScreen } from "./screens/legacy/VocabIntakeScreen";
+import { VocabSessionScreen } from "./screens/legacy/VocabSessionScreen";
+import { VocabReviewScreen } from "./screens/legacy/VocabReviewScreen";
+import { CombinedSessionScreen } from "./screens/legacy/CombinedSessionScreen";
+import { CombinedReviewScreen } from "./screens/legacy/CombinedReviewScreen";
 import type { Screen } from "./types";
 
 function App() {

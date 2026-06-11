@@ -1,14 +1,8 @@
-mod combined;
-mod db;
-mod deliberate_practice;
-mod generate;
-mod mastery;
+mod legacy;
 mod openai;
-mod session;
-mod srs;
-mod units;
-mod vocab;
+mod v2;
 
+use legacy::{combined, db, deliberate_practice, generate, mastery, session, srs, units, vocab};
 use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -19,11 +13,23 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .setup(|app| {
-            let mut db_path = app.path().app_data_dir()?;
+            let data_dir = app.path().app_data_dir()?;
+
+            // Legacy v1 database — untouched schema, still serves the v1 UI
+            // until the v2 home lands (S14).
+            let mut db_path = data_dir.clone();
             db_path.push("spanish-app.db");
             let db = db::Db::open(&db_path)
                 .map_err(|e| format!("failed to open db at {:?}: {}", db_path, e))?;
             app.manage(db);
+
+            // V2 database — separate file, separate schema. Both DBs are live
+            // side by side for the duration of the strangler-fig rewrite.
+            let mut db_v2_path = data_dir;
+            db_v2_path.push("spanish-app-v2.db");
+            let db_v2 = v2::db::DbV2::open(&db_v2_path)
+                .map_err(|e| format!("failed to open v2 db at {:?}: {}", db_v2_path, e))?;
+            app.manage(db_v2);
 
             // App-open pre-warm disabled during testing — generate on visit only.
             // let app_handle = app.handle().clone();
@@ -35,6 +41,7 @@ pub fn run() {
         })
         .invoke_handler(tauri::generate_handler![
             db::db_health,
+            v2::db::db_v2_health,
             db::wipe_exercise_items,
             openai::openai_ping,
             generate::trigger_generation,

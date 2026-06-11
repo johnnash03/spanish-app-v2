@@ -1,0 +1,93 @@
+use rusqlite::Connection;
+use std::path::PathBuf;
+use std::sync::Mutex;
+
+/// The v2 database. A separate SQLite file from the legacy v1 database —
+/// the two coexist side by side and never share tables. V1 attempt history
+/// is deliberately not migrated (see PRD #31, Foundation): it lives on as
+/// committed fixtures, and v2 mastery starts clean.
+pub struct DbV2(pub Mutex<Connection>);
+
+impl DbV2 {
+    pub fn open(path: &PathBuf) -> rusqlite::Result<Self> {
+        if let Some(parent) = path.parent() {
+            std::fs::create_dir_all(parent).ok();
+        }
+        let conn = Connection::open(path)?;
+        run_migrations(&conn)?;
+        Ok(Self(Mutex::new(conn)))
+    }
+}
+
+fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
+    conn.execute_batch(
+        "
+        CREATE TABLE IF NOT EXISTS meta (
+            key   TEXT PRIMARY KEY,
+            value TEXT NOT NULL
+        );
+        INSERT OR IGNORE INTO meta (key, value) VALUES ('schema_version', '1');
+        ",
+    )
+}
+
+#[tauri::command]
+pub fn db_v2_health(state: tauri::State<'_, DbV2>) -> Result<String, String> {
+    let conn = state.0.lock().map_err(|e| e.to_string())?;
+    let version: String = conn
+        .query_row(
+            "SELECT value FROM meta WHERE key = 'schema_version'",
+            [],
+            |row| row.get(0),
+        )
+        .map_err(|e| e.to_string())?;
+    Ok(format!("ok: schema_version={}", version))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use rusqlite::params;
+
+    fn in_memory() -> Connection {
+        let conn = Connection::open_in_memory().unwrap();
+        run_migrations(&conn).unwrap();
+        conn
+    }
+
+    #[test]
+    fn migration_creates_meta_table_with_schema_version() {
+        let conn = in_memory();
+        let version: String = conn
+            .query_row(
+                "SELECT value FROM meta WHERE key = 'schema_version'",
+                params![],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(version, "1");
+    }
+
+    #[test]
+    fn migration_is_idempotent() {
+        let conn = in_memory();
+        run_migrations(&conn).unwrap();
+        let count: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM meta WHERE key = 'schema_version'",
+                params![],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(count, 1);
+    }
+
+    #[test]
+    fn open_creates_separate_file_from_v1() {
+        let dir = std::env::temp_dir().join(format!("v2-db-test-{}", std::process::id()));
+        let path = dir.join("spanish-app-v2.db");
+        let _db = DbV2::open(&path).unwrap();
+        assert!(path.exists(), "v2 db file must be created at its own path");
+        std::fs::remove_dir_all(&dir).ok();
+    }
+}

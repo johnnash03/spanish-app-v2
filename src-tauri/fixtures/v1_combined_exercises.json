@@ -1,0 +1,272 @@
+[
+  {
+    "id": "12d384e0-12d3-484e-84eb-6a254f0f88766660",
+    "source": "I want to see the movie.",
+    "canonical": "Quiero ver la película.",
+    "grammar_tags": "[\"opener.quiero\"]",
+    "vocab_lemmas": "[\"querer\",\"ver\",\"la\"]",
+    "created_at": 1778499605,
+    "served": 1
+  },
+  {
+    "id": "02cd7010-02cd-4701-b01b-154246e611c1f150",
+    "source": "Can you do it for me?",
+    "canonical": "¿Puedes hacerlo por mí?",
+    "grammar_tags": "[\"opener.puedo\",\"clitic.do.sg.attach\"]",
+    "vocab_lemmas": "[\"poder\",\"hacer\",\"lo\",\"por\"]",
+    "created_at": 1778499606,
+    "served": 1
+  },
+  {
+    "id": "006a27c8-006a-427c-a7c3-75b110272bca2368",
+    "source": "Why is it like this?",
+    "canonical": "¿Por qué es así?",
+    "grammar_tags": "[\"question.wh\"]",
+    "vocab_lemmas": "[\"por\",\"qué\",\"ser\",\"así\"]",
+    "created_at": 1778499607,
+    "served": 0
+  },
+  {
+    "id": "316d6d58-316d-46d5-ad53-573e476d52609838",
+    "source": "I have to know the truth.",
+    "canonical": "Tengo que saber la verdad.",
+    "grammar_tags": "[\"opener.tengo-que\"]",
+    "vocab_lemmas": "[\"tener\",\"que\",\"saber\",\"la\"]",
+    "created_at": 1778499607,
+    "served": 0
+  },
+  {
+    "id": "0f8b1488-0f8b-4148-9483-5928a3340baa8f28",
+    "source": "You are very nice.",
+    "canonical": "Eres muy amable.",
+    "grammar_tags": "[\"conj.pres.er.mixed\"]",
+    "vocab_lemmas": "[\"ser\",\"muy\"]",
+    "created_at": 1778499608,
+    "served": 0
+  },
+  {
+    "id": "1ecf96a8-1ecf-496a-96a3-7fa33a15f890bbc8",
+    "source": "When will you come?",
+    "canonical": "¿Cuándo vienes?",
+    "grammar_tags": "[\"question.wh\"]",
+    "vocab_lemmas": "[\"cuándo\"]",
+    "created_at": 1778499609,
+    "served": 0
+  },
+  {
+    "id": "1a063b40-1a06-43b4-bb4b-832bb0f07b5dc40",
+    "source": "I am going to do it.",
+    "canonical": "Voy a hacerlo.",
+    "grammar_tags": "[\"opener.voy-a\",\"clitic.do.sg.attach\"]",
+    "vocab_lemmas": "[\"ir\",\"hacer\",\"lo\"]",
+    "created_at": 1778499610,
+    "served": 0
+  },
+  {
+    "id": "23fe91b0-23fe-491b-91bb-54893b7eaf533370",
+    "source": "He can see everything.",
+    "canonical": "Puede ver todo.",
+    "grammar_tags": "[\"opener.puedo\"]",
+    "vocab_lemmas": "[\"poder\",\"ver\",\"todo\"]",
+    "created_at": 1778499611,
+    "served": 0
+  },
+  {
+    "id": "10457f30-1045-47f3-bf3b-96bdcfc2932eaef0",
+    "source": "Let's go to the park.",
+    "canonical": "Vamos al parque.",
+    "grammar_tags": "[\"conj.pres.ir.mixed\"]",
+    "vocab_lemmas": "[\"ir\",\"a\",\"el\"]",
+    "created_at": 1778499612,
+    "served": 0
+  },
+  {
+    "id": "09bf0e60-09bf-40e6-8e6b-b45561751f62ade0",
+    "source": "I need to talk to her.",
+    "canonical": "Necesito hablarle.",
+    "grammar_tags": "[\"clitic.io.before-finite\"]",
+    "vocab_lemmas": "[\"necesitar\",\"le\"]",
+    "created_at": 1778499613,
+    "served": 0
+  },
+  {
+    "id": "339a5b90-339a-45b9-9b9b-e56bd21de7a342d0",
+    "source": "What do you want to eat?",
+    "canonical": "¿Qué quieres comer?",
+    "grammar_tags": "[\"question.wh\",\"opener.quiero\"]",
+    "vocab_lemmas": "[\"qué\",\"querer\"]",
+    "created_at": 1778499613,
+    "served": 0
+  },
+  {
+    "id": "2274b978-2274-4b97-b973-bedae2b821956d8",
+    "source": "It is not possible.",
+    "canonical": "No es posible.",
+    "grammar_tags": "[\"lex.cognate.ible-able\"]",
+    "vocab_lemmas": "[\"no\",\"ser\"]",
+    "created_at": 1778499614,
+    "served": 0
+  },
+  {
+    "id": "173665e8-1736-465e-a5e3-9cdd0a2fcde2bc08",
+    "source": "We have to go now.",
+    "canonical": "Tenemos que ir ahora.",
+    "grammar_tags": "[\"opener.tengo-que\"]",
+    "vocab_lemmas": "[\"tener\",\"que\",\"ir\"]",
+    "created_at": 1778499615,
+    "served": 0
+  },
+  {
+    "id": "302eabc8-302e-4abc-abc3-50d8d7986ed8f768",
+    "source": "Do you know where he is?",
+    "canonical": "¿Sabes dónde está?",
+    "grammar_tags": "[\"question.wh\",\"question.embedded\"]",
+    "vocab_lemmas": "[\"saber\",\"dónde\",\"estar\"]",
+    "created_at": 1778499615,
+    "served": 0
+  },
+  {
+    "id": "11c360e8-11c3-460e-a0e3-39abc7d133075308",
+    "source": "I will tell you later.",
+    "canonical": "Te lo diré después.",
+    "grammar_tags": "[\"clitic.both.before-finite\"]",
+    "vocab_lemmas": "[\"decir\",\"te\",\"lo\"]",
+    "created_at": 1778499616,
+    "served": 0
+  },
+  {
+    "id": "37ec3920-37ec-4392-b92b-3263ddda654c2fa0",
+    "source": "Is she your friend?",
+    "canonical": "¿Es tu amiga?",
+    "grammar_tags": "[\"question.yes-no\"]",
+    "vocab_lemmas": "[\"ser\"]",
+    "created_at": 1778499616,
+    "served": 0
+  },
+  {
+    "id": "1074f788-1074-4f78-b783-53ecf9de06ce2e28",
+    "source": "There is a problem.",
+    "canonical": "Hay un problema.",
+    "grammar_tags": "[]",
+    "vocab_lemmas": "[\"un\"]",
+    "created_at": 1778499617,
+    "served": 0
+  },
+  {
+    "id": "2c24e358-2c24-4e35-a353-93f8076fdc954638",
+    "source": "She wants to know who it is.",
+    "canonical": "Quiere saber quién es.",
+    "grammar_tags": "[\"opener.quiero\",\"question.embedded\"]",
+    "vocab_lemmas": "[\"querer\",\"saber\",\"quién\",\"ser\"]",
+    "created_at": 1778499617,
+    "served": 0
+  },
+  {
+    "id": "08b704a0-08b7-404a-84ab-90274c0c1380e120",
+    "source": "I am going to prepare the food.",
+    "canonical": "Voy a preparar la comida.",
+    "grammar_tags": "[\"opener.voy-a\"]",
+    "vocab_lemmas": "[\"ir\",\"hacer\",\"la\"]",
+    "created_at": 1778499618,
+    "served": 0
+  },
+  {
+    "id": "24c99270-24c9-4927-927b-843c76ae8bd74330",
+    "source": "Can we do this together?",
+    "canonical": "¿Podemos hacer esto juntos?",
+    "grammar_tags": "[\"opener.puedo\"]",
+    "vocab_lemmas": "[\"poder\",\"hacer\"]",
+    "created_at": 1778499618,
+    "served": 0
+  },
+  {
+    "id": "39f10db8-39f1-40db-8db3-6e065389c29b4018",
+    "source": "He is my brother.",
+    "canonical": "Es mi hermano.",
+    "grammar_tags": "[]",
+    "vocab_lemmas": "[\"ser\",\"mi\"]",
+    "created_at": 1778499618,
+    "served": 0
+  },
+  {
+    "id": "1cbc5a90-1cbc-45a9-9a9b-2e254f5d34f12dd0",
+    "source": "Is it going to rain today?",
+    "canonical": "¿Va a llover hoy?",
+    "grammar_tags": "[\"opener.voy-a\",\"question.yes-no\"]",
+    "vocab_lemmas": "[\"ir\"]",
+    "created_at": 1778499619,
+    "served": 0
+  },
+  {
+    "id": "2c9187d8-2c91-487d-87d3-93f16d27922cc4b8",
+    "source": "I need to understand this.",
+    "canonical": "Necesito entender esto.",
+    "grammar_tags": "[]",
+    "vocab_lemmas": "[\"necesitar\"]",
+    "created_at": 1778499619,
+    "served": 0
+  },
+  {
+    "id": "06aa6008-06aa-4600-a003-ed8ba3e6cccdc0a8",
+    "source": "Can you help me?",
+    "canonical": "¿Puedes ayudarme?",
+    "grammar_tags": "[\"opener.puedo\",\"clitic.do.person.attach\"]",
+    "vocab_lemmas": "[\"poder\",\"me\"]",
+    "created_at": 1778499621,
+    "served": 0
+  },
+  {
+    "id": "2d0d89f0-2d0d-489f-89fb-cdf1f19e304c90b0",
+    "source": "I will do it tomorrow.",
+    "canonical": "Lo haré mañana.",
+    "grammar_tags": "[\"clitic.do.before-finite\"]",
+    "vocab_lemmas": "[\"hacer\",\"lo\"]",
+    "created_at": 1778499622,
+    "served": 0
+  },
+  {
+    "id": "1e864cf0-1e86-44cf-8cfb-40288b38dba88fb0",
+    "source": "I have to leave now.",
+    "canonical": "Tengo que irme ahora.",
+    "grammar_tags": "[\"opener.tengo-que\",\"clitic.do.person.attach\"]",
+    "vocab_lemmas": "[\"tener\",\"que\",\"ir\",\"me\"]",
+    "created_at": 1778499623,
+    "served": 0
+  },
+  {
+    "id": "070ad758-070a-4d75-9753-ce06a3f8bba24a38",
+    "source": "He is going to read the book.",
+    "canonical": "Va a leer el libro.",
+    "grammar_tags": "[\"opener.voy-a\"]",
+    "vocab_lemmas": "[\"ir\",\"el\"]",
+    "created_at": 1778499624,
+    "served": 0
+  },
+  {
+    "id": "2d980328-2d98-4032-8323-409bdd83208fa248",
+    "source": "I don't know why.",
+    "canonical": "No sé por qué.",
+    "grammar_tags": "[\"question.wh\"]",
+    "vocab_lemmas": "[\"no\",\"saber\",\"por\",\"qué\"]",
+    "created_at": 1778499624,
+    "served": 0
+  },
+  {
+    "id": "18adc3a8-18ad-4c3a-83a3-bc6a2ea917966cc8",
+    "source": "Do you have my book?",
+    "canonical": "¿Tienes mi libro?",
+    "grammar_tags": "[\"question.yes-no\"]",
+    "vocab_lemmas": "[\"tener\",\"mi\"]",
+    "created_at": 1778499625,
+    "served": 0
+  },
+  {
+    "id": "38609630-3860-4963-963b-65218a70a28b91f0",
+    "source": "I want to be here.",
+    "canonical": "Quiero estar aquí.",
+    "grammar_tags": "[\"opener.quiero\"]",
+    "vocab_lemmas": "[\"querer\",\"estar\",\"aquí\"]",
+    "created_at": 1778499625,
+    "served": 0
+  }
+]
