@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "grant": {
+    "verb_forms": [],
+    "vocab_verb_forms": [],
+    "constructions": [
+      "art.def",
+      "art.indef",
+      "gender.agreement.basic",
+      "plural.formation.basic",
+      "neg.no.preverbal"
+    ],
+    "vocab": [
+      "el",
+      "la",
+      "los",
+      "las",
+      "un",
+      "una",
+      "unos",
+      "unas",
+      "y",
+      "o",
+      "no",
+      "sí"
+    ]
+  },
+  "cognate_patterns": [
+    "cognate.al-ant-ent",
+    "cognate.tion",
+    "cognate.ible-able",
+    "cognate.ence-ity",
+    "cognate.ive-ary"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "curriculum_version": 1,
+  "units": [
+    {
+      "id": "opener.quiero",
+      "title": "Quiero + infinitive, affirmative",
+      "phase": 1,
+      "prereqs": [],
+      "grant": {
+        "verb_forms": [
+          { "lemma": "querer", "form": "pres.1sg", "surface": "quiero" }
+        ],
+        "vocab_verb_forms": [{ "form": "inf" }],
+        "constructions": ["opener.finite+inf"],
+        "vocab": ["esperar", "trabajar", "bailar", "cantar", "viajar"]
+      },
+      "note": "MOC v2 Phase 1, unit 1. Video: openers; notes: 'Quiero + infinitive'."
+    },
+    {
+      "id": "opener.quiero.neg",
+      "title": "Quiero + infinitive, negative",
+      "phase": 1,
+      "prereqs": ["opener.quiero"],
+      "grant": {
+        "constructions": ["neg.tampoco"],
+        "vocab": ["tampoco"]
+      },
+      "note": "MOC v2 Phase 1, unit 2. Applies ambient 'no' to the opener; adds tampoco."
+    },
+    {
+      "id": "opener.puedo",
+      "title": "Puedo + infinitive",
+      "phase": 1,
+      "prereqs": [],
+      "grant": {
+        "verb_forms": [
+          { "lemma": "poder", "form": "pres.1sg", "surface": "puedo" }
+        ],
+        "vocab": ["entrar", "descansar", "cocinar"]
+      },
+      "note": "MOC v2 Phase 1, unit 3. Video: openers; notes: 'Puedo + infinitive'."
+    },
+    {
+      "id": "opener.mixed",
+      "title": "Openers interleaved",
+      "phase": 1,
+      "prereqs": ["opener.quiero", "opener.quiero.neg", "opener.puedo"],
+      "grant": {},
+      "note": "MOC v2 Phase 1, unit 7 (sample subset). Pure interleave; grants nothing new."
+    },
+    {
+      "id": "clitic.do.sg.attach",
+      "title": "lo / la after the infinitive",
+      "phase": 2,
+      "prereqs": ["opener.quiero"],
+      "grant": {
+        "constructions": ["clitic.do.sg.attach-to-inf"],
+        "vocab": ["invitar", "visitar", "comprar"]
+      },
+      "note": "MOC v2 Phase 2, unit 8. Video: object pronouns; notes: 'lo/la attached'."
+    }
+  ]
+}

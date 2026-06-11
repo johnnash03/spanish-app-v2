@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "notes": [
+    {
+      "id": "cognate.al-ant-ent",
+      "pattern": "-al stays; -ant/-ent → -ante/-ente",
+      "description": "English adjectives in -al carry over unchanged; -ant/-ent words add a final -e.",
+      "examples": [
+        { "en": "personal", "es": "personal" },
+        { "en": "important", "es": "importante" },
+        { "en": "different", "es": "diferente" }
+      ]
+    },
+    {
+      "id": "cognate.tion",
+      "pattern": "-tion → -ción",
+      "description": "English -tion nouns become -ción and are feminine; many pair with an -ar verb (organización / organizar).",
+      "examples": [
+        { "en": "information", "es": "información" },
+        { "en": "organization", "es": "organización" },
+        { "en": "preparation", "es": "preparación" }
+      ]
+    },
+    {
+      "id": "cognate.ible-able",
+      "pattern": "-ible/-able stays",
+      "description": "English -ible/-able adjectives carry over essentially unchanged.",
+      "examples": [
+        { "en": "possible", "es": "posible" },
+        { "en": "inevitable", "es": "inevitable" },
+        { "en": "comparable", "es": "comparable" }
+      ]
+    },
+    {
+      "id": "cognate.ence-ity",
+      "pattern": "-ence → -encia; -ity → -idad",
+      "description": "English -ence nouns become -encia; -ity nouns become -idad. Both are feminine.",
+      "examples": [
+        { "en": "difference", "es": "diferencia" },
+        { "en": "influence", "es": "influencia" },
+        { "en": "possibility", "es": "posibilidad" },
+        { "en": "university", "es": "universidad" }
+      ]
+    },
+    {
+      "id": "cognate.ive-ary",
+      "pattern": "-ive → -ivo; -ary → -ario",
+      "description": "English -ive adjectives become -ivo/-iva; -ary words become -ario/-aria.",
+      "examples": [
+        { "en": "positive", "es": "positivo" },
+        { "en": "creative", "es": "creativo" },
+        { "en": "necessary", "es": "necesario" }
+      ]
+    }
+  ]
+}

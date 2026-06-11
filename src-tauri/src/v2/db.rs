@@ -19,7 +19,7 @@ impl DbV2 {
     }
 }
 
-fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
+pub fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
     conn.execute_batch(
         "
         CREATE TABLE IF NOT EXISTS meta (
@@ -28,7 +28,42 @@ fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
         );
         INSERT OR IGNORE INTO meta (key, value) VALUES ('schema_version', '1');
         ",
-    )
+    )?;
+
+    let version: i64 = conn.query_row(
+        "SELECT CAST(value AS INTEGER) FROM meta WHERE key = 'schema_version'",
+        [],
+        |row| row.get(0),
+    )?;
+
+    // v2 (S2, #33): curriculum storage. Licensing sets are stored, versioned,
+    // inspectable; rows are rewritten from the validated load on every startup.
+    if version < 2 {
+        conn.execute_batch(
+            "
+            CREATE TABLE IF NOT EXISTS curriculum_artifacts (
+                kind    TEXT PRIMARY KEY,
+                version INTEGER NOT NULL,
+                json    TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS curriculum_units (
+                id       TEXT PRIMARY KEY,
+                position INTEGER NOT NULL,
+                phase    INTEGER NOT NULL,
+                title    TEXT NOT NULL,
+                json     TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS licensing_sets (
+                unit_id            TEXT PRIMARY KEY,
+                curriculum_version INTEGER NOT NULL,
+                ambient_version    INTEGER NOT NULL,
+                json               TEXT NOT NULL
+            );
+            UPDATE meta SET value = '2' WHERE key = 'schema_version';
+            ",
+        )?;
+    }
+    Ok(())
 }
 
 #[tauri::command]
@@ -65,7 +100,22 @@ mod tests {
                 |r| r.get(0),
             )
             .unwrap();
-        assert_eq!(version, "1");
+        assert_eq!(version, "2");
+    }
+
+    #[test]
+    fn migration_v2_creates_curriculum_tables() {
+        let conn = in_memory();
+        for table in ["curriculum_artifacts", "curriculum_units", "licensing_sets"] {
+            let count: i64 = conn
+                .query_row(
+                    "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = ?1",
+                    params![table],
+                    |r| r.get(0),
+                )
+                .unwrap();
+            assert_eq!(count, 1, "missing table {table}");
+        }
     }
 
     #[test]

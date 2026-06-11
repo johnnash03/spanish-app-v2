@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "verbs": [
+    { "lemma": "ser", "english": "to be (essence)", "class": "irregular-core" },
+    {
+      "lemma": "estar",
+      "english": "to be (state/location)",
+      "class": "irregular-core"
+    },
+    { "lemma": "tener", "english": "to have", "class": "irregular-core" },
+    {
+      "lemma": "hacer",
+      "english": "to do, to make",
+      "class": "irregular-core"
+    },
+    { "lemma": "ir", "english": "to go", "class": "irregular-core" },
+    { "lemma": "ver", "english": "to see", "class": "irregular-core" },
+    { "lemma": "poder", "english": "to be able to", "class": "irregular-core" },
+    { "lemma": "dar", "english": "to give", "class": "irregular-core" },
+    {
+      "lemma": "saber",
+      "english": "to know (facts, how-to)",
+      "class": "irregular-core"
+    },
+    { "lemma": "poner", "english": "to put", "class": "irregular-core" },
+    {
+      "lemma": "decir",
+      "english": "to say, to tell",
+      "class": "irregular-core"
+    },
+    {
+      "lemma": "haber",
+      "english": "to have (auxiliary)",
+      "class": "irregular-core"
+    },
+    { "lemma": "venir", "english": "to come", "class": "irregular-core" },
+    { "lemma": "querer", "english": "to want", "class": "irregular-core" },
+    { "lemma": "hablar", "english": "to speak", "class": "regular-ar" },
+    { "lemma": "comer", "english": "to eat", "class": "regular-er" },
+    { "lemma": "vivir", "english": "to live", "class": "regular-ir" },
+    { "lemma": "buscar", "english": "to look for", "class": "spelling.-car" },
+    { "lemma": "llegar", "english": "to arrive", "class": "spelling.-gar" },
+    { "lemma": "empezar", "english": "to begin", "class": "spelling.-zar" },
+    {
+      "lemma": "conocer",
+      "english": "to know (people, places)",
+      "class": "spelling.-cer"
+    },
+    { "lemma": "pensar", "english": "to think", "class": "stem.e-ie.ar" },
+    { "lemma": "volver", "english": "to return", "class": "stem.o-ue.er" },
+    { "lemma": "dormir", "english": "to sleep", "class": "stem.o-ue.ir" },
+    { "lemma": "pedir", "english": "to ask for", "class": "stem.e-i.ir" }
+  ]
+}

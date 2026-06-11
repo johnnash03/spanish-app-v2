@@ -1,6 +1,8 @@
 mod legacy;
 mod openai;
-mod v2;
+// Public so dev binaries (`cargo run --bin dump_licensing`) can reuse the
+// curriculum loader.
+pub mod v2;
 
 use legacy::{combined, db, deliberate_practice, generate, mastery, session, srs, units, vocab};
 use tauri::Manager;
@@ -29,6 +31,21 @@ pub fn run() {
             db_v2_path.push("spanish-app-v2.db");
             let db_v2 = v2::db::DbV2::open(&db_v2_path)
                 .map_err(|e| format!("failed to open v2 db at {:?}: {}", db_v2_path, e))?;
+
+            // Load and validate the v2 curriculum. A validation failure
+            // (DAG cycle, non-monotonic licensing, bad reference) is fatal
+            // by design: guarantees live in code, and the app must not run
+            // on a curriculum that fails them.
+            let curriculum = v2::curriculum::load_embedded()
+                .map_err(|e| format!("v2 curriculum failed validation: {}", e))?;
+            {
+                let mut conn = db_v2.0.lock().map_err(|e| e.to_string())?;
+                v2::curriculum::store::persist(&mut conn, &curriculum)
+                    .map_err(|e| format!("failed to persist v2 curriculum: {}", e))?;
+            }
+            app.manage(v2::curriculum::CurriculumState(std::sync::Arc::new(
+                curriculum,
+            )));
             app.manage(db_v2);
 
             // App-open pre-warm disabled during testing — generate on visit only.
@@ -42,6 +59,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             db::db_health,
             v2::db::db_v2_health,
+            v2::curriculum::dump_effective_licensing,
             db::wipe_exercise_items,
             openai::openai_ping,
             generate::trigger_generation,
