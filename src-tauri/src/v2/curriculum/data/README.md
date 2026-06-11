@@ -23,8 +23,12 @@ sentences with no hidden leaks:
   from unit 1; tampoco waits for `opener.quiero.neg`.
 - **Subject pronouns** — yo/tú/él/ella/usted/nosotros/nosotras/ellos/ellas/
   ustedes, plus `pron.subject.optional` (subjects are dropped by default,
-  used for emphasis or disambiguation — Language Transfer lesson 5). The
-  pronouns are inert until a unit licenses a matching verb form.
+  used for emphasis or disambiguation). Day-0 because pro-drop and
+  pronoun choice are properties of every Spanish sentence, not a skill any
+  one unit teaches — and the validator needs them licensed wherever a
+  third-person item ("**He** wants to visit me") would otherwise be
+  ambiguous. The pronouns are inert until a unit licenses a matching verb
+  form.
 - **Particles** — y, o, sí, también.
 - **Cognate patterns** — the five v1 patterns as pattern references
   (`cognate.*`), never drill units or stacking tags. They license the
@@ -33,11 +37,14 @@ sentences with no hidden leaks:
 
 **Deliberate exclusions** (review these at sign-off):
 
-- **No verb forms.** Not even `es`, although Language Transfer teaches "Es
-  ilegal" in lesson 2. The PRD's ambient enumeration has no verbs, and ser
-  is curriculum material (MOC Phase 11). If day-0 "es + cognate adjective"
-  sentences are wanted, `es` should be an explicit ambient grant — flagged
-  as an open question below.
+- **No verb forms.** Not even `es`. The PRD's ambient enumeration has no
+  verbs, and ser is curriculum material (MOC Phase 11) — an ambient `es`
+  would put copula sentences in every unit's licensed space before ser is
+  ever drilled, diluting the guarantee that exercises only demand taught
+  grammar. The cost is that day-0 sentences are opener-shaped only; if
+  "es + cognate adjective" sentences turn out to be needed for exercise
+  variety, `es` should become an explicit ambient grant — flagged as an
+  open question below.
 - **No content words.** Content vocabulary comes from unit seed grants and
   the learner's window, never from the ambient set.
 
@@ -109,8 +116,10 @@ additive:
 1. **Openers are chained** (quiero → puedo → debo → tengo-que → voy-a)
    where the MOC lists units 3–6 with no prereqs. Parallel openers could
    not share the infinitive slot or each other's seed verbs (e.g. "I have
-   to **leave**" needs salir, granted by `opener.puedo`). Matches the
-   Language Transfer teaching order.
+   to **leave**" needs salir, granted by `opener.puedo`) — under the
+   one-granting-source rule, shared material requires a shared ancestor
+   path. Chaining is the cheapest structure that provides it, and later
+   openers re-rep earlier verbs for free.
 2. **`opener.mixed` requires `opener.quiero.neg`** (MOC lists 1,3,4,5,6) so
    negative items mix into the interleave.
 3. **Clitic and question phases hang off `opener.mixed`** (MOC hangs unit 8
@@ -129,8 +138,8 @@ This is your curriculum. Review and record sign-off (or change requests) on
 issue #34:
 
 - [ ] Ambient set: agree verbs stay out day-0? (Open question: license
-      ambient `es` for "Es normal"-type sentences, per Language Transfer
-      lesson 2?)
+      ambient `es` so "Es normal"-type sentences are available for exercise
+      variety before MOC Phase 11, at the cost of un-drilled copula use?)
 - [ ] Ambient set: subject-pronoun list and particles (y, o, sí, también)
       feel right as day-0 material?
 - [ ] Power verbs: 45 lemmas — any you'd swap? (e.g. tocar↔sacar,
