@@ -177,7 +177,7 @@ mod tests {
         let c = curriculum::load_embedded().unwrap();
         assert_eq!(
             next_unit_id(&c, "opener.quiero").as_deref(),
-            Some("opener.quiero.neg")
+            Some("opener.tampoco")
         );
         assert_eq!(
             next_unit_id(&c, "opener.mixed").as_deref(),

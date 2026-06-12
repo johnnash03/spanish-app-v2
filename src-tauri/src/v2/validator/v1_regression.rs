@@ -27,7 +27,8 @@ struct Fixture {
 #[derive(Deserialize)]
 struct AnalyzedV1Item {
     item_id: String,
-    /// The v1 bank tag; identical to the v2 unit id for these two units.
+    /// The v1 bank tag ("opener.quiero" / "opener.quiero.neg"); mapped to
+    /// a v2 unit by [`v2_unit_for`].
     primary_tag: String,
     source: String,
     canonical: String,
@@ -38,12 +39,24 @@ fn fixture() -> Fixture {
     serde_json::from_str(ANALYSES_JSON).expect("committed analyses fixture parses")
 }
 
+/// The v2 unit an archived v1 bank tag maps to. V1's "negative" unit
+/// predates the curriculum reshape that folded plain preverbal `no` into
+/// unit 1's mixed polarity (the v2 unit 2, opener.tampoco, drills tampoco
+/// — which v1 never served); its items are unit-1-class under v2.
+fn v2_unit_for(v1_tag: &str) -> &str {
+    match v1_tag {
+        "opener.quiero.neg" => "opener.quiero",
+        other => other,
+    }
+}
+
 /// Judges one archived v1 item against its unit's v2 licensing, exactly as
 /// the generation gate would: empty window, empty bank, no slot spec.
 fn judge_v1(item: &AnalyzedV1Item) -> Vec<Violation> {
     let c = curriculum::load_embedded().unwrap();
     let registry = c.construction_registry();
     let window = BTreeSet::new();
+    let unit_id = v2_unit_for(&item.primary_tag);
     judge(
         &CandidateItem {
             source: item.source.clone(),
@@ -51,8 +64,8 @@ fn judge_v1(item: &AnalyzedV1Item) -> Vec<Violation> {
         },
         &item.analysis,
         &JudgeContext {
-            licensing: c.effective_licensing(&item.primary_tag).unwrap(),
-            target: c.target_spec(&item.primary_tag).unwrap(),
+            licensing: c.effective_licensing(unit_id).unwrap(),
+            target: c.target_spec(unit_id).unwrap(),
             construction_registry: &registry,
             window: &window,
             existing: &[],

@@ -1,9 +1,9 @@
 {
-  "curriculum_version": 2,
+  "curriculum_version": 3,
   "units": [
     {
       "id": "opener.quiero",
-      "title": "Quiero + infinitive, affirmative",
+      "title": "Quiero + infinitive",
       "phase": 1,
       "prereqs": [],
       "grant": {
@@ -41,21 +41,18 @@
         ]
       },
       "target": [["form:querer@pres.1sg"]],
-      "note": "MOC v2 Phase 1, unit 1. Grants the open infinitive slot for vocab verbs; power-verb infinitives are enumerated individually."
+      "note": "MOC v2 Phase 1, unit 1. Grants the open infinitive slot for vocab verbs; power-verb infinitives are enumerated individually. Mixed polarity from day one: preverbal 'no' is ambient and is never drilled as a separate unit."
     },
     {
-      "id": "opener.quiero.neg",
-      "title": "Quiero + infinitive, negative",
+      "id": "opener.tampoco",
+      "title": "Tampoco",
       "phase": 1,
       "prereqs": ["opener.quiero"],
       "grant": {
         "constructions": ["neg.tampoco"]
       },
-      "target": [
-        ["construction:neg.no.preverbal", "construction:neg.tampoco"],
-        ["form:querer@pres.1sg"]
-      ],
-      "note": "MOC v2 Phase 1, unit 2. Applies ambient preverbal 'no' to the opener; adds tampoco ('I don't want to either')."
+      "target": [["construction:neg.tampoco"]],
+      "note": "MOC v2 Phase 1, unit 2. Tampoco ('not either') as the negative echo of the opener ('I don't want to dance either'). Every item must use tampoco; plain preverbal 'no' is ambient, varies in every unit's polarity, and is not drilled separately."
     },
     {
       "id": "opener.puedo",
@@ -155,7 +152,7 @@
       "id": "opener.mixed",
       "title": "Openers interleaved",
       "phase": 1,
-      "prereqs": ["opener.quiero.neg", "opener.voy-a"],
+      "prereqs": ["opener.tampoco", "opener.voy-a"],
       "grant": {},
       "target": [
         [
@@ -166,7 +163,7 @@
           "form:ir@pres.1sg"
         ]
       ],
-      "note": "MOC v2 Phase 1, unit 7. Pure interleave; grants nothing new. Includes unit 2 so negative items mix in."
+      "note": "MOC v2 Phase 1, unit 7. Pure interleave; grants nothing new. Includes unit 2 so tampoco items mix in."
     },
     {
       "id": "clitic.do.sg.attach",

@@ -134,6 +134,14 @@ pub fn plan_bank(
             |a| matches!(a, TargetAtom::Construction(t) if t.starts_with("question.")),
         )
     });
+    // Likewise, a unit targeting a negation construction (tampoco) can
+    // only be exercised by negative sentences — an affirmative slot there
+    // would contradict the target and never validate.
+    let target_is_negation = c.target_spec(unit_id).is_some_and(|spec| {
+        spec.groups.iter().flatten().any(
+            |a| matches!(a, TargetAtom::Construction(t) if t.starts_with("neg.")),
+        )
+    });
 
     let stack_pool = stack_pool(c, unit_id);
 
@@ -181,7 +189,7 @@ pub fn plan_bank(
 
         let spec = SlotSpec {
             person: (!persons.is_empty()).then(|| persons[idx % persons.len()].to_string()),
-            polarity: Some(if negation_licensed && idx % 3 == 2 {
+            polarity: Some(if target_is_negation || (negation_licensed && idx % 3 == 2) {
                 Polarity::Negative
             } else {
                 Polarity::Affirmative
@@ -300,7 +308,8 @@ mod tests {
             assert!(p.legal_window.is_empty());
             assert!(p.spec.required_lemma.is_none());
         }
-        // Negation is ambient-licensed, so polarity still varies.
+        // Negation is ambient-licensed, so polarity varies from unit 1
+        // (no affirmative-only beat exists; tampoco is unit 2's target).
         assert!(plans.iter().any(|p| p.spec.polarity == Some(Polarity::Negative)));
         assert!(plans.iter().any(|p| p.spec.polarity == Some(Polarity::Affirmative)));
         // esperar is licensed unit-1 vocab — its two senses get scheduled.
@@ -320,6 +329,18 @@ mod tests {
             plans.iter().filter_map(|p| p.spec.person.as_deref()).collect();
         assert!(persons.contains("2sg"), "tú forms are the unit's grant");
         assert!(persons.len() >= 2, "person must vary, got {persons:?}");
+    }
+
+    #[test]
+    fn negation_target_unit_plans_only_negative_slots() {
+        // opener.tampoco targets a negation construction; an affirmative
+        // slot there could never validate (the target demands tampoco in
+        // every item), so the planner pins polarity.
+        let c = curriculum::load_embedded().unwrap();
+        let plans = plan_bank(&c, "opener.tampoco", &LearnerSnapshot::default(), 9).unwrap();
+        assert!(plans
+            .iter()
+            .all(|p| p.spec.polarity == Some(Polarity::Negative)));
     }
 
     #[test]

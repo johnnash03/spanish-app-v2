@@ -489,27 +489,30 @@ mod tests {
     // --- target skill ---
 
     #[test]
-    fn negation_unit_accepts_plain_no_and_tampoco_items() {
-        // opener.quiero.neg targets (neg.no.preverbal ∨ neg.tampoco) ∧
-        // quiero — the case a single own-grant rule cannot express.
-        let mut no_item = quiero_comer();
-        no_item.constructions.push("neg.no.preverbal".into());
-        assert!(judge_unit("opener.quiero.neg", "No quiero comer.", &no_item).is_empty());
-
+    fn tampoco_unit_requires_tampoco_not_just_any_negation() {
         let mut tampoco_item = quiero_comer();
         tampoco_item.constructions.push("neg.tampoco".into());
-        assert!(
-            judge_unit("opener.quiero.neg", "Tampoco quiero comer.", &tampoco_item).is_empty()
-        );
+        assert!(judge_unit("opener.tampoco", "Tampoco quiero comer.", &tampoco_item).is_empty());
 
-        // An affirmative item is licensed there but off target.
-        let affirmative = quiero_comer();
-        let violations = judge_unit("opener.quiero.neg", "Quiero comer.", &affirmative);
+        // Plain preverbal `no` is ambient-licensed but off target here —
+        // mixed-polarity practice of it lives in every other unit.
+        let mut no_item = quiero_comer();
+        no_item.constructions.push("neg.no.preverbal".into());
+        let violations = judge_unit("opener.tampoco", "No quiero comer.", &no_item);
         assert_eq!(violations.len(), 1);
         assert!(matches!(
             &violations[0],
             Violation::TargetSkillNotExercised { target_skill, unmet }
-                if target_skill == "opener.quiero.neg" && unmet.len() == 2
+                if target_skill == "opener.tampoco" && unmet.len() == 1
+        ));
+
+        // As is an affirmative item.
+        let affirmative = quiero_comer();
+        let violations = judge_unit("opener.tampoco", "Quiero comer.", &affirmative);
+        assert!(matches!(
+            &violations[0],
+            Violation::TargetSkillNotExercised { target_skill, .. }
+                if target_skill == "opener.tampoco"
         ));
     }
 
@@ -614,20 +617,22 @@ mod tests {
 
     #[test]
     fn flags_stacked_skill_the_sentence_does_not_exercise() {
-        // Spec asked for opener.quiero.neg stacked on top; the produced
-        // sentence is affirmative, so the stack is missing.
+        // Spec asked for opener.tampoco stacked on top; the produced
+        // sentence has no tampoco, so the stack is missing. Judged inside
+        // opener.mixed, which inherits the tampoco grant — stacking only
+        // ever draws from ancestors, so the stack is always licensed.
         let c = curriculum::load_embedded().unwrap();
         let registry = c.construction_registry();
         let window = BTreeSet::new();
         let stacked = vec![(
-            "opener.quiero.neg".to_string(),
-            c.target_spec("opener.quiero.neg").unwrap().clone(),
+            "opener.tampoco".to_string(),
+            c.target_spec("opener.tampoco").unwrap().clone(),
         )];
         let violations = judge(
             &item("Quiero comer."),
             &quiero_comer(),
             &JudgeContext {
-                licensing: c.effective_licensing("opener.puedo").unwrap(),
+                licensing: c.effective_licensing("opener.mixed").unwrap(),
                 target: c.target_spec("opener.quiero").unwrap(),
                 construction_registry: &registry,
                 window: &window,
@@ -639,17 +644,17 @@ mod tests {
         assert!(violations.iter().any(|v| matches!(
             v,
             Violation::StackedSkillNotExercised { skill, unmet }
-                if skill == "opener.quiero.neg" && !unmet.is_empty()
+                if skill == "opener.tampoco" && !unmet.is_empty()
         )));
 
-        // A negated sentence satisfies both the target and the stack.
+        // A tampoco sentence satisfies both the target and the stack.
         let mut negated = quiero_comer();
-        negated.constructions.push("neg.no.preverbal".into());
+        negated.constructions.push("neg.tampoco".into());
         let clean = judge(
-            &item("No quiero comer."),
+            &item("Tampoco quiero comer."),
             &negated,
             &JudgeContext {
-                licensing: c.effective_licensing("opener.puedo").unwrap(),
+                licensing: c.effective_licensing("opener.mixed").unwrap(),
                 target: c.target_spec("opener.quiero").unwrap(),
                 construction_registry: &registry,
                 window: &window,

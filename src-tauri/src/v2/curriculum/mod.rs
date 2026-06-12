@@ -136,7 +136,7 @@ mod tests {
         let c = load_embedded().unwrap();
         let expected: [(&str, u32); 18] = [
             ("opener.quiero", 1),
-            ("opener.quiero.neg", 1),
+            ("opener.tampoco", 1),
             ("opener.puedo", 1),
             ("opener.debo", 1),
             ("opener.tengo-que", 1),
@@ -348,20 +348,17 @@ mod tests {
     }
 
     #[test]
-    fn s4_negation_unit_targets_negation_and_the_opener() {
-        // The case the grant-derived default cannot express: the unit's own
-        // grant is only tampoco, but its skill is negating the opener —
-        // plain `No quiero…` items must satisfy the target.
+    fn s4_tampoco_unit_targets_tampoco_only() {
+        // Plain preverbal `no` is ambient and mixes into every unit's
+        // polarity, so the negation beat that is actually new — and
+        // therefore targeted — is tampoco. `No quiero…` items belong to
+        // unit 1.
         use crate::v2::curriculum::types::TargetAtom;
         let c = load_embedded().unwrap();
-        let spec = c.target_spec("opener.quiero.neg").unwrap();
-        assert_eq!(spec.groups.len(), 2);
-        assert!(spec.groups[0]
-            .contains(&TargetAtom::Construction("neg.no.preverbal".into())));
-        assert!(spec.groups[0].contains(&TargetAtom::Construction("neg.tampoco".into())));
+        let spec = c.target_spec("opener.tampoco").unwrap();
         assert_eq!(
-            spec.groups[1],
-            vec![TargetAtom::Form { lemma: "querer".into(), form: "pres.1sg".into() }]
+            spec.groups,
+            vec![vec![TargetAtom::Construction("neg.tampoco".into())]]
         );
     }
 
