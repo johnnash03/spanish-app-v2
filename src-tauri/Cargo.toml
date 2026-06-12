@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "Spanish learning app"
 authors = ["arpan"]
 edition = "2021"
+# Dev binaries (analyze_v1_unit1, dump_licensing, generate_unit) make bare
+# `cargo run` ambiguous without this.
+default-run = "spanish-app"
 
 [lib]
 name = "spanish_app_lib"
