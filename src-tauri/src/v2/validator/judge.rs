@@ -29,6 +29,10 @@ pub struct JudgeContext<'a> {
     pub existing: &'a [ExistingItem],
     /// The slot spec this item was generated against, if any.
     pub slot: Option<&'a SlotSpec>,
+    /// Resolved target specs of the skills this item was asked to stack
+    /// (skill id → spec, resolved by the pipeline from the curriculum).
+    /// Each must be exercised, exactly like the unit's own target.
+    pub stacked_targets: &'a [(String, TargetSpec)],
 }
 
 /// Judges one analyzed item. An empty result is a pass; otherwise every
@@ -81,6 +85,17 @@ pub fn judge(item: &CandidateItem, analysis: &ItemAnalysis, ctx: &JudgeContext) 
                 target_skill: ctx.licensing.unit_id.clone(),
                 unmet: group.iter().map(render_atom).collect(),
             });
+        }
+    }
+
+    for (skill, spec) in ctx.stacked_targets {
+        for group in &spec.groups {
+            if !group.iter().any(|atom| atom_satisfied(atom, analysis)) {
+                violations.push(Violation::StackedSkillNotExercised {
+                    skill: skill.clone(),
+                    unmet: group.iter().map(render_atom).collect(),
+                });
+            }
         }
     }
 
@@ -231,6 +246,16 @@ fn check_slot(
         }
     }
 
+    if let Some(lemma) = &slot.required_lemma {
+        let appears = analysis.content_lemmas.contains(lemma)
+            || analysis.verb_forms.iter().any(|vf| &vf.lemma == lemma);
+        if !appears {
+            violations.push(Violation::ScheduledWordMissing {
+                lemma: lemma.clone(),
+            });
+        }
+    }
+
     if let Some(sentence_type) = slot.sentence_type {
         let question = item.canonical.contains('¿') || item.canonical.contains('?');
         let found = if question {
@@ -289,6 +314,7 @@ mod tests {
                 window,
                 existing,
                 slot,
+                stacked_targets: &[],
             },
         )
     }
@@ -541,6 +567,7 @@ mod tests {
             person: Some("3sg".into()),
             polarity: Some(Polarity::Negative),
             sentence_type: Some(SentenceType::Question),
+            ..Default::default()
         };
         // "Quiero comer." — 1sg, affirmative, declarative: misses all three.
         let violations = judge_full(
@@ -569,6 +596,7 @@ mod tests {
             person: Some("1sg".into()),
             polarity: Some(Polarity::Affirmative),
             sentence_type: Some(SentenceType::Declarative),
+            ..Default::default()
         };
         assert!(judge_full(
             &c,
@@ -576,6 +604,124 @@ mod tests {
             "Quiero comer.",
             &quiero_comer(),
             &BTreeSet::new(),
+            &[],
+            Some(&slot),
+        )
+        .is_empty());
+    }
+
+    // --- stacked skills (S5) ---
+
+    #[test]
+    fn flags_stacked_skill_the_sentence_does_not_exercise() {
+        // Spec asked for opener.quiero.neg stacked on top; the produced
+        // sentence is affirmative, so the stack is missing.
+        let c = curriculum::load_embedded().unwrap();
+        let registry = c.construction_registry();
+        let window = BTreeSet::new();
+        let stacked = vec![(
+            "opener.quiero.neg".to_string(),
+            c.target_spec("opener.quiero.neg").unwrap().clone(),
+        )];
+        let violations = judge(
+            &item("Quiero comer."),
+            &quiero_comer(),
+            &JudgeContext {
+                licensing: c.effective_licensing("opener.puedo").unwrap(),
+                target: c.target_spec("opener.quiero").unwrap(),
+                construction_registry: &registry,
+                window: &window,
+                existing: &[],
+                slot: None,
+                stacked_targets: &stacked,
+            },
+        );
+        assert!(violations.iter().any(|v| matches!(
+            v,
+            Violation::StackedSkillNotExercised { skill, unmet }
+                if skill == "opener.quiero.neg" && !unmet.is_empty()
+        )));
+
+        // A negated sentence satisfies both the target and the stack.
+        let mut negated = quiero_comer();
+        negated.constructions.push("neg.no.preverbal".into());
+        let clean = judge(
+            &item("No quiero comer."),
+            &negated,
+            &JudgeContext {
+                licensing: c.effective_licensing("opener.puedo").unwrap(),
+                target: c.target_spec("opener.quiero").unwrap(),
+                construction_registry: &registry,
+                window: &window,
+                existing: &[],
+                slot: None,
+                stacked_targets: &stacked,
+            },
+        );
+        assert!(clean.is_empty(), "got {clean:?}");
+    }
+
+    // --- one-unknown rule: scheduled word (S5) ---
+
+    #[test]
+    fn flags_missing_scheduled_window_word() {
+        let c = curriculum::load_embedded().unwrap();
+        let window: BTreeSet<String> = ["mensaje".to_string()].into();
+        let slot = SlotSpec {
+            required_lemma: Some("mensaje".into()),
+            ..Default::default()
+        };
+
+        // Item came back without the scheduled word.
+        let violations = judge_full(
+            &c,
+            "opener.quiero",
+            "Quiero comer.",
+            &quiero_comer(),
+            &window,
+            &[],
+            Some(&slot),
+        );
+        assert_eq!(
+            violations,
+            vec![Violation::ScheduledWordMissing {
+                lemma: "mensaje".into()
+            }]
+        );
+
+        // With the word present (as a content lemma) the item passes.
+        let mut with_word = quiero_comer();
+        with_word.content_lemmas = vec!["mensaje".into()];
+        assert!(judge_full(
+            &c,
+            "opener.quiero",
+            "Quiero leer el mensaje.",
+            &with_word,
+            &window,
+            &[],
+            Some(&slot),
+        )
+        .is_empty());
+    }
+
+    #[test]
+    fn scheduled_verb_counts_via_its_lemma() {
+        // A scheduled window *verb* shows up in verb_forms, not
+        // content_lemmas (the analyzer excludes verbs there).
+        let c = curriculum::load_embedded().unwrap();
+        let window: BTreeSet<String> = ["nadar".to_string()].into();
+        let slot = SlotSpec {
+            required_lemma: Some("nadar".into()),
+            ..Default::default()
+        };
+        let mut analysis = quiero_comer();
+        analysis.verb_forms[1] = avf("nadar", "inf", "nadar");
+        assert!(judge_full(
+            &c,
+            "opener.quiero",
+            "Quiero nadar.",
+            &analysis,
+            &window,
             &[],
             Some(&slot),
         )

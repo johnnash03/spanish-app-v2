@@ -63,6 +63,34 @@ pub fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
             ",
         )?;
     }
+
+    // v3 (S5, #36): the generated exercise bank. Every row passed the
+    // validator before insertion; items stream in as they pass. Generation
+    // state lives per unit (idle/generating/ready/failed, v1 behavior).
+    if version < 3 {
+        conn.execute_batch(
+            "
+            CREATE TABLE IF NOT EXISTS bank_items (
+                id         TEXT PRIMARY KEY,
+                unit_id    TEXT NOT NULL,
+                source     TEXT NOT NULL,
+                canonical  TEXT NOT NULL,
+                variants   TEXT NOT NULL,
+                slot_spec  TEXT NOT NULL,
+                tags       TEXT NOT NULL,
+                analysis   TEXT NOT NULL,
+                created_at INTEGER NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_bank_items_unit ON bank_items(unit_id);
+            CREATE TABLE IF NOT EXISTS unit_generation (
+                unit_id    TEXT PRIMARY KEY,
+                state      TEXT NOT NULL,
+                updated_at INTEGER NOT NULL
+            );
+            UPDATE meta SET value = '3' WHERE key = 'schema_version';
+            ",
+        )?;
+    }
     Ok(())
 }
 
@@ -100,7 +128,22 @@ mod tests {
                 |r| r.get(0),
             )
             .unwrap();
-        assert_eq!(version, "2");
+        assert_eq!(version, "3");
+    }
+
+    #[test]
+    fn migration_v3_creates_bank_tables() {
+        let conn = in_memory();
+        for table in ["bank_items", "unit_generation"] {
+            let count: i64 = conn
+                .query_row(
+                    "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = ?1",
+                    params![table],
+                    |r| r.get(0),
+                )
+                .unwrap();
+            assert_eq!(count, 1, "missing table {table}");
+        }
     }
 
     #[test]

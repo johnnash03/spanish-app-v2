@@ -66,6 +66,16 @@ pub struct SlotSpec {
     pub person: Option<String>,
     pub polarity: Option<Polarity>,
     pub sentence_type: Option<SentenceType>,
+    /// Sense hint for a polysemous licensed verb ("esperar = to hope, not
+    /// to wait"). Generation guidance only — sense is the one slot axis the
+    /// judge cannot check deterministically.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sense: Option<String>,
+    /// A scheduled window word that must appear in the item (the
+    /// one-unknown rule's word axis). Judged: absence is
+    /// [`Violation::ScheduledWordMissing`].
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub required_lemma: Option<String>,
 }
 
 /// One named, machine-readable rule violation. The serialized form is the
@@ -103,6 +113,13 @@ pub enum Violation {
         expected: String,
         found: String,
     },
+    /// A stacked skill the slot spec demands that the sentence does not
+    /// exercise. `unmet` lists one unsatisfied target group of that skill
+    /// in `form:`/`construction:` atom syntax.
+    StackedSkillNotExercised { skill: String, unmet: Vec<String> },
+    /// The window word scheduled into this item (one-unknown rule, word
+    /// axis) does not appear in it.
+    ScheduledWordMissing { lemma: String },
     /// A verb form slot outside the registry (including the analyzer's
     /// `"other"` escape hatch) — rejected fail-safe.
     UnrecognizedFormSlot {

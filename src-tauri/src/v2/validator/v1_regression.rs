@@ -57,6 +57,7 @@ fn judge_v1(item: &AnalyzedV1Item) -> Vec<Violation> {
             window: &window,
             existing: &[],
             slot: None,
+            stacked_targets: &[],
         },
     )
 }

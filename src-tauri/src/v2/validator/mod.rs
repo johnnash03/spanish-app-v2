@@ -85,6 +85,7 @@ mod tests {
             window: &window,
             existing: &[],
             slot: None,
+            stacked_targets: &[],
         };
         validate(&stub, &quiero_comer_item(), &ctx).await
     }

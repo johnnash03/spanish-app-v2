@@ -60,6 +60,8 @@ pub fn run() {
             db::db_health,
             v2::db::db_v2_health,
             v2::curriculum::dump_effective_licensing,
+            v2::generator::commands::v2_trigger_generation,
+            v2::generator::commands::v2_generation_state,
             db::wipe_exercise_items,
             openai::openai_ping,
             generate::trigger_generation,

@@ -1,0 +1,922 @@
+{
+  "abandoned_slots": [
+    {
+      "slot_id": 4,
+      "violations": [
+        {
+          "kind": "near_duplicate",
+          "of_item_id": "itm-18b8460b892dec80-1"
+        }
+      ]
+    },
+    {
+      "slot_id": 10,
+      "violations": [
+        {
+          "kind": "unlicensed_vocab",
+          "lemma": "esperanza"
+        },
+        {
+          "kind": "near_duplicate",
+          "of_item_id": "itm-18b846186f2d4788-16"
+        }
+      ]
+    },
+    {
+      "slot_id": 12,
+      "violations": [
+        {
+          "kind": "near_duplicate",
+          "of_item_id": "itm-18b8461029558e08-9"
+        }
+      ]
+    }
+  ],
+  "analyzer_model": "gpt-4o-2024-08-06",
+  "banked": 17,
+  "generator_model": "gpt-4o-2024-08-06",
+  "items": [
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf", "pron.subject.optional"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "comer",
+            "surface": "comer"
+          }
+        ]
+      },
+      "canonical": "Quiero comer.",
+      "id": "itm-18b8460ac83f7f48-0",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to eat.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": ["pron.subject.optional", "opener.finite+inf"],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "comer",
+                "surface": "comer"
+              }
+            ]
+          },
+          "text": "Yo quiero comer."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf", "pron.subject.optional"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "esperar",
+            "surface": "esperar"
+          }
+        ]
+      },
+      "canonical": "Quiero esperar.",
+      "id": "itm-18b8460b892dec80-1",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sense": "esperar = to wait (for)",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to wait.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": ["pron.subject.optional", "opener.finite+inf"],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "esperar",
+                "surface": "esperar"
+              }
+            ]
+          },
+          "text": "Yo quiero esperar."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "opener.finite+inf"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "comer",
+            "surface": "comer"
+          }
+        ]
+      },
+      "canonical": "No quiero comer.",
+      "id": "itm-18b8460c3a352ef8-2",
+      "slot": {
+        "person": "1sg",
+        "polarity": "negative",
+        "sentence_type": "declarative"
+      },
+      "source": "I don't want to eat.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": [
+              "neg.no.preverbal",
+              "pron.subject.optional",
+              "opener.finite+inf"
+            ],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "comer",
+                "surface": "comer"
+              }
+            ]
+          },
+          "text": "Yo no quiero comer."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf", "pron.subject.optional"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "trabajar",
+            "surface": "trabajar"
+          }
+        ]
+      },
+      "canonical": "Quiero trabajar.",
+      "id": "itm-18b8460ceb3e1368-3",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to work.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": []
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "opener.finite+inf"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "trabajar",
+            "surface": "trabajar"
+          }
+        ]
+      },
+      "canonical": "No quiero trabajar.",
+      "id": "itm-18b8460dc70365d8-5",
+      "slot": {
+        "person": "1sg",
+        "polarity": "negative",
+        "sentence_type": "declarative"
+      },
+      "source": "I don't want to work.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": [
+              "neg.no.preverbal",
+              "pron.subject.optional",
+              "opener.finite+inf"
+            ],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "trabajar",
+                "surface": "trabajar"
+              }
+            ]
+          },
+          "text": "Yo no quiero trabajar."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf", "pron.subject.optional"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "bailar",
+            "surface": "bailar"
+          }
+        ]
+      },
+      "canonical": "Quiero bailar.",
+      "id": "itm-18b8460e5f8cfd28-6",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to dance.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": []
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "pron.subject.optional",
+          "opener.finite+inf"
+        ],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "bailar",
+            "surface": "bailar"
+          }
+        ]
+      },
+      "canonical": "No quiero bailar.",
+      "id": "itm-18b8460f90bc27d8-8",
+      "slot": {
+        "person": "1sg",
+        "polarity": "negative",
+        "sentence_type": "declarative"
+      },
+      "source": "I don't want to dance.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": [
+              "gender.agreement.basic",
+              "neg.no.preverbal",
+              "pron.subject.optional",
+              "opener.finite+inf"
+            ],
+            "content_lemmas": ["bailar"],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "bailar",
+                "surface": "bailar"
+              }
+            ]
+          },
+          "text": "Yo no quiero bailar."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf", "pron.subject.optional"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "beber",
+            "surface": "beber"
+          }
+        ]
+      },
+      "canonical": "Quiero beber.",
+      "id": "itm-18b8461029558e08-9",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to drink.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": ["pron.subject.optional", "opener.finite+inf"],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "beber",
+                "surface": "beber"
+              }
+            ]
+          },
+          "text": "Yo quiero beber."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "opener.finite+inf",
+          "pron.subject.optional"
+        ],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "beber",
+            "surface": "beber"
+          }
+        ]
+      },
+      "canonical": "No quiero beber.",
+      "id": "itm-18b846114e32e5d0-11",
+      "slot": {
+        "person": "1sg",
+        "polarity": "negative",
+        "sentence_type": "declarative"
+      },
+      "source": "I don't want to drink.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": [
+              "neg.no.preverbal",
+              "pron.subject.optional",
+              "opener.finite+inf"
+            ],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "beber",
+                "surface": "beber"
+              }
+            ]
+          },
+          "text": "Yo no quiero beber."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "opener.finite+inf"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "viajar",
+            "surface": "viajar"
+          }
+        ]
+      },
+      "canonical": "No quiero viajar.",
+      "id": "itm-18b846128598bf58-14",
+      "slot": {
+        "person": "1sg",
+        "polarity": "negative",
+        "sentence_type": "declarative"
+      },
+      "source": "I don't want to travel.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": []
+    },
+    {
+      "analysis": {
+        "constructions": ["pron.subject.optional", "opener.finite+inf"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "continuar",
+            "surface": "continuar"
+          }
+        ]
+      },
+      "canonical": "Quiero continuar.",
+      "id": "itm-18b84613180de958-15",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to continue.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": ["pron.subject.optional", "opener.finite+inf"],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "continuar",
+                "surface": "continuar"
+              }
+            ]
+          },
+          "text": "Yo quiero continuar."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "pron.subject.optional",
+          "opener.finite+inf"
+        ],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "continuar",
+            "surface": "continuar"
+          }
+        ]
+      },
+      "canonical": "No quiero continuar.",
+      "id": "itm-18b84613f3d0bb28-17",
+      "slot": {
+        "person": "1sg",
+        "polarity": "negative",
+        "sentence_type": "declarative"
+      },
+      "source": "I don't want to continue.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": [
+              "neg.no.preverbal",
+              "pron.subject.optional",
+              "opener.finite+inf"
+            ],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "continuar",
+                "surface": "continuar"
+              }
+            ]
+          },
+          "text": "Yo no quiero continuar."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["pron.subject.optional", "opener.finite+inf"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "cancelar",
+            "surface": "cancelar"
+          }
+        ]
+      },
+      "canonical": "Quiero cancelar.",
+      "id": "itm-18b846148c283658-18",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to cancel.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": ["pron.subject.optional", "opener.finite+inf"],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "cancelar",
+                "surface": "cancelar"
+              }
+            ]
+          },
+          "text": "Yo quiero cancelar."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["pron.subject.optional", "opener.finite+inf"],
+        "content_lemmas": ["él"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "esperar",
+            "surface": "esperar"
+          }
+        ]
+      },
+      "canonical": "Quiero esperar a él.",
+      "id": "itm-18b84616d64d2138-13",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sense": "esperar = to wait (for)",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to wait for him.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": ["pron.subject.optional", "opener.finite+inf"],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "esperar",
+                "surface": "esperar"
+              }
+            ]
+          },
+          "text": "Yo quiero esperar a él."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf", "pron.subject.optional"],
+        "content_lemmas": ["nosotros"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "esperar",
+            "surface": "esperar"
+          }
+        ]
+      },
+      "canonical": "Quiero esperar por nosotros.",
+      "id": "itm-18b846186f2d4788-16",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sense": "esperar = to hope",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to hope for us.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": ["pron.subject.optional", "opener.finite+inf"],
+            "content_lemmas": ["yo", "nosotros"],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "esperar",
+                "surface": "esperar"
+              }
+            ]
+          },
+          "text": "Yo quiero esperar por nosotros."
+        },
+        {
+          "analysis": {
+            "constructions": ["pron.subject.optional", "opener.finite+inf"],
+            "content_lemmas": [],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "Quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "esperar",
+                "surface": "esperar"
+              }
+            ]
+          },
+          "text": "Quiero esperar por nosotras."
+        },
+        {
+          "analysis": {
+            "constructions": ["pron.subject.optional", "opener.finite+inf"],
+            "content_lemmas": ["nosotras"],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "esperar",
+                "surface": "esperar"
+              }
+            ]
+          },
+          "text": "Yo quiero esperar por nosotras."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "esperar",
+            "surface": "esperar"
+          }
+        ]
+      },
+      "canonical": "Quiero esperar a ella.",
+      "id": "itm-18b84619511065b8-19",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sense": "esperar = to wait (for)",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to wait for her.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": [
+        {
+          "analysis": {
+            "constructions": ["opener.finite+inf", "pron.subject.optional"],
+            "content_lemmas": ["ella"],
+            "verb_forms": [
+              {
+                "form": "pres.1sg",
+                "lemma": "querer",
+                "surface": "quiero"
+              },
+              {
+                "form": "inf",
+                "lemma": "esperar",
+                "surface": "esperar"
+              }
+            ]
+          },
+          "text": "Yo quiero esperar a ella."
+        }
+      ]
+    },
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf", "pron.subject.optional"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "esperar",
+            "surface": "esperar"
+          }
+        ]
+      },
+      "canonical": "Quiero esperar por ellas.",
+      "id": "itm-18b8461a7fcf8e50-7",
+      "slot": {
+        "person": "1sg",
+        "polarity": "affirmative",
+        "sense": "esperar = to wait (for)",
+        "sentence_type": "declarative"
+      },
+      "source": "I want to wait for them.",
+      "tags": {
+        "stacked": [],
+        "target_skill": "opener.quiero"
+      },
+      "unit_id": "opener.quiero",
+      "variants": []
+    }
+  ],
+  "rounds": 3,
+  "unit_id": "opener.quiero"
+}
