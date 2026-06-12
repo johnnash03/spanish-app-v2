@@ -15,6 +15,11 @@ import { VocabSessionScreen } from "./screens/legacy/VocabSessionScreen";
 import { VocabReviewScreen } from "./screens/legacy/VocabReviewScreen";
 import { CombinedSessionScreen } from "./screens/legacy/CombinedSessionScreen";
 import { CombinedReviewScreen } from "./screens/legacy/CombinedReviewScreen";
+// V2 practice loop (S6, #37): unit picker → one-at-a-time session →
+// batched review. Reached via the temporary link on the legacy home.
+import { V2UnitListScreen } from "./screens/v2/UnitListScreen";
+import { V2SessionScreen } from "./screens/v2/SessionScreen";
+import { V2ReviewScreen } from "./screens/v2/ReviewScreen";
 import type { Screen } from "./types";
 
 function App() {
@@ -84,6 +89,24 @@ function App() {
         go={setScreen}
       />
     );
+  }
+
+  if (screen.name === "v2Units") {
+    return <V2UnitListScreen go={setScreen} />;
+  }
+
+  if (screen.name === "v2Session") {
+    return (
+      <V2SessionScreen
+        unitId={screen.unitId}
+        unitTitle={screen.unitTitle}
+        go={setScreen}
+      />
+    );
+  }
+
+  if (screen.name === "v2Review") {
+    return <V2ReviewScreen attempts={screen.attempts} go={setScreen} />;
   }
 
   return <HomeScreen go={setScreen} />;

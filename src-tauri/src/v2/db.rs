@@ -91,6 +91,39 @@ pub fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
             ",
         )?;
     }
+
+    // v4 (S6, #37): the v2 attempt log — single source of truth for all
+    // learner evidence; sessions are reconstructable from it. Attempts are
+    // written eagerly, one per submitted item, with their Tier 0 verdict
+    // ('correct') or 'pending' until the Tier 1 evaluator (S7) resolves
+    // them.
+    if version < 4 {
+        conn.execute_batch(
+            "
+            CREATE TABLE IF NOT EXISTS sessions (
+                id         TEXT PRIMARY KEY,
+                unit_id    TEXT NOT NULL,
+                started_at INTEGER NOT NULL,
+                ended_at   INTEGER
+            );
+            CREATE TABLE IF NOT EXISTS attempts (
+                id           TEXT PRIMARY KEY,
+                session_id   TEXT NOT NULL,
+                item_id      TEXT NOT NULL,
+                unit_id      TEXT NOT NULL,
+                target_skill TEXT NOT NULL,
+                source       TEXT NOT NULL,
+                answer       TEXT NOT NULL,
+                status       TEXT NOT NULL,
+                tier         INTEGER,
+                remarks      TEXT NOT NULL,
+                created_at   INTEGER NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_attempts_session ON attempts(session_id);
+            UPDATE meta SET value = '4' WHERE key = 'schema_version';
+            ",
+        )?;
+    }
     Ok(())
 }
 
@@ -128,7 +161,22 @@ mod tests {
                 |r| r.get(0),
             )
             .unwrap();
-        assert_eq!(version, "3");
+        assert_eq!(version, "4");
+    }
+
+    #[test]
+    fn migration_v4_creates_attempt_log_tables() {
+        let conn = in_memory();
+        for table in ["sessions", "attempts"] {
+            let count: i64 = conn
+                .query_row(
+                    "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = ?1",
+                    params![table],
+                    |r| r.get(0),
+                )
+                .unwrap();
+            assert_eq!(count, 1, "missing table {table}");
+        }
     }
 
     #[test]

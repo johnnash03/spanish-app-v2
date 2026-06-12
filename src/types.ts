@@ -119,6 +119,41 @@ export interface VocabCardResult {
   correct: boolean;
 }
 
+// ─── V2 (PRD #31) ────────────────────────────────────────────────────────────
+
+export interface V2Unit {
+  id: string;
+  title: string;
+  phase: number;
+  bankCount: number;
+  generationState: GenerationState;
+}
+
+export interface V2SessionItem {
+  id: string;
+  source: string;
+  targetSkill: string;
+}
+
+export type V2AttemptStatus = "correct" | "pending";
+
+export interface V2AttemptVerdict {
+  attemptId: string;
+  itemId: string;
+  status: V2AttemptStatus;
+  remarks: string[];
+}
+
+export interface V2ReviewAttempt {
+  itemId: string;
+  source: string;
+  answer: string;
+  status: V2AttemptStatus;
+  remarks: string[];
+  canonical: string;
+  targetSkill: string;
+}
+
 export type Screen =
   | { name: "home" }
   | { name: "units" }
@@ -140,4 +175,7 @@ export type Screen =
       name: "combinedReview";
       attempts: LocalAttempt[];
       vocabLemmasByItemId: Record<string, string[]>;
-    };
+    }
+  | { name: "v2Units" }
+  | { name: "v2Session"; unitId: string; unitTitle: string }
+  | { name: "v2Review"; attempts: V2ReviewAttempt[] };

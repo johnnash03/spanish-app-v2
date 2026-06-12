@@ -186,3 +186,44 @@ export async function recordCombinedSessionReviews(
 ): Promise<void> {
   await invoke("record_combined_session_reviews", { correctLemmas });
 }
+
+// ─── V2 (PRD #31) ────────────────────────────────────────────────────────────
+
+export async function v2ListUnits(): Promise<import("../types").V2Unit[]> {
+  return invoke("v2_list_units");
+}
+
+export async function v2TriggerGeneration(
+  unitId: string,
+): Promise<GenerationState> {
+  const state = await invoke<string>("v2_trigger_generation", { unitId });
+  return state as GenerationState;
+}
+
+export async function v2GenerationState(
+  unitId: string,
+): Promise<GenerationState> {
+  const state = await invoke<string>("v2_generation_state", { unitId });
+  return state as GenerationState;
+}
+
+export async function v2StartSession(unitId: string): Promise<{
+  sessionId: string;
+  items: import("../types").V2SessionItem[];
+}> {
+  return invoke("v2_start_session", { unitId });
+}
+
+export async function v2SubmitAttempt(
+  sessionId: string,
+  itemId: string,
+  answer: string,
+): Promise<import("../types").V2AttemptVerdict> {
+  return invoke("v2_submit_attempt", { sessionId, itemId, answer });
+}
+
+export async function v2EndSession(
+  sessionId: string,
+): Promise<import("../types").V2ReviewAttempt[]> {
+  return invoke("v2_end_session", { sessionId });
+}

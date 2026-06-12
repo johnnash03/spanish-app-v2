@@ -74,7 +74,20 @@ export function HomeScreen({ go }: HomeScreenProps) {
 
   return (
     <div className="app fade-in">
-      <TopBar />
+      {/* TEMPORARY (S6, #37): entry into the v2 practice loop while the
+          legacy home is still the default. The S14 home rework (#45)
+          replaces this whole screen. */}
+      <TopBar
+        right={
+          <button
+            className="text-link"
+            style={{ fontSize: 13, color: "var(--ink-3)" }}
+            onClick={() => go({ name: "v2Units" })}
+          >
+            Practice v2 →
+          </button>
+        }
+      />
 
       <div className="container" style={{ paddingTop: 28, paddingBottom: 80 }}>
         {/* Pending session banner */}
