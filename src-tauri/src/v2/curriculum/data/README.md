@@ -104,6 +104,17 @@ curriculum citizen, and all three are in.
   unit 10 ("He wants to visit me"); 2sg quieres/puedes/debes/tienes/vas at
   unit 16 ("Do you want to come?"). Paradigm walking proper starts in MOC
   Phase 5.
+- **Every unit authors a `target` spec (S4, #35)** — what counts as
+  exercising the unit's skill, for the validator's
+  target-skill-actually-exercised check (user story 52). Groups of
+  `form:<lemma>@<slot>` / `construction:<tag>` atoms: every group must be
+  satisfied; a group is satisfied by any one atom. Atoms must name elements
+  inside the unit's effective licensing. Authored explicitly for all units
+  because the loader's fallback (any own-grant element) is too weak where a
+  grant carries seed material (unit 1 also grants comer/trabajar
+  infinitives, but only `quiero` proves the skill) and inexpressible for
+  interleaves (empty grants) and for `opener.quiero.neg`, whose skill is
+  ambient `no` applied to the unit-1 opener, not its own tampoco grant.
 
 ### Deviations from the MOC prerequisite table
 

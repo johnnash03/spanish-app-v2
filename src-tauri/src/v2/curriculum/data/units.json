@@ -8,11 +8,27 @@
       "prereqs": [],
       "grant": {
         "verb_forms": [
-          { "lemma": "querer", "form": "pres.1sg", "surface": "quiero" },
-          { "lemma": "comer", "form": "inf", "surface": "comer" },
-          { "lemma": "trabajar", "form": "inf", "surface": "trabajar" }
+          {
+            "lemma": "querer",
+            "form": "pres.1sg",
+            "surface": "quiero"
+          },
+          {
+            "lemma": "comer",
+            "form": "inf",
+            "surface": "comer"
+          },
+          {
+            "lemma": "trabajar",
+            "form": "inf",
+            "surface": "trabajar"
+          }
         ],
-        "vocab_verb_forms": [{ "form": "inf" }],
+        "vocab_verb_forms": [
+          {
+            "form": "inf"
+          }
+        ],
         "constructions": ["opener.finite+inf"],
         "vocab": [
           "esperar",
@@ -24,6 +40,7 @@
           "bailar"
         ]
       },
+      "target": [["form:querer@pres.1sg"]],
       "note": "MOC v2 Phase 1, unit 1. Grants the open infinitive slot for vocab verbs; power-verb infinitives are enumerated individually."
     },
     {
@@ -34,6 +51,10 @@
       "grant": {
         "constructions": ["neg.tampoco"]
       },
+      "target": [
+        ["construction:neg.no.preverbal", "construction:neg.tampoco"],
+        ["form:querer@pres.1sg"]
+      ],
       "note": "MOC v2 Phase 1, unit 2. Applies ambient preverbal 'no' to the opener; adds tampoco ('I don't want to either')."
     },
     {
@@ -43,12 +64,25 @@
       "prereqs": ["opener.quiero"],
       "grant": {
         "verb_forms": [
-          { "lemma": "poder", "form": "pres.1sg", "surface": "puedo" },
-          { "lemma": "venir", "form": "inf", "surface": "venir" },
-          { "lemma": "salir", "form": "inf", "surface": "salir" }
+          {
+            "lemma": "poder",
+            "form": "pres.1sg",
+            "surface": "puedo"
+          },
+          {
+            "lemma": "venir",
+            "form": "inf",
+            "surface": "venir"
+          },
+          {
+            "lemma": "salir",
+            "form": "inf",
+            "surface": "salir"
+          }
         ],
         "vocab": ["entrar", "descansar", "cocinar"]
       },
+      "target": [["form:poder@pres.1sg"]],
       "note": "MOC v2 Phase 1, unit 3. Chained to opener.quiero so the infinitive slot and seed verbs flow (MOC lists no prereq; see data README)."
     },
     {
@@ -58,11 +92,20 @@
       "prereqs": ["opener.puedo"],
       "grant": {
         "verb_forms": [
-          { "lemma": "deber", "form": "pres.1sg", "surface": "debo" },
-          { "lemma": "ir", "form": "inf", "surface": "ir" }
+          {
+            "lemma": "deber",
+            "form": "pres.1sg",
+            "surface": "debo"
+          },
+          {
+            "lemma": "ir",
+            "form": "inf",
+            "surface": "ir"
+          }
         ],
         "vocab": ["estudiar", "practicar"]
       },
+      "target": [["form:deber@pres.1sg"]],
       "note": "MOC v2 Phase 1, unit 4. 'I must go / try / wait' — ir enumerated here; intentar/esperar inherited from unit 1."
     },
     {
@@ -72,12 +115,21 @@
       "prereqs": ["opener.debo"],
       "grant": {
         "verb_forms": [
-          { "lemma": "tener", "form": "pres.1sg", "surface": "tengo" },
-          { "lemma": "pagar", "form": "inf", "surface": "pagar" }
+          {
+            "lemma": "tener",
+            "form": "pres.1sg",
+            "surface": "tengo"
+          },
+          {
+            "lemma": "pagar",
+            "form": "inf",
+            "surface": "pagar"
+          }
         ],
         "constructions": ["opener.tener-que"],
         "vocab": ["llamar"]
       },
+      "target": [["construction:opener.tener-que"]],
       "note": "MOC v2 Phase 1, unit 5. 'I have to leave / pay / call' — salir inherited from unit 3."
     },
     {
@@ -86,10 +138,17 @@
       "phase": 1,
       "prereqs": ["opener.tengo-que"],
       "grant": {
-        "verb_forms": [{ "lemma": "ir", "form": "pres.1sg", "surface": "voy" }],
+        "verb_forms": [
+          {
+            "lemma": "ir",
+            "form": "pres.1sg",
+            "surface": "voy"
+          }
+        ],
         "constructions": ["opener.ir-a+inf"],
         "vocab": ["nadar", "caminar"]
       },
+      "target": [["construction:opener.ir-a+inf"]],
       "note": "MOC v2 Phase 1, unit 6. 'I'm going to eat / call / leave' — all three verbs inherited along the opener chain."
     },
     {
@@ -98,6 +157,15 @@
       "phase": 1,
       "prereqs": ["opener.quiero.neg", "opener.voy-a"],
       "grant": {},
+      "target": [
+        [
+          "form:querer@pres.1sg",
+          "form:poder@pres.1sg",
+          "form:deber@pres.1sg",
+          "form:tener@pres.1sg",
+          "form:ir@pres.1sg"
+        ]
+      ],
       "note": "MOC v2 Phase 1, unit 7. Pure interleave; grants nothing new. Includes unit 2 so negative items mix in."
     },
     {
@@ -107,12 +175,21 @@
       "prereqs": ["opener.mixed"],
       "grant": {
         "verb_forms": [
-          { "lemma": "ver", "form": "inf", "surface": "ver" },
-          { "lemma": "encontrar", "form": "inf", "surface": "encontrar" }
+          {
+            "lemma": "ver",
+            "form": "inf",
+            "surface": "ver"
+          },
+          {
+            "lemma": "encontrar",
+            "form": "inf",
+            "surface": "encontrar"
+          }
         ],
         "constructions": ["clitic.do.sg.attach-to-inf"],
         "vocab": ["invitar", "visitar", "comprar"]
       },
+      "target": [["construction:clitic.do.sg.attach-to-inf"]],
       "note": "MOC v2 Phase 2, unit 8. 'I want to see it / cancel it / find her.' Clitic pronouns ride the construction tag, not vocab (see data README). Hangs off opener.mixed so items range over all five openers."
     },
     {
@@ -124,6 +201,7 @@
         "constructions": ["clitic.do.pl.attach-to-inf"],
         "vocab": ["ayudar", "escuchar"]
       },
+      "target": [["construction:clitic.do.pl.attach-to-inf"]],
       "note": "MOC v2 Phase 2, unit 9. 'I'm going to invite them / buy them.'"
     },
     {
@@ -133,13 +211,26 @@
       "prereqs": ["clitic.do.sg.attach"],
       "grant": {
         "verb_forms": [
-          { "lemma": "querer", "form": "pres.3sg", "surface": "quiere" },
-          { "lemma": "poder", "form": "pres.3sg", "surface": "puede" },
-          { "lemma": "tener", "form": "pres.3sg", "surface": "tiene" }
+          {
+            "lemma": "querer",
+            "form": "pres.3sg",
+            "surface": "quiere"
+          },
+          {
+            "lemma": "poder",
+            "form": "pres.3sg",
+            "surface": "puede"
+          },
+          {
+            "lemma": "tener",
+            "form": "pres.3sg",
+            "surface": "tiene"
+          }
         ],
         "constructions": ["clitic.do.person.attach-to-inf"],
         "vocab": []
       },
+      "target": [["construction:clitic.do.person.attach-to-inf"]],
       "note": "MOC v2 Phase 2, unit 10. 'He wants to visit me / I have to call you' — the MOC drill itself demands 3sg openers, so quiere/puede/tiene enter here."
     },
     {
@@ -148,6 +239,13 @@
       "phase": 2,
       "prereqs": ["clitic.do.pl.attach", "clitic.do.person.attach"],
       "grant": {},
+      "target": [
+        [
+          "construction:clitic.do.sg.attach-to-inf",
+          "construction:clitic.do.pl.attach-to-inf",
+          "construction:clitic.do.person.attach-to-inf"
+        ]
+      ],
       "note": "MOC v2 Phase 2, unit 11. Pure interleave; grants nothing new."
     },
     {
@@ -157,14 +255,31 @@
       "prereqs": ["clitic.do.attach.mixed"],
       "grant": {
         "verb_forms": [
-          { "lemma": "hablar", "form": "inf", "surface": "hablar" },
-          { "lemma": "dar", "form": "inf", "surface": "dar" },
-          { "lemma": "decir", "form": "inf", "surface": "decir" },
-          { "lemma": "escribir", "form": "inf", "surface": "escribir" }
+          {
+            "lemma": "hablar",
+            "form": "inf",
+            "surface": "hablar"
+          },
+          {
+            "lemma": "dar",
+            "form": "inf",
+            "surface": "dar"
+          },
+          {
+            "lemma": "decir",
+            "form": "inf",
+            "surface": "decir"
+          },
+          {
+            "lemma": "escribir",
+            "form": "inf",
+            "surface": "escribir"
+          }
         ],
         "constructions": ["clitic.io.attach-to-inf"],
         "vocab": ["algo", "enviar", "mostrar"]
       },
+      "target": [["construction:clitic.io.attach-to-inf"]],
       "note": "MOC v2 Phase 3, unit 12. 'I want to speak to him / give them something.'"
     },
     {
@@ -173,10 +288,17 @@
       "phase": 3,
       "prereqs": ["clitic.io.attach"],
       "grant": {
-        "verb_forms": [{ "lemma": "traer", "form": "inf", "surface": "traer" }],
+        "verb_forms": [
+          {
+            "lemma": "traer",
+            "form": "inf",
+            "surface": "traer"
+          }
+        ],
         "constructions": ["clitic.both.attach-to-inf"],
         "vocab": ["vender", "prestar"]
       },
+      "target": [["construction:clitic.both.attach-to-inf"]],
       "note": "MOC v2 Phase 3, unit 13. 'He wants to give it to me / sell it to us.' Prereq is unit 12 (MOC says 11) so dar/decir are licensed; see data README."
     },
     {
@@ -188,6 +310,7 @@
         "constructions": ["clitic.both.se-lo-substitution"],
         "vocab": ["explicar"]
       },
+      "target": [["construction:clitic.both.se-lo-substitution"]],
       "note": "MOC v2 Phase 3, unit 14. 'I want to give it to him → quiero dárselo.'"
     },
     {
@@ -196,6 +319,13 @@
       "phase": 3,
       "prereqs": ["clitic.both.se-lo"],
       "grant": {},
+      "target": [
+        [
+          "construction:clitic.io.attach-to-inf",
+          "construction:clitic.both.attach-to-inf",
+          "construction:clitic.both.se-lo-substitution"
+        ]
+      ],
       "note": "MOC v2 Phase 3, unit 15. Pure interleave; grants nothing new."
     },
     {
@@ -205,14 +335,35 @@
       "prereqs": ["opener.mixed"],
       "grant": {
         "verb_forms": [
-          { "lemma": "querer", "form": "pres.2sg", "surface": "quieres" },
-          { "lemma": "poder", "form": "pres.2sg", "surface": "puedes" },
-          { "lemma": "deber", "form": "pres.2sg", "surface": "debes" },
-          { "lemma": "tener", "form": "pres.2sg", "surface": "tienes" },
-          { "lemma": "ir", "form": "pres.2sg", "surface": "vas" }
+          {
+            "lemma": "querer",
+            "form": "pres.2sg",
+            "surface": "quieres"
+          },
+          {
+            "lemma": "poder",
+            "form": "pres.2sg",
+            "surface": "puedes"
+          },
+          {
+            "lemma": "deber",
+            "form": "pres.2sg",
+            "surface": "debes"
+          },
+          {
+            "lemma": "tener",
+            "form": "pres.2sg",
+            "surface": "tienes"
+          },
+          {
+            "lemma": "ir",
+            "form": "pres.2sg",
+            "surface": "vas"
+          }
         ],
         "constructions": ["question.yes-no.intonation"]
       },
+      "target": [["construction:question.yes-no.intonation"]],
       "note": "MOC v2 Phase 4, unit 16. 'Do you want to come? Can you wait?' — questions are where tú forms of the five openers enter."
     },
     {
@@ -223,6 +374,7 @@
       "grant": {
         "constructions": ["question.wh.fronting"]
       },
+      "target": [["construction:question.wh.fronting"]],
       "note": "MOC v2 Phase 4, unit 17. Question words ride the construction tag (function words, see data README)."
     },
     {
@@ -231,9 +383,16 @@
       "phase": 4,
       "prereqs": ["question.wh", "clitic.do.person.attach"],
       "grant": {
-        "verb_forms": [{ "lemma": "saber", "form": "inf", "surface": "saber" }],
+        "verb_forms": [
+          {
+            "lemma": "saber",
+            "form": "inf",
+            "surface": "saber"
+          }
+        ],
         "constructions": ["question.embedded.after-saber"]
       },
+      "target": [["construction:question.embedded.after-saber"]],
       "note": "MOC v2 Phase 4, unit 18. 'I want to know if she wants to come' — needs quiere, so unit 10 is a prereq (MOC says 17 only); see data README."
     }
   ]

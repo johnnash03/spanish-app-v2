@@ -332,6 +332,39 @@ mod tests {
         }
     }
 
+    // --- S4 (#35): authored target-skill specs ---
+
+    #[test]
+    fn s4_every_unit_authors_a_target_spec() {
+        let c = load_embedded().unwrap();
+        for u in &c.units {
+            assert!(
+                !u.target.is_empty(),
+                "unit `{}` must author its target explicitly",
+                u.id
+            );
+            assert!(c.target_spec(&u.id).is_some());
+        }
+    }
+
+    #[test]
+    fn s4_negation_unit_targets_negation_and_the_opener() {
+        // The case the grant-derived default cannot express: the unit's own
+        // grant is only tampoco, but its skill is negating the opener —
+        // plain `No quiero…` items must satisfy the target.
+        use crate::v2::curriculum::types::TargetAtom;
+        let c = load_embedded().unwrap();
+        let spec = c.target_spec("opener.quiero.neg").unwrap();
+        assert_eq!(spec.groups.len(), 2);
+        assert!(spec.groups[0]
+            .contains(&TargetAtom::Construction("neg.no.preverbal".into())));
+        assert!(spec.groups[0].contains(&TargetAtom::Construction("neg.tampoco".into())));
+        assert_eq!(
+            spec.groups[1],
+            vec![TargetAtom::Form { lemma: "querer".into(), form: "pres.1sg".into() }]
+        );
+    }
+
     #[test]
     fn dump_returns_json_for_known_unit_and_error_for_unknown() {
         let c = load_embedded().unwrap();

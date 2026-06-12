@@ -85,9 +85,32 @@ pub struct Unit {
     pub prereqs: Vec<String>,
     #[serde(default)]
     pub grant: LicensingGrant,
+    /// What counts as exercising this unit's skill (S4, #35): groups of
+    /// `form:lemma@slot` / `construction:tag` atoms — every group must be
+    /// satisfied, a group is satisfied by any of its atoms. When absent,
+    /// the loader derives a single any-of group from the unit's own grant;
+    /// units that grant nothing (interleaves) must author it.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target: Vec<Vec<String>>,
     /// One-liner pointing at the source video/notes material.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub note: Option<String>,
+}
+
+/// One resolved target-evidence atom: a specific enumerated verb form or a
+/// construction tag the item's analysis must contain.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+pub enum TargetAtom {
+    Form { lemma: String, form: String },
+    Construction(String),
+}
+
+/// A unit's resolved target-skill spec, in conjunctive normal form over
+/// [`TargetAtom`]s. The validator's target-skill-exercised check is
+/// satisfaction of every group.
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct TargetSpec {
+    pub groups: Vec<Vec<TargetAtom>>,
 }
 
 /// Day-0 licensed material, available in every unit from the first

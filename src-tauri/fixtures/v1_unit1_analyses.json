@@ -1,0 +1,952 @@
+{
+  "analyses": [
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf", "pron.subject.optional"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "comer",
+            "surface": "comer"
+          }
+        ]
+      },
+      "canonical": "Quiero comer.",
+      "item_id": "18196730-1819-4673-a73b-436cdee6ebf0b6f0",
+      "primary_tag": "opener.quiero",
+      "source": "I want to eat."
+    },
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf", "pron.subject.optional"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "Quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "bailar",
+            "surface": "bailar"
+          }
+        ]
+      },
+      "canonical": "Quiere bailar.",
+      "item_id": "2670ddb8-2670-4ddb-9db3-66015f3831d75018",
+      "primary_tag": "opener.quiero",
+      "source": "She wants to dance."
+    },
+    {
+      "analysis": {
+        "constructions": ["pron.subject.optional", "opener.finite+inf"],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.3pl",
+            "lemma": "querer",
+            "surface": "Quieren"
+          },
+          {
+            "form": "inf",
+            "lemma": "salir",
+            "surface": "salir"
+          }
+        ]
+      },
+      "canonical": "Quieren salir.",
+      "item_id": "2e45bfb8-2e45-4bfb-bfb3-3f8f94ab47c5da18",
+      "primary_tag": "opener.quiero",
+      "source": "They want to leave."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.def", "opener.finite+inf"],
+        "content_lemmas": ["evento"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "organizar",
+            "surface": "organizar"
+          }
+        ]
+      },
+      "canonical": "Quiero organizar el evento.",
+      "item_id": "051c3e28-051c-43e2-be23-17ec5261e8fc7948",
+      "primary_tag": "opener.quiero",
+      "source": "I want to organize the event."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "art.def",
+          "gender.agreement.basic",
+          "plural.formation.basic",
+          "pron.subject.optional",
+          "opener.finite+inf"
+        ],
+        "content_lemmas": ["opción"],
+        "verb_forms": [
+          {
+            "form": "pres.1pl",
+            "lemma": "querer",
+            "surface": "Queremos"
+          },
+          {
+            "form": "inf",
+            "lemma": "comparar",
+            "surface": "comparar"
+          }
+        ]
+      },
+      "canonical": "Queremos comparar las opciones.",
+      "item_id": "15d7a4f0-15d7-4a4f-a4fb-5037f72efbf4c7b0",
+      "primary_tag": "opener.quiero",
+      "source": "We want to compare the options."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.def", "gender.agreement.basic"],
+        "content_lemmas": ["decisión"],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "influir",
+            "surface": "influir"
+          }
+        ]
+      },
+      "canonical": "Quiere influir en la decisión.",
+      "item_id": "279ea3a0-279e-4a3a-a3ab-980e18dbc384ec20",
+      "primary_tag": "opener.quiero",
+      "source": "He wants to influence the decision."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "art.indef",
+          "pron.subject.optional",
+          "opener.finite+inf"
+        ],
+        "content_lemmas": ["reporte"],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "Quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "preparar",
+            "surface": "preparar"
+          }
+        ]
+      },
+      "canonical": "Quiere preparar un reporte.",
+      "item_id": "3a630198-3a63-4019-8193-41fd198d9cd4c178",
+      "primary_tag": "opener.quiero",
+      "source": "She wants to prepare a report."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.def", "gender.agreement.basic"],
+        "content_lemmas": ["universidad"],
+        "verb_forms": [
+          {
+            "form": "pres.3pl",
+            "lemma": "querer",
+            "surface": "quieren"
+          },
+          {
+            "form": "inf",
+            "lemma": "estudiar",
+            "surface": "estudiar"
+          }
+        ]
+      },
+      "canonical": "Quieren estudiar en la universidad.",
+      "item_id": "1313b290-1313-4b29-b29b-5f0e6c9628bb65d0",
+      "primary_tag": "opener.quiero",
+      "source": "They want to study at the university."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.indef", "gender.agreement.basic"],
+        "content_lemmas": ["nuevo", "diseño"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "crear",
+            "surface": "crear"
+          }
+        ]
+      },
+      "canonical": "Quiero crear un nuevo diseño.",
+      "item_id": "24d89248-24d8-4924-9243-ed6fe70fed6edfe8",
+      "primary_tag": "opener.quiero",
+      "source": "I want to create a new design."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.def", "gender.agreement.basic"],
+        "content_lemmas": ["reunión"],
+        "verb_forms": [
+          {
+            "form": "pres.1pl",
+            "lemma": "querer",
+            "surface": "Queremos"
+          },
+          {
+            "form": "inf",
+            "lemma": "cancelar",
+            "surface": "cancelar"
+          }
+        ]
+      },
+      "canonical": "Queremos cancelar la reunión.",
+      "item_id": "3642da98-3642-4da9-9a93-b144c3e96d4d8e78",
+      "primary_tag": "opener.quiero",
+      "source": "We want to cancel the meeting."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.def", "gender.agreement.basic"],
+        "content_lemmas": ["dato", "importante"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "analizar",
+            "surface": "analizar"
+          }
+        ]
+      },
+      "canonical": "Quiero analizar los datos importantes.",
+      "item_id": "0ca16218-0ca1-4621-a213-516cf7c777b0abf8",
+      "primary_tag": "opener.quiero",
+      "source": "I want to analyze the important data."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.indef", "opener.finite+inf"],
+        "content_lemmas": ["proyecto", "creativo"],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "Quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "diseñar",
+            "surface": "diseñar"
+          }
+        ]
+      },
+      "canonical": "Quiere diseñar un proyecto creativo.",
+      "item_id": "21c19a00-21c1-49a0-9a0b-d7b27b90f79a200",
+      "primary_tag": "opener.quiero",
+      "source": "She wants to design a creative project."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.def", "pron.subject.optional"],
+        "content_lemmas": ["diferencia"],
+        "verb_forms": [
+          {
+            "form": "pres.3pl",
+            "lemma": "querer",
+            "surface": "Quieren"
+          },
+          {
+            "form": "inf",
+            "lemma": "entender",
+            "surface": "entender"
+          }
+        ]
+      },
+      "canonical": "Quieren entender las diferencias.",
+      "item_id": "36378ff8-3637-48ff-8ff3-8a7098fb01faef58",
+      "primary_tag": "opener.quiero",
+      "source": "They want to understand the differences."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "opener.finite+inf",
+          "art.indef",
+          "gender.agreement.basic"
+        ],
+        "content_lemmas": ["evento", "necesario"],
+        "verb_forms": [
+          {
+            "form": "pres.1pl",
+            "lemma": "querer",
+            "surface": "Queremos"
+          },
+          {
+            "form": "inf",
+            "lemma": "organizar",
+            "surface": "organizar"
+          }
+        ]
+      },
+      "canonical": "Queremos organizar un evento necesario.",
+      "item_id": "0c863ce0-0c86-43ce-bceb-da221af2c53f7e60",
+      "primary_tag": "opener.quiero",
+      "source": "We want to organize a necessary event."
+    },
+    {
+      "analysis": {
+        "constructions": ["opener.finite+inf", "pron.subject.optional"],
+        "content_lemmas": ["solución", "posible"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "comparar",
+            "surface": "comparar"
+          }
+        ]
+      },
+      "canonical": "Quiero comparar soluciones posibles.",
+      "item_id": "1fe84df0-1fe8-44df-8dfb-ca2449b7bb2ea4b0",
+      "primary_tag": "opener.quiero",
+      "source": "I want to compare possible solutions."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "pron.subject.optional",
+          "art.def",
+          "gender.agreement.basic"
+        ],
+        "content_lemmas": ["decisión", "importante"],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "Quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "influir",
+            "surface": "influir"
+          }
+        ]
+      },
+      "canonical": "Quiere influir en la decisión importante.",
+      "item_id": "388e5138-388e-4513-9133-4263384fd533c998",
+      "primary_tag": "opener.quiero",
+      "source": "She wants to influence the important decision."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.indef", "gender.agreement.basic"],
+        "content_lemmas": ["presentación", "positivo"],
+        "verb_forms": [
+          {
+            "form": "pres.3pl",
+            "lemma": "querer",
+            "surface": "Quieren"
+          },
+          {
+            "form": "inf",
+            "lemma": "preparar",
+            "surface": "preparar"
+          }
+        ]
+      },
+      "canonical": "Quieren preparar una presentación positiva.",
+      "item_id": "1155f530-1155-4f53-b53b-7df08f92beb05cf0",
+      "primary_tag": "opener.quiero",
+      "source": "They want to prepare a positive presentation."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.indef", "gender.agreement.basic"],
+        "content_lemmas": ["universidad", "importante"],
+        "verb_forms": [
+          {
+            "form": "pres.1pl",
+            "lemma": "querer",
+            "surface": "Queremos"
+          },
+          {
+            "form": "inf",
+            "lemma": "estudiar",
+            "surface": "estudiar"
+          }
+        ]
+      },
+      "canonical": "Queremos estudiar en una universidad importante.",
+      "item_id": "24f351f0-24f3-451f-91fb-82801c54a305f8b0",
+      "primary_tag": "opener.quiero",
+      "source": "We want to study at an important university."
+    },
+    {
+      "analysis": {
+        "constructions": ["art.indef", "gender.agreement.basic"],
+        "content_lemmas": ["plan", "nuevo", "necesario"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "Quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "diseñar",
+            "surface": "diseñar"
+          }
+        ]
+      },
+      "canonical": "Quiero diseñar un nuevo plan necesario.",
+      "item_id": "19788db8-1978-48db-8db3-724c9977bab8c018",
+      "primary_tag": "opener.quiero",
+      "source": "I want to design a new necessary plan."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "art.def",
+          "gender.agreement.basic",
+          "plural.formation.basic",
+          "pron.subject.optional"
+        ],
+        "content_lemmas": ["diferencia", "creativo"],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "entender",
+            "surface": "entender"
+          }
+        ]
+      },
+      "canonical": "Quiere entender las diferencias creativas.",
+      "item_id": "3a793148-3a79-4314-b143-ad6ac7da769feae8",
+      "primary_tag": "opener.quiero",
+      "source": "She wants to understand the creative differences."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "opener.finite+inf",
+          "pron.subject.optional"
+        ],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "comer",
+            "surface": "comer"
+          }
+        ]
+      },
+      "canonical": "No quiero comer.",
+      "item_id": "0aed41a8-0aed-441a-81a3-da03bbdb23d3c2c8",
+      "primary_tag": "opener.quiero.neg",
+      "source": "I don't want to eat."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "pron.subject.optional",
+          "opener.finite+inf"
+        ],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "hablar",
+            "surface": "hablar"
+          }
+        ]
+      },
+      "canonical": "No quiere hablar.",
+      "item_id": "15ea69a0-15ea-469a-a9ab-1e989f683fa42a20",
+      "primary_tag": "opener.quiero.neg",
+      "source": "She doesn't want to talk."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "pron.subject.optional",
+          "opener.finite+inf"
+        ],
+        "content_lemmas": [],
+        "verb_forms": [
+          {
+            "form": "pres.1pl",
+            "lemma": "querer",
+            "surface": "queremos"
+          },
+          {
+            "form": "inf",
+            "lemma": "salir",
+            "surface": "salir"
+          }
+        ]
+      },
+      "canonical": "No queremos salir.",
+      "item_id": "1d3f26f0-1d3f-426f-a6fb-88256a2f4e6a71b0",
+      "primary_tag": "opener.quiero.neg",
+      "source": "We don't want to leave."
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "art.def"],
+        "content_lemmas": ["universidad"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "visitar",
+            "surface": "visitar"
+          }
+        ]
+      },
+      "canonical": "No quiero visitar la universidad.",
+      "item_id": "2d122d70-2d12-42d7-ad7b-2315e79432dffa30",
+      "primary_tag": "opener.quiero.neg",
+      "source": "I don't want to visit the university."
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "art.def"],
+        "content_lemmas": ["reunión"],
+        "verb_forms": [
+          {
+            "form": "pres.3pl",
+            "lemma": "querer",
+            "surface": "quieren"
+          },
+          {
+            "form": "inf",
+            "lemma": "cancelar",
+            "surface": "cancelar"
+          }
+        ]
+      },
+      "canonical": "No quieren cancelar la reunión.",
+      "item_id": "0186bf40-0186-4bf4-bf4b-6247bfd16d30b040",
+      "primary_tag": "opener.quiero.neg",
+      "source": "They don't want to cancel the meeting."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "opener.finite+inf",
+          "art.def",
+          "gender.agreement.basic"
+        ],
+        "content_lemmas": ["libro", "necesario"],
+        "verb_forms": [
+          {
+            "form": "pres.2sg",
+            "lemma": "querer",
+            "surface": "quieres"
+          },
+          {
+            "form": "inf",
+            "lemma": "comprar",
+            "surface": "comprar"
+          }
+        ]
+      },
+      "canonical": "No quieres comprar los libros necesarios.",
+      "item_id": "26585478-2658-4547-9473-be9abcbde0d90dd8",
+      "primary_tag": "opener.quiero.neg",
+      "source": "You don't want to buy the necessary books."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "art.def",
+          "neg.no.preverbal",
+          "pron.subject.optional",
+          "opener.finite+inf"
+        ],
+        "content_lemmas": ["evento"],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "organizar",
+            "surface": "organizar"
+          }
+        ]
+      },
+      "canonical": "No quiere organizar el evento.",
+      "item_id": "3525d5c0-3525-4d5c-95cb-d10c737cb92388c0",
+      "primary_tag": "opener.quiero.neg",
+      "source": "He doesn't want to organize the event."
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "opener.finite+inf", "art.indef"],
+        "content_lemmas": ["comparación"],
+        "verb_forms": [
+          {
+            "form": "pres.1pl",
+            "lemma": "querer",
+            "surface": "queremos"
+          },
+          {
+            "form": "inf",
+            "lemma": "hacer",
+            "surface": "hacer"
+          }
+        ]
+      },
+      "canonical": "No queremos hacer una comparación.",
+      "item_id": "0a8f2fa0-0a8f-42fa-afab-4f9c25c25d106820",
+      "primary_tag": "opener.quiero.neg",
+      "source": "We don't want to make a comparison."
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "opener.finite+inf", "art.indef"],
+        "content_lemmas": ["problema"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "crear",
+            "surface": "crear"
+          }
+        ]
+      },
+      "canonical": "No quiero crear un problema.",
+      "item_id": "1fdc1508-1fdc-4150-9503-908b6e46438d99a8",
+      "primary_tag": "opener.quiero.neg",
+      "source": "I don't want to create a problem."
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "art.indef"],
+        "content_lemmas": ["decisión"],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "tomar",
+            "surface": "tomar"
+          }
+        ]
+      },
+      "canonical": "No quiere tomar una decisión.",
+      "item_id": "2f438490-2f43-4849-849b-83e31b40565f9fd0",
+      "primary_tag": "opener.quiero.neg",
+      "source": "She doesn't want to make a decision."
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "opener.finite+inf"],
+        "content_lemmas": ["algo", "importante", "hoy"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "hacer",
+            "surface": "hacer"
+          }
+        ]
+      },
+      "canonical": "No quiero hacer algo importante hoy.",
+      "item_id": "0598ada0-0598-4ada-adab-458e779af9dfbe20",
+      "primary_tag": "opener.quiero.neg",
+      "source": "I don't want to do something important today."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "gender.agreement.basic",
+          "neg.no.preverbal",
+          "art.def"
+        ],
+        "content_lemmas": ["posibilidad"],
+        "verb_forms": [
+          {
+            "form": "pres.3pl",
+            "lemma": "querer",
+            "surface": "quieren"
+          },
+          {
+            "form": "inf",
+            "lemma": "explorar",
+            "surface": "explorar"
+          }
+        ]
+      },
+      "canonical": "No quieren explorar la posibilidad.",
+      "item_id": "17864b08-1786-44b0-8b03-93ed7839a2ac07a8",
+      "primary_tag": "opener.quiero.neg",
+      "source": "They don't want to explore the possibility."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "art.def",
+          "gender.agreement.basic"
+        ],
+        "content_lemmas": ["invitación"],
+        "verb_forms": [
+          {
+            "form": "pres.1pl",
+            "lemma": "querer",
+            "surface": "queremos"
+          },
+          {
+            "form": "inf",
+            "lemma": "aceptar",
+            "surface": "aceptar"
+          }
+        ]
+      },
+      "canonical": "No queremos aceptar la invitación.",
+      "item_id": "2b247ab8-2b24-47ab-bab3-6e594d4df69f3118",
+      "primary_tag": "opener.quiero.neg",
+      "source": "We don't want to accept the invitation."
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "opener.finite+inf", "art.def"],
+        "content_lemmas": ["oportunidad"],
+        "verb_forms": [
+          {
+            "form": "pres.2sg",
+            "lemma": "querer",
+            "surface": "quieres"
+          },
+          {
+            "form": "inf",
+            "lemma": "perder",
+            "surface": "perder"
+          }
+        ]
+      },
+      "canonical": "No quieres perder la oportunidad.",
+      "item_id": "39ee8930-39ee-4893-893b-d25704c6c2e480f0",
+      "primary_tag": "opener.quiero.neg",
+      "source": "You don't want to lose the opportunity."
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "art.def"],
+        "content_lemmas": ["decisión"],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "influir",
+            "surface": "influir"
+          }
+        ]
+      },
+      "canonical": "No quiere influir en la decisión.",
+      "item_id": "1a50a9f0-1a50-4a9f-a9fb-d442ead06a4e30b0",
+      "primary_tag": "opener.quiero.neg",
+      "source": "She doesn't want to influence the decision."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "pron.subject.optional",
+          "opener.finite+inf"
+        ],
+        "content_lemmas": ["diferente"],
+        "verb_forms": [
+          {
+            "form": "pres.3sg",
+            "lemma": "querer",
+            "surface": "quiere"
+          },
+          {
+            "form": "inf",
+            "lemma": "ser",
+            "surface": "ser"
+          }
+        ]
+      },
+      "canonical": "No quiere ser diferente.",
+      "item_id": "005213b8-0052-413b-93b3-d35307a1c378be18",
+      "primary_tag": "opener.quiero.neg",
+      "source": "He doesn't want to be different."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "pron.subject.optional",
+          "art.def"
+        ],
+        "content_lemmas": ["diferencia"],
+        "verb_forms": [
+          {
+            "form": "pres.1sg",
+            "lemma": "querer",
+            "surface": "quiero"
+          },
+          {
+            "form": "inf",
+            "lemma": "explicar",
+            "surface": "explicar"
+          }
+        ]
+      },
+      "canonical": "No quiero explicar la diferencia.",
+      "item_id": "150d7338-150d-4733-b333-edad87b854199398",
+      "primary_tag": "opener.quiero.neg",
+      "source": "I don't want to explain the difference."
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "art.def"],
+        "content_lemmas": ["organización"],
+        "verb_forms": [
+          {
+            "form": "pres.1pl",
+            "lemma": "querer",
+            "surface": "queremos"
+          },
+          {
+            "form": "inf",
+            "lemma": "cambiar",
+            "surface": "cambiar"
+          }
+        ]
+      },
+      "canonical": "No queremos cambiar la organización.",
+      "item_id": "2d4cb9b8-2d4c-4b9b-b9b3-8d486c3cd8705c18",
+      "primary_tag": "opener.quiero.neg",
+      "source": "We don't want to change the organization."
+    },
+    {
+      "analysis": {
+        "constructions": [
+          "neg.no.preverbal",
+          "pron.subject.optional",
+          "opener.finite+inf",
+          "art.indef",
+          "gender.agreement.basic"
+        ],
+        "content_lemmas": ["solución", "creativo"],
+        "verb_forms": [
+          {
+            "form": "pres.2sg",
+            "lemma": "querer",
+            "surface": "quieres"
+          },
+          {
+            "form": "inf",
+            "lemma": "encontrar",
+            "surface": "encontrar"
+          }
+        ]
+      },
+      "canonical": "No quieres encontrar una solución creativa.",
+      "item_id": "06296098-0629-4609-a093-9646f7b5e01e8c78",
+      "primary_tag": "opener.quiero.neg",
+      "source": "You don't want to find a creative solution."
+    },
+    {
+      "analysis": {
+        "constructions": ["neg.no.preverbal", "pron.subject.optional"],
+        "content_lemmas": ["algo", "comparable"],
+        "verb_forms": [
+          {
+            "form": "pres.3pl",
+            "lemma": "querer",
+            "surface": "quieren"
+          },
+          {
+            "form": "inf",
+            "lemma": "preparar",
+            "surface": "preparar"
+          }
+        ]
+      },
+      "canonical": "No quieren preparar algo comparable.",
+      "item_id": "181538e0-1815-438e-b8eb-f35182e5d20a2a60",
+      "primary_tag": "opener.quiero.neg",
+      "source": "They don't want to prepare something comparable."
+    }
+  ],
+  "analyzer_model": "gpt-4o-2024-08-06"
+}

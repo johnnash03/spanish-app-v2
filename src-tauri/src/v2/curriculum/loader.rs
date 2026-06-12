@@ -53,6 +53,17 @@ pub enum CurriculumError {
     },
     #[error("ambient set references unknown cognate pattern `{0}`")]
     UnknownCognatePattern(String),
+    #[error("invalid target atom `{atom}` in unit `{unit}`: {reason}")]
+    InvalidTarget {
+        unit: String,
+        atom: String,
+        reason: String,
+    },
+    #[error(
+        "unit `{0}` has no target spec and grants nothing to derive one \
+         from; author a `target` (interleaves must name what they drill)"
+    )]
+    UntargetableUnit(String),
 }
 
 /// The loaded, validated curriculum. Construction is only possible through
@@ -66,6 +77,7 @@ pub struct Curriculum {
     /// Units in authored order.
     pub units: Vec<Unit>,
     effective: BTreeMap<String, EffectiveLicensing>,
+    targets: BTreeMap<String, TargetSpec>,
 }
 
 impl Curriculum {
@@ -77,8 +89,26 @@ impl Curriculum {
         self.effective.get(unit_id)
     }
 
+    /// The unit's resolved target-skill spec (authored or grant-derived).
+    pub fn target_spec(&self, unit_id: &str) -> Option<&TargetSpec> {
+        self.targets.get(unit_id)
+    }
+
     pub fn effective_licensing_all(&self) -> impl Iterator<Item = &EffectiveLicensing> {
         self.effective.values()
+    }
+
+    /// Every construction tag any grant registers (ambient or unit) — the
+    /// closed tag vocabulary the validator's analyzer must describe
+    /// sentences in.
+    pub fn construction_registry(&self) -> std::collections::BTreeSet<String> {
+        self.ambient
+            .grant
+            .constructions
+            .iter()
+            .chain(self.units.iter().flat_map(|u| u.grant.constructions.iter()))
+            .cloned()
+            .collect()
     }
 }
 
@@ -123,6 +153,7 @@ pub fn load(
         &topo_order,
     );
     check_monotonicity(units, &effective)?;
+    let targets = resolve_targets(units, &effective)?;
 
     Ok(Curriculum {
         version: units_file.curriculum_version,
@@ -131,7 +162,92 @@ pub fn load(
         cognate_notes,
         units: units_file.units,
         effective,
+        targets,
     })
+}
+
+/// Resolves every unit's target-skill spec. Authored atoms must name
+/// elements inside the unit's effective licensing — a target the unit's
+/// own exercises could never legally satisfy is an authoring error. With
+/// no authored target, a single any-of group over the unit's own grant
+/// (its newly licensed forms and constructions) is derived.
+fn resolve_targets(
+    units: &[Unit],
+    effective: &BTreeMap<String, EffectiveLicensing>,
+) -> Result<BTreeMap<String, TargetSpec>, CurriculumError> {
+    let mut targets = BTreeMap::new();
+    for u in units {
+        let eff = &effective[&u.id];
+        let spec = if u.target.is_empty() {
+            let group: Vec<TargetAtom> = u
+                .grant
+                .verb_forms
+                .iter()
+                .map(|vf| TargetAtom::Form {
+                    lemma: vf.lemma.clone(),
+                    form: vf.form.clone(),
+                })
+                .chain(
+                    u.grant
+                        .constructions
+                        .iter()
+                        .map(|c| TargetAtom::Construction(c.clone())),
+                )
+                .collect();
+            if group.is_empty() {
+                return Err(CurriculumError::UntargetableUnit(u.id.clone()));
+            }
+            TargetSpec { groups: vec![group] }
+        } else {
+            let mut groups = Vec::with_capacity(u.target.len());
+            for authored in &u.target {
+                let mut group = Vec::with_capacity(authored.len());
+                for atom in authored {
+                    group.push(parse_target_atom(&u.id, atom, eff)?);
+                }
+                groups.push(group);
+            }
+            TargetSpec { groups }
+        };
+        targets.insert(u.id.clone(), spec);
+    }
+    Ok(targets)
+}
+
+fn parse_target_atom(
+    unit: &str,
+    atom: &str,
+    eff: &EffectiveLicensing,
+) -> Result<TargetAtom, CurriculumError> {
+    let invalid = |reason: &str| CurriculumError::InvalidTarget {
+        unit: unit.to_string(),
+        atom: atom.to_string(),
+        reason: reason.to_string(),
+    };
+
+    if let Some(tag) = atom.strip_prefix("construction:") {
+        if !eff.constructions.contains(tag) {
+            return Err(invalid("construction is not licensed for this unit"));
+        }
+        Ok(TargetAtom::Construction(tag.to_string()))
+    } else if let Some(spec) = atom.strip_prefix("form:") {
+        let (lemma, form) = spec
+            .split_once('@')
+            .ok_or_else(|| invalid("expected form:<lemma>@<form-slot>"))?;
+        if !eff
+            .verb_forms
+            .iter()
+            .any(|vf| vf.lemma == lemma && vf.form == form)
+        {
+            return Err(invalid("verb form is not licensed for this unit"));
+        }
+        Ok(TargetAtom::Form {
+            lemma: lemma.to_string(),
+            form: form.to_string(),
+        })
+    } else {
+        Err(invalid("expected a `form:` or `construction:` prefix"))
+    }
 }
 
 fn validate_unit_ids(units: &[Unit]) -> Result<(), CurriculumError> {
@@ -428,6 +544,32 @@ pub fn check_monotonicity(
     Ok(())
 }
 
+/// Loads a curriculum from inline units JSON over a minimal ambient set,
+/// power-verb registry, and cognate notes — for tests (here and in the
+/// validator) that need a curriculum the committed data doesn't exhibit.
+#[cfg(test)]
+pub fn load_units_for_tests(units_json: &str) -> Curriculum {
+    let ambient = r#"{
+        "version": 1,
+        "grant": {
+            "constructions": ["neg.no", "art.def"],
+            "vocab": ["no", "el", "la"]
+        },
+        "cognate_patterns": []
+    }"#;
+    let power_verbs = r#"{
+        "version": 1,
+        "verbs": [
+            {"lemma": "querer", "english": "to want", "class": "stem.e-ie"},
+            {"lemma": "poder", "english": "to be able to", "class": "stem.o-ue"}
+        ]
+    }"#;
+    let cognate_notes = r#"{"version": 1, "notes": []}"#;
+    let units_file = format!(r#"{{"curriculum_version": 1, "units": {}}}"#, units_json);
+    load(&units_file, ambient, power_verbs, cognate_notes)
+        .expect("test curriculum must load")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -634,7 +776,7 @@ mod tests {
         {"id": "d", "title": "D", "phase": 1, "prereqs": ["a"],
          "grant": {"verb_forms": [{"lemma": "poder", "form": "pres.1sg", "surface": "puedo"}]}},
         {"id": "c", "title": "C", "phase": 2, "prereqs": ["b", "d"],
-         "grant": {"vocab": ["ahora"]}}
+         "grant": {"constructions": ["clitic.both.attach"], "vocab": ["ahora"]}}
     ]"#;
 
     #[test]
@@ -677,8 +819,9 @@ mod tests {
     fn unit_with_empty_grant_is_legal_and_inherits_everything() {
         let c = load_units(
             r#"[{"id": "a", "title": "A", "phase": 1,
-                 "grant": {"vocab": ["comer"]}},
-                {"id": "mixed", "title": "Interleave", "phase": 1, "prereqs": ["a"]}]"#,
+                 "grant": {"constructions": ["opener.modal-inf"], "vocab": ["comer"]}},
+                {"id": "mixed", "title": "Interleave", "phase": 1, "prereqs": ["a"],
+                 "target": [["construction:opener.modal-inf"]]}]"#,
         )
         .unwrap();
         let eff = c.effective_licensing("mixed").unwrap();
@@ -690,6 +833,102 @@ mod tests {
     fn effective_sets_are_monotone_along_every_edge() {
         let c = load_units(DAG).unwrap();
         check_monotonicity(&c.units, &c.effective).unwrap();
+    }
+
+    // --- target specs (S4, #35) ---
+
+    #[test]
+    fn authored_target_resolves_to_atoms() {
+        let c = load_units(
+            r#"[{
+                "id": "a", "title": "A", "phase": 1,
+                "grant": {
+                    "verb_forms": [{"lemma": "querer", "form": "pres.1sg", "surface": "quiero"}],
+                    "constructions": ["opener.modal-inf"]
+                },
+                "target": [["construction:neg.no", "construction:opener.modal-inf"],
+                           ["form:querer@pres.1sg"]]
+            }]"#,
+        )
+        .unwrap();
+        let spec = c.target_spec("a").unwrap();
+        assert_eq!(spec.groups.len(), 2);
+        assert_eq!(
+            spec.groups[0],
+            vec![
+                TargetAtom::Construction("neg.no".into()),
+                TargetAtom::Construction("opener.modal-inf".into()),
+            ]
+        );
+        assert_eq!(
+            spec.groups[1],
+            vec![TargetAtom::Form { lemma: "querer".into(), form: "pres.1sg".into() }]
+        );
+    }
+
+    #[test]
+    fn missing_target_defaults_to_any_own_grant_element() {
+        let c = load_units(
+            r#"[{
+                "id": "a", "title": "A", "phase": 1,
+                "grant": {
+                    "verb_forms": [{"lemma": "querer", "form": "pres.1sg", "surface": "quiero"}],
+                    "constructions": ["opener.modal-inf"]
+                }
+            }]"#,
+        )
+        .unwrap();
+        let spec = c.target_spec("a").unwrap();
+        // One any-of group spanning the unit's own grant.
+        assert_eq!(spec.groups.len(), 1);
+        assert!(spec.groups[0].contains(&TargetAtom::Form {
+            lemma: "querer".into(),
+            form: "pres.1sg".into()
+        }));
+        assert!(spec.groups[0].contains(&TargetAtom::Construction("opener.modal-inf".into())));
+    }
+
+    #[test]
+    fn rejects_untargetable_unit() {
+        // An interleave grants nothing, so a target cannot be derived; it
+        // must be authored.
+        let err = load_units(
+            r#"[{"id": "a", "title": "A", "phase": 1,
+                 "grant": {"constructions": ["opener.modal-inf"], "vocab": ["comer"]}},
+                {"id": "mixed", "title": "Interleave", "phase": 1, "prereqs": ["a"]}]"#,
+        )
+        .unwrap_err();
+        assert!(matches!(err, CurriculumError::UntargetableUnit(id) if id == "mixed"));
+    }
+
+    #[test]
+    fn rejects_target_atom_the_unit_does_not_license() {
+        let err = load_units(
+            r#"[{
+                "id": "a", "title": "A", "phase": 1,
+                "grant": {"constructions": ["opener.modal-inf"]},
+                "target": [["form:poder@pres.1sg"]]
+            }]"#,
+        )
+        .unwrap_err();
+        assert!(matches!(
+            err,
+            CurriculumError::InvalidTarget { unit, atom, .. }
+                if unit == "a" && atom == "form:poder@pres.1sg"
+        ));
+    }
+
+    #[test]
+    fn rejects_malformed_target_atom() {
+        let err = load_units(
+            r#"[{
+                "id": "a", "title": "A", "phase": 1,
+                "grant": {"constructions": ["opener.modal-inf"]},
+                "target": [["opener.modal-inf"]]
+            }]"#,
+        )
+        .unwrap_err();
+        assert!(matches!(err, CurriculumError::InvalidTarget { .. }));
     }
 
     #[test]

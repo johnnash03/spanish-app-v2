@@ -5,3 +5,4 @@
 pub mod curriculum;
 pub mod db;
 pub mod fixtures;
+pub mod validator;

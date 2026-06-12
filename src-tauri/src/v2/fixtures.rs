@@ -5,7 +5,9 @@
 //! Instead, the full v1 yield is committed under `src-tauri/fixtures/`:
 //!
 //! - `v1_exercise_items.json` — every generated v1 item; input corpus for
-//!   the S4 validator (#35).
+//!   the S4 validator (#35). The unit-1 banks' analyzer output lives in
+//!   `v1_unit1_analyses.json` (produced by `cargo run --bin
+//!   analyze_v1_unit1`, consumed by `v2::validator::v1_regression`).
 //! - `v1_evaluations.json` — every v1 evaluation verdict, including the
 //!   known unjust ones; regression seed for the S7 evaluator (#38).
 //! - `v1_combined_exercises.json` — the v1 combined-track pool, kept for
