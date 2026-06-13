@@ -135,7 +135,9 @@ export interface V2SessionItem {
   targetSkill: string;
 }
 
-export type V2AttemptStatus = "correct" | "pending";
+// `dodge` is a structure-avoiding correct answer (S7, #38): shown to the
+// learner as correct with a nudge, worth no mastery credit.
+export type V2AttemptStatus = "correct" | "pending" | "wrong" | "dodge";
 
 export interface V2AttemptVerdict {
   attemptId: string;
@@ -152,6 +154,9 @@ export interface V2ReviewAttempt {
   remarks: string[];
   canonical: string;
   targetSkill: string;
+  errorCategory: string | null;
+  hint: string | null;
+  explanation: string | null;
 }
 
 export type Screen =
@@ -178,4 +183,4 @@ export type Screen =
     }
   | { name: "v2Units" }
   | { name: "v2Session"; unitId: string; unitTitle: string }
-  | { name: "v2Review"; attempts: V2ReviewAttempt[] };
+  | { name: "v2Review"; attempts: V2ReviewAttempt[]; sessionId: string };

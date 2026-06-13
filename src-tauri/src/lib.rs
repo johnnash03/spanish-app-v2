@@ -66,6 +66,7 @@ pub fn run() {
             v2::session::v2_start_session,
             v2::session::v2_submit_attempt,
             v2::session::v2_end_session,
+            v2::session::v2_session_review,
             db::wipe_exercise_items,
             openai::openai_ping,
             generate::trigger_generation,

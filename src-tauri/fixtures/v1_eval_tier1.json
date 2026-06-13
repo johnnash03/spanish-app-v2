@@ -1,0 +1,3743 @@
+{
+  "evaluations": [
+    {
+      "analysis": {
+        "accent_restored_answer": "Quieran salir",
+        "conveys_meaning": {
+          "evidence": "Quieran salir",
+          "verdict": false
+        },
+        "error": {
+          "category": "mood-selection",
+          "evidence": "Quieran"
+        },
+        "explanation": "In Spanish, the subjunctive mood is used to express wishes, doubts, or hypothetical situations. However, in this context, the indicative mood is appropriate because the sentence is a straightforward statement of fact about what 'they' want to do. The correct form is 'quieren' for the indicative mood.",
+        "grammatical": {
+          "evidence": "Quieran salir",
+          "verdict": false
+        },
+        "hint": "Use the indicative mood for stating what they want to do.",
+        "uses_target_structure": {
+          "evidence": "Quieran salir",
+          "verdict": true
+        }
+      },
+      "answer": "Quieran salir",
+      "canonical": "Quieren salir.",
+      "cue": "They want to leave.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.quiero",
+      "v1_id": "1eb98a20-1eb9-48a2-8a2b-6284ed2c315fd4a0",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quieromos comparar lo opciones",
+        "conveys_meaning": {
+          "evidence": "Quieromos comparar lo opciones",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "Quieromos"
+        },
+        "explanation": "The verb form 'quieromos' is incorrect. The correct form for 'we want' is 'queremos'. In Spanish, verbs must be conjugated correctly to match the subject in person and number.",
+        "grammatical": {
+          "evidence": "Quieromos",
+          "verdict": false
+        },
+        "hint": "Check the conjugation of 'querer' for 'we want'.",
+        "uses_target_structure": {
+          "evidence": "Quieromos comparar",
+          "verdict": true
+        }
+      },
+      "answer": "Quieromos comparar lo opciones",
+      "canonical": "Queremos comparar las opciones.",
+      "cue": "We want to compare the options.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.quiero",
+      "v1_id": "1fe8f200-1fe8-4f20-b20b-3796badb6753da00",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quieren preparar una positiva presentación",
+        "conveys_meaning": {
+          "evidence": "Quieren preparar una positiva presentación",
+          "verdict": true
+        },
+        "error": {
+          "category": "agreement-gender",
+          "evidence": "una positiva presentación"
+        },
+        "explanation": "In Spanish, adjectives must agree in gender and number with the nouns they modify. 'Presentación' is a feminine noun, so the adjective 'positivo' should be in its feminine form 'positiva'.",
+        "grammatical": {
+          "evidence": "una positiva presentación",
+          "verdict": false
+        },
+        "hint": "Ensure the adjective matches the gender of the noun it describes.",
+        "uses_target_structure": {
+          "evidence": "Quieren preparar",
+          "verdict": true
+        }
+      },
+      "answer": "Quieren preparar una positiva presentacion",
+      "canonical": "Quieren preparar una presentación positiva.",
+      "cue": "They want to prepare a positive presentation.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.quiero",
+      "v1_id": "200cba28-200c-4ba2-ba23-ebb7127872c6a548",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quieromos cancelar la reunión",
+        "conveys_meaning": {
+          "evidence": "Quieromos cancelar la reunión",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "Quieromos"
+        },
+        "explanation": "The verb form 'quieromos' is incorrect. The correct conjugation for 'querer' in the first person plural (we) is 'queremos'. In Spanish, verbs must be conjugated correctly to match the subject in both number and person.",
+        "grammatical": {
+          "evidence": "Quieromos",
+          "verdict": false
+        },
+        "hint": "Check the conjugation of 'querer' for 'we'.",
+        "uses_target_structure": {
+          "evidence": "Quieromos cancelar",
+          "verdict": true
+        }
+      },
+      "answer": "Quieromos cancelar la reunion",
+      "canonical": "Queremos cancelar la reunión.",
+      "cue": "We want to cancel the meeting.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.quiero",
+      "v1_id": "203e70b8-203e-470b-b0b3-a7f6c890c0e85f18",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero organizar el evento",
+        "conveys_meaning": {
+          "evidence": "Quiero organizar el evento",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiero organizar el evento",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Quiero organizar",
+          "verdict": true
+        }
+      },
+      "answer": "Quiero organizar el evento",
+      "canonical": "Quiero organizar el evento.",
+      "cue": "I want to organize the event.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "206810f8-2068-410f-90f3-609e896d00718458",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiere influenciar la importante decisión",
+        "conveys_meaning": {
+          "evidence": "Quiere influenciar la importante decisión",
+          "verdict": true
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "influenciar"
+        },
+        "explanation": "The correct infinitive form of the verb is 'influir', not 'influenciar'. 'Influir' is the standard verb used to express the idea of influencing something in Spanish.",
+        "grammatical": {
+          "evidence": "influenciar",
+          "verdict": false
+        },
+        "hint": "Check the infinitive form of the verb 'to influence' in Spanish.",
+        "uses_target_structure": {
+          "evidence": "Quiere influenciar",
+          "verdict": true
+        }
+      },
+      "answer": "Quiere influencar la importante decision",
+      "canonical": "Quiere influir en la decisión importante.",
+      "cue": "She wants to influence the important decision.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.quiero",
+      "v1_id": "2085e998-2085-4e99-a993-dc028c337611c978",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiere bailar",
+        "conveys_meaning": {
+          "evidence": "Quiere bailar",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiere bailar",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Quiere bailar",
+          "verdict": true
+        }
+      },
+      "answer": "Quiere bailar",
+      "canonical": "Quiere bailar.",
+      "cue": "She wants to dance.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "2125f258-2125-4f25-b253-555b31daceef8138",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Puede escribir",
+        "conveys_meaning": {
+          "evidence": "Puede escribir",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Puede escribir",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Puede escribir",
+          "verdict": true
+        }
+      },
+      "answer": "Puede escribir",
+      "canonical": "Puede escribir.",
+      "cue": "She can write.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "2200b640-2200-4b64-b64b-a150335990d5f340",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero comparar posible soluciones",
+        "conveys_meaning": {
+          "evidence": "Quiero comparar posible soluciones",
+          "verdict": true
+        },
+        "error": {
+          "category": "agreement-gender",
+          "evidence": "posible soluciones"
+        },
+        "explanation": "In Spanish, adjectives must agree in number with the nouns they modify. 'Posible' is singular, but 'soluciones' is plural, so the correct form should be 'posibles soluciones.'",
+        "grammatical": {
+          "evidence": "posible soluciones",
+          "verdict": false
+        },
+        "hint": "Make sure adjectives agree in number with the nouns they describe.",
+        "uses_target_structure": {
+          "evidence": "Quiero comparar",
+          "verdict": true
+        }
+      },
+      "answer": "Quiero comparar posible soluciones",
+      "canonical": "Quiero comparar soluciones posibles.",
+      "cue": "I want to compare possible solutions.",
+      "v1_correct": 0,
+      "v1_error_tag": "lex.cognate.ible-able",
+      "v1_id": "22243048-2224-4304-b043-a76acefe012ad5e8",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Puedan cantar",
+        "conveys_meaning": {
+          "evidence": "Puedan cantar",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "Puedan"
+        },
+        "explanation": "The verb 'poder' should be in the indicative mood to express a factual ability. 'Puedan' is in the subjunctive mood, which is used for hypothetical or non-factual situations. The correct form here is 'pueden' to match the indicative mood for stating that they can sing.",
+        "grammatical": {
+          "evidence": "Puedan",
+          "verdict": false
+        },
+        "hint": "Use the indicative mood for stating a fact about their ability to sing.",
+        "uses_target_structure": {
+          "evidence": "Puedan cantar",
+          "verdict": true
+        }
+      },
+      "answer": "Puedan cantar",
+      "canonical": "Pueden cantar.",
+      "cue": "They can sing.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.puedo",
+      "v1_id": "2236f8e0-2236-4f8e-b8eb-7e7ef3d07fceea60",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero organizar lo evento",
+        "conveys_meaning": {
+          "evidence": "Quiero organizar lo evento",
+          "verdict": true
+        },
+        "error": {
+          "category": "agreement-gender",
+          "evidence": "lo evento"
+        },
+        "explanation": "In Spanish, articles must agree in gender and number with the nouns they modify. 'Evento' is a masculine singular noun, so the correct article is 'el', not 'lo'.",
+        "grammatical": {
+          "evidence": "lo evento",
+          "verdict": false
+        },
+        "hint": "Check the gender of 'evento' and use the correct article.",
+        "uses_target_structure": {
+          "evidence": "Quiero organizar",
+          "verdict": true
+        }
+      },
+      "answer": "Quiero organizar lo evento",
+      "canonical": "Quiero organizar el evento.",
+      "cue": "I want to organize the event.",
+      "v1_correct": 0,
+      "v1_error_tag": "lex.cognate.tion",
+      "v1_id": "22457bb8-2245-47bb-bbb3-d142d10a82d04618",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "puedo ser positiva y quiero ayudar",
+        "conveys_meaning": {
+          "evidence": "puedo ser positiva y quiero ayudar",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "puedo ser positiva y quiero ayudar",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "puedo ser positiva",
+          "verdict": true
+        }
+      },
+      "answer": "puedo ser positiva y quiero ayudar",
+      "canonical": "Puedo ser positivo y quiero ayudar.",
+      "cue": "I can be positive and want to help.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "2252f4f0-2252-4f4f-b4fb-d4599590dcd257b0",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "puedan ser creativa",
+        "conveys_meaning": {
+          "evidence": "puedan ser creativa",
+          "verdict": false
+        },
+        "error": {
+          "category": "tense-selection",
+          "evidence": "puedan"
+        },
+        "explanation": "The verb 'poder' is incorrectly conjugated in the subjunctive mood ('puedan') instead of the indicative mood ('pueden'). The indicative mood is used for statements of fact or certainty, which is appropriate here as the sentence is stating a possibility or ability.",
+        "grammatical": {
+          "evidence": "puedan ser creativa",
+          "verdict": false
+        },
+        "hint": "Use the indicative mood for 'poder' to express ability or possibility.",
+        "uses_target_structure": {
+          "evidence": "puedan ser creativa",
+          "verdict": true
+        }
+      },
+      "answer": "puedan ser creativa",
+      "canonical": "Pueden ser creativos.",
+      "cue": "They can be creative.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.puedo",
+      "v1_id": "22620468-2262-4046-8463-605af8572a3cbc88",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero comer",
+        "conveys_meaning": {
+          "evidence": "Quiero comer",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiero comer",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Quiero comer",
+          "verdict": true
+        }
+      },
+      "answer": "Quiero comer",
+      "canonical": "Quiero comer.",
+      "cue": "I want to eat.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "22841af8-2284-41af-9af3-4ea84983a5965658",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero comer",
+        "conveys_meaning": {
+          "evidence": "Quiero comer",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiero comer",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Quiero comer",
+          "verdict": true
+        }
+      },
+      "answer": "Quiero comer",
+      "canonical": "Quiero comer.",
+      "cue": "I want to eat.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "13b9a6f0-13b9-4a6f-a6fb-86fea7adc76f1b0",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero deseno un nueva necessidad plana",
+        "conveys_meaning": {
+          "evidence": "Quiero deseno un nueva necessidad plana",
+          "verdict": false
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "deseno"
+        },
+        "explanation": "The word 'deseno' is a misspelling of 'diseñar', which is the correct infinitive form of the verb 'to design'. In Spanish, 'diseñar' is the correct verb to use when expressing the action of designing something.",
+        "grammatical": {
+          "evidence": "Quiero deseno un nueva necessidad plana",
+          "verdict": false
+        },
+        "hint": "Check the spelling of the verb 'to design' in Spanish.",
+        "uses_target_structure": {
+          "evidence": "Quiero deseno",
+          "verdict": true
+        }
+      },
+      "answer": "Quiero deseno un nueva necessidad plana",
+      "canonical": "Quiero diseñar un nuevo plan necesario.",
+      "cue": "I want to design a new necessary plan.",
+      "v1_correct": 0,
+      "v1_error_tag": "lex.cognate.ive-ary",
+      "v1_id": "1422fbc8-1422-4fbc-bbc3-a844b24f98a38768",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Puedo entender la influencia pero no quiero seguirlo",
+        "conveys_meaning": {
+          "evidence": "Puedo entender la influencia pero no quiero seguirlo",
+          "verdict": true
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "influenca"
+        },
+        "explanation": "The word 'influenca' is a misspelling of 'influencia'. In Spanish, 'influencia' is the correct spelling for 'influence'. Misspellings beyond accents, such as incorrect letters, make the sentence ungrammatical.",
+        "grammatical": {
+          "evidence": "influenca",
+          "verdict": false
+        },
+        "hint": "Check the spelling of 'influence' in Spanish.",
+        "uses_target_structure": {
+          "evidence": "Puedo entender",
+          "verdict": true
+        }
+      },
+      "answer": "Puedo entender la influenca pero no quiero seguirlo",
+      "canonical": "Puedo entender la influencia pero no quiero seguirla.",
+      "cue": "I can understand the influence but don't want to follow it.",
+      "v1_correct": 0,
+      "v1_error_tag": "lex.cognate.ence-ity",
+      "v1_id": "145c7e70-145c-47e7-be7b-c2ca1e4495349f30",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Vamos a viajar a país diferente, pero debo ahorrar dinero primero",
+        "conveys_meaning": {
+          "evidence": "Vamos a viajar a país diferente, pero debo ahorrar dinero primero",
+          "verdict": false
+        },
+        "error": {
+          "category": "lexical-choice",
+          "evidence": "debo"
+        },
+        "explanation": "The verb 'debo' means 'I must', which changes the subject from 'we' to 'I'. The correct form should reflect the subject 'we', which is 'debemos'. This ensures that the subject remains consistent throughout the sentence.",
+        "grammatical": {
+          "evidence": "Vamos a viajar a país diferente, pero debo ahorrar dinero primero",
+          "verdict": true
+        },
+        "hint": "Ensure the subject remains consistent throughout the sentence.",
+        "uses_target_structure": {
+          "evidence": "Vamos a viajar",
+          "verdict": true
+        }
+      },
+      "answer": "Vamos a viajar a pais diferente, pero debo ahorra dinero primero",
+      "canonical": "Vamos a viajar a un país diferente, pero debemos ahorrar dinero primero.",
+      "cue": "We are going to travel to a different country, but we must save money first.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.debo",
+      "v1_id": "0e3aa3a0-0e3a-4a3a-a3ab-ee2a19a53e50ec20",
+      "v1_tag": "opener.voy-a"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "voy a estudiar porque es importante",
+        "conveys_meaning": {
+          "evidence": "voy a estudiar por que es importante",
+          "verdict": true
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "por que"
+        },
+        "explanation": "In Spanish, 'porque' is used to express 'because' as a conjunction. 'Por que' is incorrect in this context as it separates the preposition 'por' and the relative pronoun 'que', which does not convey the intended meaning of 'because'.",
+        "grammatical": {
+          "evidence": "voy a estudiar por que es importante",
+          "verdict": false
+        },
+        "hint": "Use 'porque' as a single word to mean 'because'.",
+        "uses_target_structure": {
+          "evidence": "voy a estudiar",
+          "verdict": true
+        }
+      },
+      "answer": "voy a estudiar por que es importante",
+      "canonical": "Voy a estudiar porque es importante.",
+      "cue": "I am going to study because it is important.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "374863b8-3748-463b-a3b3-42770728b46d4e18",
+      "v1_tag": "opener.voy-a"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Van a correr",
+        "conveys_meaning": {
+          "evidence": "van a correr",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Van a correr",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "van a correr",
+          "verdict": true
+        }
+      },
+      "answer": "van a correr",
+      "canonical": "Van a correr.",
+      "cue": "They are going to run.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "37916338-3791-4633-a333-dc9f76a6712c4398",
+      "v1_tag": "opener.voy-a"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "quiere bailar",
+        "conveys_meaning": {
+          "evidence": "quiere bailar",
+          "verdict": true
+        },
+        "error": {
+          "category": "omission",
+          "evidence": "quiere bailar"
+        },
+        "explanation": "In Spanish, subject pronouns are often omitted, but when translating from English, it's important to include them if they clarify the subject. Here, 'ella' should be included to specify 'she' as the subject, especially since 'quiere' could refer to 'he', 'she', or 'it'.",
+        "grammatical": {
+          "evidence": "quiere bailar",
+          "verdict": true
+        },
+        "hint": "Include the subject pronoun to specify who wants to dance.",
+        "uses_target_structure": {
+          "evidence": "quiere bailar",
+          "verdict": true
+        }
+      },
+      "answer": "quiere bailar",
+      "canonical": "Quiere bailar.",
+      "cue": "She wants to dance.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "37b17a10-37b1-47a1-ba1b-57140569c14ec350",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Los puedes ver",
+        "conveys_meaning": {
+          "evidence": "Los puedes ver",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Los puedes ver",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Los puedes ver",
+          "verdict": false
+        }
+      },
+      "answer": "Los puedes ver",
+      "canonical": "¿Puedes verlos?",
+      "cue": "Can you see them?",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.attach.mixed",
+      "v1_id": "1f509618-1f50-4961-9613-d6e7e646e53feff8",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quieren salir",
+        "conveys_meaning": {
+          "evidence": "Quieren salir",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quieren salir",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Quieren salir",
+          "verdict": true
+        }
+      },
+      "answer": "Quieren salir",
+      "canonical": "Quieren salir.",
+      "cue": "They want to leave.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "208be8c0-208b-4e8c-a8cb-378cd36ef7b717c0",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "lo puedes manana",
+        "conveys_meaning": {
+          "evidence": "lo puedes manana",
+          "verdict": false
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "manana"
+        },
+        "explanation": "The word 'manana' is a misspelling of 'mañana'. The letter 'ñ' is distinct from 'n' in Spanish and changes the meaning of the word. 'Mañana' means 'tomorrow', while 'manana' is not a valid Spanish word.",
+        "grammatical": {
+          "evidence": "manana",
+          "verdict": false
+        },
+        "hint": "Check the spelling of 'mañana' to ensure it is correct.",
+        "uses_target_structure": {
+          "evidence": "lo puedes",
+          "verdict": false
+        }
+      },
+      "answer": "lo puedes manana",
+      "canonical": "Puedes intentarlo mañana.",
+      "cue": "You can try it tomorrow.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.attach.mixed",
+      "v1_id": "20dc4310-20dc-4431-831b-33a5db6db52d4050",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "lo quiero comparar",
+        "conveys_meaning": {
+          "evidence": "lo quiero comparar",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "lo quiero comparar",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "lo quiero comparar",
+          "verdict": false
+        }
+      },
+      "answer": "lo quiero comparar",
+      "canonical": "Quiero compararlo.",
+      "cue": "I want to compare it.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "1d9c4e98-1d9c-44e9-8e93-87bcc5e43d41278",
+      "v1_tag": "clitic.do.sg.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "quieren salir",
+        "conveys_meaning": {
+          "evidence": "quieren salir",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "quieren salir",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "quieren salir",
+          "verdict": true
+        }
+      },
+      "answer": "quieren salir",
+      "canonical": "Quieren salir.",
+      "cue": "They want to leave.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "1e1781a8-1e17-481a-81a3-7553851bad4b02c8",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "tenemos que hacerlo posible",
+        "conveys_meaning": {
+          "evidence": "tenemos que hacerlo posible",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "tenemos que hacerlo posible",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "hacerlo",
+          "verdict": true
+        }
+      },
+      "answer": "tenemos que hacerlo posible",
+      "canonical": "Tenemos que hacerlo posible.",
+      "cue": "We have to make it possible.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "1e553a70-1e55-43a7-ba7b-f15b464439ac0b30",
+      "v1_tag": "clitic.do.sg.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Puedo prepararlo rápidamente",
+        "conveys_meaning": {
+          "evidence": "poder preparar lo rápidamente",
+          "verdict": true
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "rapidomente"
+        },
+        "explanation": "The word 'rapidomente' is a misspelling. The correct adverb form is 'rápidamente', which is derived from the adjective 'rápido' by adding the suffix '-mente'. This suffix is used to form adverbs from adjectives in Spanish.",
+        "grammatical": {
+          "evidence": "rapidomente",
+          "verdict": false
+        },
+        "hint": "Check the spelling of the adverb for 'quickly' in Spanish.",
+        "uses_target_structure": {
+          "evidence": "prepararlo",
+          "verdict": true
+        }
+      },
+      "answer": "puedo prepararlo rapidomente",
+      "canonical": "Puedo prepararlo rápidamente.",
+      "cue": "I can prepare it quickly.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.attach.mixed",
+      "v1_id": "1e73af50-1e73-4af5-af5b-c8cac0fbe5882190",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Podemos aceptar la posibilidad",
+        "conveys_meaning": {
+          "evidence": "Podemos aceptar la posibilidad",
+          "verdict": false
+        },
+        "error": {
+          "category": "omission",
+          "evidence": "Podemos aceptar la posibilidad"
+        },
+        "explanation": "The sentence is missing the personal direct-object pronoun 'nos' attached to the infinitive 'aceptar'. In Spanish, when using a verb phrase with an infinitive, the pronoun can be attached to the end of the infinitive to indicate the object of the action. Here, 'nos' should be attached to 'aceptar' to convey 'accept us'.",
+        "grammatical": {
+          "evidence": "Podemos aceptar la posibilidad",
+          "verdict": true
+        },
+        "hint": "Include the pronoun 'nos' attached to the infinitive to indicate the object of the action.",
+        "uses_target_structure": {
+          "evidence": "Podemos aceptar la posibilidad",
+          "verdict": false
+        }
+      },
+      "answer": "Podemos aceptar la posibilidad",
+      "canonical": "Tenemos que aceptar la posibilidad.",
+      "cue": "We have to accept the possibility.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.person.attach",
+      "v1_id": "05db6f78-05db-46f7-af73-f8f4d64985ae44d8",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero verlo",
+        "conveys_meaning": {
+          "evidence": "verlo",
+          "verdict": false
+        },
+        "error": {
+          "category": "clitic-choice",
+          "evidence": "verlo"
+        },
+        "explanation": "The pronoun 'lo' is used for masculine singular direct objects or for neutral objects. Since the cue specifies 'her', the correct pronoun should be 'la', which is used for feminine singular direct objects.",
+        "grammatical": {
+          "evidence": "Quiero verlo",
+          "verdict": true
+        },
+        "hint": "Use the correct pronoun for 'her' in Spanish.",
+        "uses_target_structure": {
+          "evidence": "verlo",
+          "verdict": false
+        }
+      },
+      "answer": "Quiero verlo",
+      "canonical": "Quiero verla.",
+      "cue": "I want to see her.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.person.attach",
+      "v1_id": "072f7e28-072f-47e2-be23-721db9b3e790b948",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Necesitas llamarme",
+        "conveys_meaning": {
+          "evidence": "Necesitas llamarme",
+          "verdict": false
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "Necesitas"
+        },
+        "explanation": "The verb 'necesitar' is incorrectly conjugated for the subject 'she'. In Spanish, verbs must agree with their subjects in person and number. The correct form for 'she needs' is 'necesita', not 'necesitas', which is the form for 'you need'.",
+        "grammatical": {
+          "evidence": "Necesitas",
+          "verdict": false
+        },
+        "hint": "Check the verb form for 'she needs'.",
+        "uses_target_structure": {
+          "evidence": "llamarme",
+          "verdict": true
+        }
+      },
+      "answer": "necesitas llamarme",
+      "canonical": "Necesita llamarme.",
+      "cue": "She needs to call me.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.person.attach",
+      "v1_id": "07415c60-0741-45c6-9c6b-3f20aa9c94db13e0",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "tengo que leerlo",
+        "conveys_meaning": {
+          "evidence": "tengo que leerlo",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "tengo que leerlo",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "leerlo",
+          "verdict": true
+        }
+      },
+      "answer": "tengo que leerlo",
+      "canonical": "Tengo que leerlo.",
+      "cue": "I have to read it.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "075551c0-0755-451c-91cb-b4314985cf18b4c0",
+      "v1_tag": "clitic.do.sg.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Puedo entenderte",
+        "conveys_meaning": {
+          "evidence": "Puedo entenderte",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Puedo entenderte",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "entenderte",
+          "verdict": true
+        }
+      },
+      "answer": "puedo entenderte",
+      "canonical": "Puedo entenderte.",
+      "cue": "I can understand you.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "076b8940-076b-4894-894b-3105f1051ecd4240",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "puedo verte",
+        "conveys_meaning": {
+          "evidence": "puedo verte",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "puedo verte",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "verte",
+          "verdict": true
+        }
+      },
+      "answer": "puedo verte",
+      "canonical": "Puedo verte.",
+      "cue": "I can see you.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "077e8c70-077e-48c7-8c7b-8a9e62d211c7c530",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "quieren ayudarme",
+        "conveys_meaning": {
+          "evidence": "quieren ayudarme",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "quieren ayudarme",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "ayudarme",
+          "verdict": true
+        }
+      },
+      "answer": "quieren ayudarme",
+      "canonical": "Quieren ayudarme.",
+      "cue": "They want to help me.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "07991d38-0799-41d3-9d33-b744c0e803e68598",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "necesitas prepararlos",
+        "conveys_meaning": {
+          "evidence": "necesitas prepararlos",
+          "verdict": true
+        },
+        "error": {
+          "category": "clitic-choice",
+          "evidence": "los"
+        },
+        "explanation": "The pronoun 'los' is used for masculine plural objects. However, the target structure requires the use of 'me', 'te', or 'nos' as the direct object pronoun. In this context, 'them' should be translated using one of these pronouns, depending on the intended meaning.",
+        "grammatical": {
+          "evidence": "necesitas prepararlos",
+          "verdict": true
+        },
+        "hint": "Use the correct personal direct-object pronoun for 'them' in the context of the target structure.",
+        "uses_target_structure": {
+          "evidence": "necesitas prepararlos",
+          "verdict": false
+        }
+      },
+      "answer": "necesitas prepararlos",
+      "canonical": "Necesitas prepararlos.",
+      "cue": "You need to prepare them.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "07ebe0b8-07eb-4e0b-a0b3-1224af7924628f18",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "tengo que llamarte",
+        "conveys_meaning": {
+          "evidence": "tengo que llamarte",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "tengo que llamarte",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "llamarte",
+          "verdict": true
+        }
+      },
+      "answer": "tengo que llamarte",
+      "canonical": "Tengo que llamarte.",
+      "cue": "I have to call you.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "08280728-0828-4072-8723-df54efaf84ff648",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "voy a estudiar porque es importante",
+        "conveys_meaning": {
+          "evidence": "voy a estudiar porque es importante",
+          "verdict": true
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "por que"
+        },
+        "explanation": "In Spanish, 'porque' is used to express 'because' as a conjunction. 'Por que' is incorrect in this context as it separates the preposition 'por' and the relative pronoun 'que', which does not convey the intended meaning of 'because'.",
+        "grammatical": {
+          "evidence": "voy a estudiar porque es importante",
+          "verdict": true
+        },
+        "hint": "Use 'porque' as a single word to mean 'because'.",
+        "uses_target_structure": {
+          "evidence": "voy a estudiar",
+          "verdict": true
+        }
+      },
+      "answer": "voy a estudiar por que es importante",
+      "canonical": "Voy a estudiar porque es importante.",
+      "cue": "I am going to study because it is important.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.voy-a",
+      "v1_id": "083a00b8-083a-400b-80b3-17e0a814424b2f18",
+      "v1_tag": "opener.voy-a"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero verte",
+        "conveys_meaning": {
+          "evidence": "Quiero verte",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiero verte",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "verte",
+          "verdict": true
+        }
+      },
+      "answer": "Quiero verte",
+      "canonical": "Quiero verte.",
+      "cue": "I want to see you.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "084a40e0-084a-440e-80eb-4a92018a8643d260",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "queremos organizarlos",
+        "conveys_meaning": {
+          "evidence": "queromos organizarlos",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "queromos"
+        },
+        "explanation": "The verb form 'queromos' is incorrect. The correct form for 'we want' is 'queremos'. In Spanish, verbs must be conjugated correctly to match the subject in person and number. Here, the first person plural form of 'querer' is 'queremos'.",
+        "grammatical": {
+          "evidence": "queromos",
+          "verdict": false
+        },
+        "hint": "Check the conjugation of 'querer' for 'we want'.",
+        "uses_target_structure": {
+          "evidence": "organizarlos",
+          "verdict": true
+        }
+      },
+      "answer": "queromos organizarlos",
+      "canonical": "Queremos organizarlos.",
+      "cue": "We want to organize them.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.quiero",
+      "v1_id": "085c6180-085c-4618-a18b-ab8038a01dcdff80",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "necesitamos encontrarnos",
+        "conveys_meaning": {
+          "evidence": "necesitamos encontrarnos",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "necesitamos encontrarnos",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "encontrarnos",
+          "verdict": true
+        }
+      },
+      "answer": "necesitamos encontrarnos",
+      "canonical": "Necesitamos encontrarnos.",
+      "cue": "We need to find us.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "08704740-0870-4474-874b-fdc2e5246c38d840",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "puede organizarlo",
+        "conveys_meaning": {
+          "evidence": "puede organizarlo",
+          "verdict": true
+        },
+        "error": {
+          "category": "clitic-choice",
+          "evidence": "organizarlo"
+        },
+        "explanation": "The pronoun 'lo' is used for masculine singular direct objects. Since the target structure involves personal direct-object pronouns like 'me', 'te', or 'nos', 'lo' is not appropriate here. The sentence should use one of these pronouns attached to the infinitive to match the target structure.",
+        "grammatical": {
+          "evidence": "puede organizarlo",
+          "verdict": true
+        },
+        "hint": "Use a personal direct-object pronoun like 'me', 'te', or 'nos' attached to the infinitive.",
+        "uses_target_structure": {
+          "evidence": "organizarlo",
+          "verdict": false
+        }
+      },
+      "answer": "puede organizarlo",
+      "canonical": "Puede organizarlo.",
+      "cue": "She can organize it.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "08892e40-0889-42e4-ae4b-75fd35fc4427cb40",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Cuándo va a llamarlo?",
+        "conveys_meaning": {
+          "evidence": "Cuándo va a llamarlo",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Cuándo va a llamarlo",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Cuándo va a llamarlo",
+          "verdict": true
+        }
+      },
+      "answer": "Cuando va a llamarlo",
+      "canonical": "¿Cuándo lo vas a llamar?",
+      "cue": "When are you going to call him?",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.sg.attach",
+      "v1_id": "23989450-2398-4945-945b-26400abf627aea90",
+      "v1_tag": "question.wh"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Cómo estás?",
+        "conveys_meaning": {
+          "evidence": "Como estas",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Como estas",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Como",
+          "verdict": true
+        }
+      },
+      "answer": "Como estas",
+      "canonical": "¿Cómo estás?",
+      "cue": "How are you?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "24adf808-24ad-4f80-b803-7e8ffe4f0b938a8",
+      "v1_tag": "question.wh"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Por qué va a ver la película",
+        "conveys_meaning": {
+          "evidence": "Por qué va a ver la película",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "va"
+        },
+        "explanation": "The verb form 'va' is incorrect for the subject 'you' in the question. In Spanish, the verb form must agree with the subject in person and number. For 'you' (singular, informal), the correct form is 'vas'.",
+        "grammatical": {
+          "evidence": "va",
+          "verdict": false
+        },
+        "hint": "Check the verb form for 'you' in the sentence.",
+        "uses_target_structure": {
+          "evidence": "Por qué",
+          "verdict": true
+        }
+      },
+      "answer": "Por que va a ver la pelicula",
+      "canonical": "¿Por qué vas a ver la película?",
+      "cue": "Why are you going to see the movie?",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.voy-a",
+      "v1_id": "24ce39d8-24ce-439d-b9d3-e213e93dc95f5eb8",
+      "v1_tag": "question.wh"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Qué tiene hacer hoy",
+        "conveys_meaning": {
+          "evidence": "tiene",
+          "verdict": false
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "tiene"
+        },
+        "explanation": "The verb 'tener' needs to be conjugated to match the subject 'you' in the question. In Spanish, 'you' can be 'tú' (informal) or 'usted' (formal), which require 'tienes' or 'tiene' respectively. However, in this context, the infinitive 'tener' should be used as 'tener que' to express obligation.",
+        "grammatical": {
+          "evidence": "tiene",
+          "verdict": false
+        },
+        "hint": "Check the conjugation of 'tener' for 'you' and remember to use 'tener que' for obligations.",
+        "uses_target_structure": {
+          "evidence": "Qué",
+          "verdict": true
+        }
+      },
+      "answer": "Que tiene hacer hoy",
+      "canonical": "¿Qué tienes que hacer hoy?",
+      "cue": "What do you have to do today?",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.tengo-que",
+      "v1_id": "24e2b7f0-24e2-4b7f-b7fb-87ae911a131156b0",
+      "v1_tag": "question.wh"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Sé quién llamar",
+        "conveys_meaning": {
+          "evidence": "Sé quién llamar",
+          "verdict": true
+        },
+        "error": {
+          "category": "omission",
+          "evidence": "quién llamar"
+        },
+        "explanation": "In Spanish, when using 'saber' with an embedded question, the word 'a' is required before the verb to indicate the person being called. This is known as the 'personal a', which is used when the direct object is a specific person or people.",
+        "grammatical": {
+          "evidence": "quién llamar",
+          "verdict": false
+        },
+        "hint": "Remember to use the 'personal a' before the verb when referring to a specific person.",
+        "uses_target_structure": {
+          "evidence": "Sé quién llamar",
+          "verdict": true
+        }
+      },
+      "answer": "Se quien llamar",
+      "canonical": "Sé a quién llamar.",
+      "cue": "I know who to call.",
+      "v1_correct": 0,
+      "v1_error_tag": "gram.personal-a",
+      "v1_id": "257bfe38-257b-4fe3-be33-f26e9998667efa98",
+      "v1_tag": "question.embedded"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Por qué quieres dármelo?",
+        "conveys_meaning": {
+          "evidence": "Por que quieres darmelo",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Por que quieres darmelo",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Por que",
+          "verdict": true
+        }
+      },
+      "answer": "Por que quieres darmelo",
+      "canonical": "¿Por qué me lo quieres dar?",
+      "cue": "Why do you want to give it to me?",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.both.attach",
+      "v1_id": "25b778c8-25b7-478c-b8c3-6f65cec4185dc868",
+      "v1_tag": "question.wh"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero comerlo",
+        "conveys_meaning": {
+          "evidence": "Quiero comerlo",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiero comerlo",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "comerlo",
+          "verdict": true
+        }
+      },
+      "answer": "Quiero comerlo",
+      "canonical": "Quiero comerlo.",
+      "cue": "I want to eat it.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "25d64b68-25d6-44b6-8b63-17a8f7d94b2a8f88",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Realmente sabes Maria?",
+        "conveys_meaning": {
+          "evidence": "Realmente sabes Maria",
+          "verdict": false
+        },
+        "error": {
+          "category": "omission",
+          "evidence": "sabes Maria"
+        },
+        "explanation": "In Spanish, when referring to a specific person as the object of a verb, the preposition 'a' is required before the person's name. This is known as the 'personal a'. It is used to indicate that the direct object is a specific person, which is necessary in this sentence.",
+        "grammatical": {
+          "evidence": "sabes Maria",
+          "verdict": false
+        },
+        "hint": "Remember to use the 'personal a' before a person's name when they are the object of the verb.",
+        "uses_target_structure": {
+          "evidence": "sabes",
+          "verdict": true
+        }
+      },
+      "answer": "Realmente sabes Maria?",
+      "canonical": "¿Conoces realmente a María?",
+      "cue": "Do you really know Maria?",
+      "v1_correct": 0,
+      "v1_error_tag": "gram.personal-a",
+      "v1_id": "011a1ea8-011a-41ea-9ea3-6b01d6b2f28de3c8",
+      "v1_tag": "conj.pres.er.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Cuántos muchos libros tienes que leer?",
+        "conveys_meaning": {
+          "evidence": "Cuántos muchos libros tienes que leer",
+          "verdict": false
+        },
+        "error": {
+          "category": "addition",
+          "evidence": "muchos"
+        },
+        "explanation": "In Spanish, 'cuántos' already implies 'how many', so adding 'muchos' is redundant and incorrect. The word 'muchos' should be removed to correctly ask 'how many books'.",
+        "grammatical": {
+          "evidence": "Cuántos muchos libros tienes que leer",
+          "verdict": false
+        },
+        "hint": "Remove the unnecessary word that repeats the idea of quantity.",
+        "uses_target_structure": {
+          "evidence": "Cuántos muchos libros tienes que leer",
+          "verdict": true
+        }
+      },
+      "answer": "Cuantos muchos libros tienes que leer",
+      "canonical": "¿Cuántos libros tienes que leer?",
+      "cue": "How many books do you have to read?",
+      "v1_correct": 0,
+      "v1_error_tag": "question.wh",
+      "v1_id": "01d65a28-01d6-45a2-9a23-b405ee7be1d0c548",
+      "v1_tag": "question.wh"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero comerlo",
+        "conveys_meaning": {
+          "evidence": "Quiero comerlo",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiero comerlo",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "comerlo",
+          "verdict": true
+        }
+      },
+      "answer": "Quiero comerlo",
+      "canonical": "Quiero comerlo.",
+      "cue": "I want to eat it.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "01eb2278-01eb-4227-a273-fef2d5b78babf3d8",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Va a venderlos",
+        "conveys_meaning": {
+          "evidence": "Va a venderlos",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Va a venderlos",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "venderlos",
+          "verdict": true
+        }
+      },
+      "answer": "Va a venderlos",
+      "canonical": "Va a venderlos.",
+      "cue": "He is going to sell them.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "01fcfcc8-01fc-4fcc-bcc3-c3424a06fe019c68",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Entiendo por qué hablas",
+        "conveys_meaning": {
+          "evidence": "Entiendo por qué hablas",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Entiendo por qué hablas",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Entiendo",
+          "verdict": true
+        }
+      },
+      "answer": "Entiendo por que hablas",
+      "canonical": "Entiendo por qué hablas.",
+      "cue": "I understand why you speak.",
+      "v1_correct": 0,
+      "v1_error_tag": "question.wh",
+      "v1_id": "020cdb48-020c-4db4-9b43-1c6c78868014dce8",
+      "v1_tag": "conj.pres.er.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Entiendes la pregunta?",
+        "conveys_meaning": {
+          "evidence": "Entiendes la pregunta",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Entiendes la pregunta",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Entiendes",
+          "verdict": true
+        }
+      },
+      "answer": "Entiendes la pregunta",
+      "canonical": "¿Entiendes la pregunta?",
+      "cue": "Do you understand the question?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "021dcb38-021d-4cb3-8b33-d6aab8ec2110cb98",
+      "v1_tag": "conj.pres.er.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Voy a llamarte, pero primero tengo que acabar el trabajo.",
+        "conveys_meaning": {
+          "evidence": "voy a llamarte, pero primero tengo que acabar el trabajo",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Voy a llamarte, pero primero tengo que acabar el trabajo",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "voy a llamarte",
+          "verdict": true
+        }
+      },
+      "answer": "voy a llamarte, pero primero tengo que acabar el trabajo",
+      "canonical": "Voy a llamarte, pero primero tengo que terminar mi trabajo.",
+      "cue": "I am going to call you, but first I have to finish my work.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "02765f00-0276-45f0-9f0b-24ab1789ffb9cb00",
+      "v1_tag": "opener.voy-a"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "crea una plana",
+        "conveys_meaning": {
+          "evidence": "crea una plana",
+          "verdict": false
+        },
+        "error": {
+          "category": "omission",
+          "evidence": "crea una plana"
+        },
+        "explanation": "The sentence is missing the verb 'poder' in its conjugated form to express 'can'. In Spanish, 'can' is translated as 'poder', and it should be followed by an infinitive verb to indicate the ability to do something.",
+        "grammatical": {
+          "evidence": "crea una plana",
+          "verdict": false
+        },
+        "hint": "Include the verb 'poder' in its correct form to express 'can' before the infinitive verb.",
+        "uses_target_structure": {
+          "evidence": "crea una plana",
+          "verdict": false
+        }
+      },
+      "answer": "crea una plana",
+      "canonical": "Puede crear un plan.",
+      "cue": "He can create a plan.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.puedo",
+      "v1_id": "02d6a770-02d6-4a77-a77b-9cbc406d2b15fc30",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Crees que Ana canta bien?",
+        "conveys_meaning": {
+          "evidence": "Crees que Ana canta bien",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Crees que Ana canta bien",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Crees",
+          "verdict": true
+        }
+      },
+      "answer": "Crees que Ana canta bien",
+      "canonical": "¿Crees que Ana canta bien?",
+      "cue": "Do you believe Ana sings well?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "02ea2f70-02ea-42f7-af7b-1e2b3e93f2902430",
+      "v1_tag": "conj.pres.er.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Debe aprender y enseño",
+        "conveys_meaning": {
+          "evidence": "Debe aprender y enseño",
+          "verdict": false
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "enseño"
+        },
+        "explanation": "The verb 'enseñar' should be in the infinitive form to match 'aprender' and maintain parallel structure. In Spanish, when using two verbs together, the second verb is often in the infinitive form if the first verb is conjugated.",
+        "grammatical": {
+          "evidence": "Debe aprender y enseño",
+          "verdict": false
+        },
+        "hint": "Ensure both verbs are in the correct form to match the structure of the sentence.",
+        "uses_target_structure": {
+          "evidence": "enseño",
+          "verdict": true
+        }
+      },
+      "answer": "Debe aprender y enseno",
+      "canonical": "Debe aprender y enseñar.",
+      "cue": "He should learn and teach.",
+      "v1_correct": 0,
+      "v1_error_tag": "conj.pres.ar.inf",
+      "v1_id": "02fc6f50-02fc-46f5-af5b-c4b55a7361bfe190",
+      "v1_tag": "conj.pres.er.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Lo entiendes",
+        "conveys_meaning": {
+          "evidence": "Lo entiendes",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Lo entiendes",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Lo entiendes",
+          "verdict": true
+        }
+      },
+      "answer": "Lo entiendes",
+      "canonical": "¿Lo entiendes?",
+      "cue": "Do you understand it?",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.before-finite",
+      "v1_id": "343c8b18-343c-48b1-8b13-29a0182ab94708f8",
+      "v1_tag": "clitic.do.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Voy a intentar la restaurante nueva",
+        "conveys_meaning": {
+          "evidence": "Voy a intentar la restaurante nueva",
+          "verdict": false
+        },
+        "error": {
+          "category": "agreement-gender",
+          "evidence": "la restaurante"
+        },
+        "explanation": "In Spanish, nouns have gender and the articles must agree with the gender of the noun. 'Restaurante' is a masculine noun, so the correct article is 'el', not 'la'.",
+        "grammatical": {
+          "evidence": "la restaurante",
+          "verdict": false
+        },
+        "hint": "Check the gender of 'restaurante' and ensure the article matches it.",
+        "uses_target_structure": {
+          "evidence": "Voy a intentar",
+          "verdict": true
+        }
+      },
+      "answer": "Voy a intentar la restaurante nueva",
+      "canonical": "Voy a probar el nuevo restaurante.",
+      "cue": "I am going to try the new restaurant.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.voy-a",
+      "v1_id": "354aedd8-354a-4edd-add3-7178a69392ca22b8",
+      "v1_tag": "opener.voy-a"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiere comerlo",
+        "conveys_meaning": {
+          "evidence": "Quiere comerlo",
+          "verdict": true
+        },
+        "error": {
+          "category": "clitic-placement",
+          "evidence": "comerlo"
+        },
+        "explanation": "In Spanish, object pronouns can be placed before a conjugated verb or attached to an infinitive. However, the target structure requires the pronoun to be placed before the finite verb. Here, 'lo' should precede 'quiere' to match the target structure.",
+        "grammatical": {
+          "evidence": "Quiere comerlo",
+          "verdict": true
+        },
+        "hint": "Place the pronoun before the conjugated verb to match the target structure.",
+        "uses_target_structure": {
+          "evidence": "comerlo",
+          "verdict": false
+        }
+      },
+      "answer": "Quiere comerlo",
+      "canonical": "Quiere comerlo.",
+      "cue": "He wants to eat it.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "355dc9f8-355d-4c9f-89f3-740e3a643835b158",
+      "v1_tag": "clitic.do.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Tiene que llevarlos",
+        "conveys_meaning": {
+          "evidence": "llevarlos",
+          "verdict": false
+        },
+        "error": {
+          "category": "lexical-choice",
+          "evidence": "llevarlos"
+        },
+        "explanation": "The verb 'llevar' means 'to carry' or 'to take', which does not match the meaning of 'deliver'. The correct verb for 'deliver' is 'entregar'.",
+        "grammatical": {
+          "evidence": "Tiene que llevarlos",
+          "verdict": true
+        },
+        "hint": "Use the correct verb for 'deliver' in Spanish.",
+        "uses_target_structure": {
+          "evidence": "llevarlos",
+          "verdict": true
+        }
+      },
+      "answer": "Tiene que llevarlos",
+      "canonical": "Tienen que entregarlos.",
+      "cue": "They have to deliver them.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.attach.mixed",
+      "v1_id": "356f90c0-356f-490c-90cb-cdc3fb583c3dfc0",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "voy a estudia porque es importante",
+        "conveys_meaning": {
+          "evidence": "voy a estudia porque es importante",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "estudia"
+        },
+        "explanation": "In Spanish, after 'ir a', the verb should be in the infinitive form. 'Estudia' is not the infinitive form; it should be 'estudiar'. The infinitive form is used to express actions that are going to happen in the near future.",
+        "grammatical": {
+          "evidence": "estudia",
+          "verdict": false
+        },
+        "hint": "Make sure the verb after 'voy a' is in the infinitive form.",
+        "uses_target_structure": {
+          "evidence": "voy a estudia",
+          "verdict": true
+        }
+      },
+      "answer": "voy a estudia porque es importante",
+      "canonical": "Voy a estudiar porque es importante.",
+      "cue": "I am going to study because it is important.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.voy-a",
+      "v1_id": "35803a60-3580-43a6-ba6b-2a7bbd54ff8b49e0",
+      "v1_tag": "opener.voy-a"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "puede crear un plana",
+        "conveys_meaning": {
+          "evidence": "puede crear un plana",
+          "verdict": true
+        },
+        "error": {
+          "category": "agreement-gender",
+          "evidence": "un plana"
+        },
+        "explanation": "In Spanish, nouns and their articles must agree in gender. 'Plan' is a masculine noun, so it should be 'un plan' instead of 'un plana'. The article 'un' is correct, but 'plana' should be 'plan'.",
+        "grammatical": {
+          "evidence": "un plana",
+          "verdict": false
+        },
+        "hint": "Check the gender agreement between the article and the noun.",
+        "uses_target_structure": {
+          "evidence": "puede crear",
+          "verdict": true
+        }
+      },
+      "answer": "puede crear un plana",
+      "canonical": "Puede crear un plan.",
+      "cue": "He can create a plan.",
+      "v1_correct": 0,
+      "v1_error_tag": "lex.cognate.ive-ary",
+      "v1_id": "3592bca8-3592-4bca-bca3-64f11f6158fad9c8",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Lo encuentras",
+        "conveys_meaning": {
+          "evidence": "Lo encuentras",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "encuentras"
+        },
+        "explanation": "The verb form 'encuentras' is in the present indicative tense, which does not match the English cue's request for ability or possibility. The correct form should use the verb 'poder' to express 'can' or 'able to', followed by the infinitive 'encontrar'.",
+        "grammatical": {
+          "evidence": "Lo encuentras",
+          "verdict": true
+        },
+        "hint": "Use the verb 'poder' to express 'can' or 'able to', followed by the infinitive form of 'encontrar'.",
+        "uses_target_structure": {
+          "evidence": "Lo encuentras",
+          "verdict": false
+        }
+      },
+      "answer": "Lo Encuentras",
+      "canonical": "¿Puedes encontrarlo?",
+      "cue": "Can you find it?",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.attach.mixed",
+      "v1_id": "35a5ac50-35a5-4ac5-ac5b-93082230252de290",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Por qué lo quiere?",
+        "conveys_meaning": {
+          "evidence": "Por que lo quiere",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Por que lo quiere",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "lo quiere",
+          "verdict": true
+        }
+      },
+      "answer": "Por que lo quiere",
+      "canonical": "¿Por qué lo quiere?",
+      "cue": "Why does she want it?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "35ba6118-35ba-4611-a113-b2739a6da84196f8",
+      "v1_tag": "clitic.do.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "voy a intentar el restaurante nueva",
+        "conveys_meaning": {
+          "evidence": "voy a intentar el restaurante nueva",
+          "verdict": false
+        },
+        "error": {
+          "category": "agreement-gender",
+          "evidence": "restaurante nueva"
+        },
+        "explanation": "In Spanish, adjectives must agree in gender and number with the nouns they modify. 'Restaurante' is a masculine noun, so the adjective 'nueva' should be in its masculine form 'nuevo' to match.",
+        "grammatical": {
+          "evidence": "restaurante nueva",
+          "verdict": false
+        },
+        "hint": "Check the gender agreement between 'restaurante' and its adjective.",
+        "uses_target_structure": {
+          "evidence": "voy a intentar",
+          "verdict": true
+        }
+      },
+      "answer": "voy a intentar el restaurante nueva",
+      "canonical": "Voy a probar el nuevo restaurante.",
+      "cue": "I am going to try the new restaurant.",
+      "v1_correct": 0,
+      "v1_error_tag": "lex.cognate.mixed",
+      "v1_id": "2f426768-2f42-4676-a763-8b4938e8698db88",
+      "v1_tag": "opener.voy-a"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiere revisarlos",
+        "conveys_meaning": {
+          "evidence": "Quiere revisarlos",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiere revisarlos",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "revisarlos",
+          "verdict": true
+        }
+      },
+      "answer": "Quiere revisarlos",
+      "canonical": "Quiere revisarlos.",
+      "cue": "She wants to review them.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "2ff0cbf0-2ff0-4cbf-8bfb-7dce387394e8fab0",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiere vernos",
+        "conveys_meaning": {
+          "evidence": "Quiere vernos",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiere vernos",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "vernos",
+          "verdict": true
+        }
+      },
+      "answer": "Quiere vernos",
+      "canonical": "Quiere vernos.",
+      "cue": "She wants to see us.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "3007e9e8-3007-4e9e-a9e3-fc0097437b029008",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Se lo hacemos porque lo quiere",
+        "conveys_meaning": {
+          "evidence": "porque lo quiere",
+          "verdict": false
+        },
+        "error": {
+          "category": "lexical-choice",
+          "evidence": "porque lo quiere"
+        },
+        "explanation": "The phrase 'porque lo quiere' translates to 'because he wants it,' which does not convey the same meaning as 'because he likes it.' The verb 'gustar' is typically used to express liking in Spanish, and it requires a different construction.",
+        "grammatical": {
+          "evidence": "Se lo hacemos porque lo quiere",
+          "verdict": true
+        },
+        "hint": "Use the verb 'gustar' to express 'he likes it.'",
+        "uses_target_structure": {
+          "evidence": "Se lo hacemos",
+          "verdict": true
+        }
+      },
+      "answer": "Se lo hacemos por que lo quiere",
+      "canonical": "Se lo hacemos porque le gusta.",
+      "cue": "We make it for him because he likes it.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.both.before-finite",
+      "v1_id": "301d0058-301d-4005-8053-f4f33a77bffba738",
+      "v1_tag": "clitic.both.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Aceptar",
+        "conveys_meaning": {
+          "evidence": "Aceptar",
+          "verdict": false
+        },
+        "error": {
+          "category": "omission",
+          "evidence": "Aceptar"
+        },
+        "explanation": "The answer is missing the subject 'we' and the modal verb 'can', which are necessary to convey the full meaning of 'We can accept it.' In Spanish, the verb 'poder' is used to express 'can' or 'to be able to', and the subject can be implied. The direct object pronoun 'it' should be attached to the infinitive 'aceptar' as 'aceptarlo' or 'aceptarla', depending on the gender of the object.",
+        "grammatical": {
+          "evidence": "Aceptar",
+          "verdict": false
+        },
+        "hint": "Include the subject and modal verb to express 'we can', and attach the pronoun to the infinitive.",
+        "uses_target_structure": {
+          "evidence": "Aceptar",
+          "verdict": false
+        }
+      },
+      "answer": "Aceptar",
+      "canonical": "Podemos aceptarlo.",
+      "cue": "We can accept it.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.attach.mixed",
+      "v1_id": "2af84e20-2af8-44e2-8e2b-89b447c4175e8a0",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "La habla",
+        "conveys_meaning": {
+          "evidence": "La habla",
+          "verdict": false
+        },
+        "error": {
+          "category": "clitic-choice",
+          "evidence": "La"
+        },
+        "explanation": "In Spanish, indirect objects are typically represented by the pronouns 'le' or 'les'. The pronoun 'la' is used for direct objects, not indirect objects. Since 'her' in this context is an indirect object, the correct pronoun should be 'le'.",
+        "grammatical": {
+          "evidence": "La habla",
+          "verdict": false
+        },
+        "hint": "Use the correct indirect object pronoun for 'her'.",
+        "uses_target_structure": {
+          "evidence": "La habla",
+          "verdict": false
+        }
+      },
+      "answer": "La habla",
+      "canonical": "Le habla.",
+      "cue": "He talks to her.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.io.before-finite",
+      "v1_id": "2bfa9350-2bfa-4935-935b-53c35fa44008d590",
+      "v1_tag": "clitic.io.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Le escribo una carta cada semana",
+        "conveys_meaning": {
+          "evidence": "Le escribo una carta cada semana",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Le escribo una carta cada semana",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Le escribo",
+          "verdict": true
+        }
+      },
+      "answer": "Le escribo una carta cada semana",
+      "canonical": "Le escribo una carta cada semana.",
+      "cue": "I write her a letter every week.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "2c120350-2c12-4035-835b-88aef705fc350590",
+      "v1_tag": "clitic.io.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiere vernos",
+        "conveys_meaning": {
+          "evidence": "Quiere vernos",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiere vernos",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "vernos",
+          "verdict": true
+        }
+      },
+      "answer": "Quiere vernos",
+      "canonical": "Quiere vernos.",
+      "cue": "She wants to see us.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "2c268d20-2c26-48d2-8d2b-486414adf6c513a0",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Lo entienden",
+        "conveys_meaning": {
+          "evidence": "Lo entienden",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Lo entienden",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Lo entienden",
+          "verdict": true
+        }
+      },
+      "answer": "Lo entienden",
+      "canonical": "¿Lo entienden?",
+      "cue": "Do they understand it?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "2c44ee78-2c44-4ee7-ae73-f45220677bd9afd8",
+      "v1_tag": "clitic.do.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Quién a tienes que llamar hoy?",
+        "conveys_meaning": {
+          "evidence": "¿Quién a tienes que llamar hoy?",
+          "verdict": false
+        },
+        "error": {
+          "category": "addition",
+          "evidence": "a"
+        },
+        "explanation": "In Spanish, the preposition 'a' is not needed before the verb 'tienes' in this context. The question word 'quién' already serves as the object of the verb 'llamar', so no additional preposition is required.",
+        "grammatical": {
+          "evidence": "¿Quién a tienes que llamar hoy?",
+          "verdict": false
+        },
+        "hint": "Remove the unnecessary 'a' before 'tienes'.",
+        "uses_target_structure": {
+          "evidence": "¿Quién a tienes que llamar hoy?",
+          "verdict": true
+        }
+      },
+      "answer": "Quien a tienes que llamar hoy",
+      "canonical": "¿A quién tienes que llamar hoy?",
+      "cue": "Who do you have to call today?",
+      "v1_correct": 0,
+      "v1_error_tag": "question.wh",
+      "v1_id": "241117e0-2411-417e-97eb-97b21a2443b77560",
+      "v1_tag": "question.wh"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Cómo le envías dinero?",
+        "conveys_meaning": {
+          "evidence": "Como le envias dinero",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Como le envias dinero",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "le envias",
+          "verdict": true
+        }
+      },
+      "answer": "Como le envias dinero",
+      "canonical": "¿Cómo le envías dinero?",
+      "cue": "How do you send him money?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "250f1750-250f-4175-975b-5e89edb3c6a7a990",
+      "v1_tag": "clitic.io.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Sabemos ella es aquí",
+        "conveys_meaning": {
+          "evidence": "Sabemos ella es aquí",
+          "verdict": false
+        },
+        "error": {
+          "category": "lexical-choice",
+          "evidence": "es"
+        },
+        "explanation": "In Spanish, the verb 'estar' is used to indicate location or temporary states, while 'ser' is used for permanent characteristics. Since 'here' indicates a location, the correct verb is 'estar', not 'ser'.",
+        "grammatical": {
+          "evidence": "Sabemos ella es aquí",
+          "verdict": false
+        },
+        "hint": "Use the correct verb for location when saying someone is here.",
+        "uses_target_structure": {
+          "evidence": "Sabemos ella es aquí",
+          "verdict": false
+        }
+      },
+      "answer": "Sabemos ella es aqui",
+      "canonical": "Sabemos que ella está aquí.",
+      "cue": "We know she is here.",
+      "v1_correct": 0,
+      "v1_error_tag": "question.embedded",
+      "v1_id": "25219998-2521-4999-9993-98ff4fc020173978",
+      "v1_tag": "question.embedded"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Lo vendes al mercado?",
+        "conveys_meaning": {
+          "evidence": "lo vendes al mercado",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "lo vendes al mercado",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "lo vendes",
+          "verdict": true
+        }
+      },
+      "answer": "lo vendes al mercado",
+      "canonical": "¿Lo vendes en el mercado?",
+      "cue": "Do you sell it at the market?",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.before-finite",
+      "v1_id": "253786e0-2537-486e-86eb-7081b7e00fa29060",
+      "v1_tag": "clitic.do.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Realmente conoces a Maria",
+        "conveys_meaning": {
+          "evidence": "Realmente conoces a Maria",
+          "verdict": true
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "concoces"
+        },
+        "explanation": "The verb 'conocer' is a regular -er verb, and its present tense conjugation for 'tú' is 'conoces'. The learner misspelled it as 'concoces', which is not a valid form. Correct spelling is crucial for grammatical accuracy.",
+        "grammatical": {
+          "evidence": "concoces",
+          "verdict": false
+        },
+        "hint": "Check the spelling of the verb 'conocer' in the present tense for 'tú'.",
+        "uses_target_structure": {
+          "evidence": "conoces",
+          "verdict": true
+        }
+      },
+      "answer": "Realmente concoces a Maria",
+      "canonical": "¿Conoces realmente a María?",
+      "cue": "Do you really know Maria?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "254899f8-2548-499f-99f3-790f59a8c338c158",
+      "v1_tag": "conj.pres.er.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiere bailar",
+        "conveys_meaning": {
+          "evidence": "Quiere bailar",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiere bailar",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Quiere bailar",
+          "verdict": true
+        }
+      },
+      "answer": "Quiere bailar",
+      "canonical": "Quiere bailar.",
+      "cue": "She wants to dance.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "016dad48-016d-4ad4-ad43-8a5714640cbe16e8",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Sabe si ella vendrá",
+        "conveys_meaning": {
+          "evidence": "Sabe si ella venira",
+          "verdict": true
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "venira"
+        },
+        "explanation": "The word 'venira' is a misspelling. In Spanish, the future tense of 'venir' for 'ella' is 'vendrá'. The future tense endings for regular verbs are added to the infinitive form, but 'venir' is irregular and changes to 'vendrá'.",
+        "grammatical": {
+          "evidence": "venira",
+          "verdict": false
+        },
+        "hint": "Check the spelling of the future tense form of 'venir' for 'ella'.",
+        "uses_target_structure": {
+          "evidence": "Sabe si ella",
+          "verdict": true
+        }
+      },
+      "answer": "Sabe si ella venira",
+      "canonical": "Él sabe si ella vendrá.",
+      "cue": "He knows if she will come.",
+      "v1_correct": 0,
+      "v1_error_tag": "question.embedded",
+      "v1_id": "01b5f148-01b5-4f14-b143-82d82726bb9baae8",
+      "v1_tag": "question.embedded"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Sé que cuando lo encuentro",
+        "conveys_meaning": {
+          "evidence": "Sé que cuando lo encuentro",
+          "verdict": false
+        },
+        "error": {
+          "category": "lexical-choice",
+          "evidence": "cuando"
+        },
+        "explanation": "The word 'cuando' means 'when', which changes the meaning of the sentence. The correct word to use here is 'dónde', which means 'where'. This is important because the sentence is about knowing the location, not the time.",
+        "grammatical": {
+          "evidence": "Sé que cuando lo encuentro",
+          "verdict": true
+        },
+        "hint": "Use the word for 'where' instead of 'when'.",
+        "uses_target_structure": {
+          "evidence": "Sé que cuando lo encuentro",
+          "verdict": false
+        }
+      },
+      "answer": "Se que cuando lo encuentro",
+      "canonical": "Sé dónde encontrarlo.",
+      "cue": "I know where to find him.",
+      "v1_correct": 0,
+      "v1_error_tag": "question.embedded",
+      "v1_id": "01d5ba00-01d5-4ba0-ba0b-4f46f9f170a04200",
+      "v1_tag": "question.embedded"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Nos lo Enseñar",
+        "conveys_meaning": {
+          "evidence": "Nos lo Enseñar",
+          "verdict": false
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "Enseñar"
+        },
+        "explanation": "The verb 'enseñar' is in its infinitive form, which is not correct for this sentence. In Spanish, when expressing actions in the present tense, the verb must be conjugated to match the subject. Here, the verb should be in the third person singular present tense to match 'he teaches.'",
+        "grammatical": {
+          "evidence": "Enseñar",
+          "verdict": false
+        },
+        "hint": "Conjugate 'enseñar' to match 'he teaches' in the present tense.",
+        "uses_target_structure": {
+          "evidence": "Nos lo",
+          "verdict": true
+        }
+      },
+      "answer": "Nos lo Ensenar",
+      "canonical": "Nos lo enseña.",
+      "cue": "He teaches it to us.",
+      "v1_correct": 0,
+      "v1_error_tag": "conj.pres.ar.3sg",
+      "v1_id": "22342638-2234-4263-a633-34c9e914e4fa4298",
+      "v1_tag": "clitic.both.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Sabemos si van a venir esta noche",
+        "conveys_meaning": {
+          "evidence": "Sabemos si van a venir esta noche",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Sabemos si van a venir esta noche",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Sabemos si van a venir esta noche",
+          "verdict": true
+        }
+      },
+      "answer": "Sabemos si van a venir esta noche",
+      "canonical": "Sabemos si vienen esta noche.",
+      "cue": "We know if they are coming tonight.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "232f7df8-232f-47df-bdf3-11a30c7e55997558",
+      "v1_tag": "question.embedded"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Ella escribe",
+        "conveys_meaning": {
+          "evidence": "Ella escribe",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Ella escribe",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "escribe",
+          "verdict": true
+        }
+      },
+      "answer": "Ella escribe",
+      "canonical": "Ella escribe.",
+      "cue": "She writes.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "23461720-2346-4172-972b-67fedef4673365a0",
+      "v1_tag": "conj.pres.ir.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Aprendemos con libros",
+        "conveys_meaning": {
+          "evidence": "Aprendemos con libros",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Aprendemos con libros",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Aprendemos",
+          "verdict": true
+        }
+      },
+      "answer": "Aprendemos con libros",
+      "canonical": "Aprendemos con libros.",
+      "cue": "We learn with books.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "0e672628-0e67-4262-a624-1354d7a204818148",
+      "v1_tag": "conj.pres.er.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Siempre los pierdo",
+        "conveys_meaning": {
+          "evidence": "Siempre los pierdo",
+          "verdict": true
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "perdo"
+        },
+        "explanation": "The verb 'perder' means 'to lose,' and its first person singular present tense form is 'pierdo.' The learner wrote 'perdo,' which is a misspelling. Correcting this to 'pierdo' makes the sentence grammatical.",
+        "grammatical": {
+          "evidence": "Siempre los perdo",
+          "verdict": false
+        },
+        "hint": "Check the spelling of the verb 'perder' in the present tense for 'yo.'",
+        "uses_target_structure": {
+          "evidence": "los pierdo",
+          "verdict": true
+        }
+      },
+      "answer": "Siempre los perdo",
+      "canonical": "Siempre los pierdo.",
+      "cue": "I always lose them.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.before-finite",
+      "v1_id": "0e9c5370-0e9c-4537-937c-86bc0999999d1830",
+      "v1_tag": "clitic.do.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "abrían la puerta",
+        "conveys_meaning": {
+          "evidence": "abrían la puerta",
+          "verdict": false
+        },
+        "error": {
+          "category": "tense-selection",
+          "evidence": "abrían"
+        },
+        "explanation": "The verb 'abrían' is in the imperfect tense, which is used for past actions that were ongoing or habitual. The cue requires the present tense to describe an action happening now. The correct present tense form for 'they open' is 'abren'.",
+        "grammatical": {
+          "evidence": "abrían la puerta",
+          "verdict": true
+        },
+        "hint": "Use the present tense form of 'abrir' for 'they open'.",
+        "uses_target_structure": {
+          "evidence": "abrían",
+          "verdict": false
+        }
+      },
+      "answer": "abrian la puerta",
+      "canonical": "Ellos abren la puerta.",
+      "cue": "They open the door.",
+      "v1_correct": 0,
+      "v1_error_tag": "conj.pres.ir.mixed",
+      "v1_id": "0eb59c18-0eb5-49c1-9c14-d87d856833716df8",
+      "v1_tag": "conj.pres.ir.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "lo vendan al mercado",
+        "conveys_meaning": {
+          "evidence": "lo vendan al mercado",
+          "verdict": false
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "vendan"
+        },
+        "explanation": "The verb form 'vendan' is incorrect for the context. The sentence is a question in the present tense, so the verb should be in the indicative mood, not the subjunctive. Use 'venden' for 'do you sell' in the present indicative.",
+        "grammatical": {
+          "evidence": "lo vendan al mercado",
+          "verdict": false
+        },
+        "hint": "Check the verb form for 'sell' in the present tense indicative mood.",
+        "uses_target_structure": {
+          "evidence": "lo vendan",
+          "verdict": true
+        }
+      },
+      "answer": "lo vendan al mercado",
+      "canonical": "¿Lo vendes en el mercado?",
+      "cue": "Do you sell it at the market?",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.before-finite",
+      "v1_id": "0ecf90a0-0ecf-490a-90ac-a9186b8cef545d20",
+      "v1_tag": "clitic.do.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Nos lo digo",
+        "conveys_meaning": {
+          "evidence": "Nos lo digo",
+          "verdict": false
+        },
+        "error": {
+          "category": "clitic-choice",
+          "evidence": "Nos"
+        },
+        "explanation": "In Spanish, the indirect object pronoun for 'them' is 'les', not 'nos'. 'Nos' means 'us', which changes the meaning of the sentence. The correct pronoun should match the intended indirect object in the English sentence.",
+        "grammatical": {
+          "evidence": "Nos lo digo",
+          "verdict": false
+        },
+        "hint": "Use the correct indirect object pronoun for 'them' in Spanish.",
+        "uses_target_structure": {
+          "evidence": "Nos lo digo",
+          "verdict": true
+        }
+      },
+      "answer": "Nos lo digo",
+      "canonical": "Se lo digo.",
+      "cue": "I tell it to them.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.both.before-finite",
+      "v1_id": "0dd3b7f8-0dd3-4b7f-b7f3-ad1c3862e52a3758",
+      "v1_tag": "clitic.both.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Entiendo por qué hablas",
+        "conveys_meaning": {
+          "evidence": "Entiendo por que hablas",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Entiendo por que hablas",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Entiendo",
+          "verdict": true
+        }
+      },
+      "answer": "Entiendo por que hablas",
+      "canonical": "Entiendo por qué hablas.",
+      "cue": "I understand why you speak.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "0e1aa820-0e1a-4a82-a82b-b09df3128adf4aa0",
+      "v1_tag": "conj.pres.er.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quiero verte",
+        "conveys_meaning": {
+          "evidence": "Quiero verte",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Quiero verte",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "ver-te",
+          "verdict": true
+        }
+      },
+      "answer": "Quiero verte",
+      "canonical": "Quiero verte.",
+      "cue": "I want to see you.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "0e2c99e0-0e2c-499e-99eb-a92252f95ef11f60",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "voy a encuentrolo",
+        "conveys_meaning": {
+          "evidence": "encuentrolo",
+          "verdict": false
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "encuentrolo"
+        },
+        "explanation": "The verb 'encuentro' is in the present tense first person singular form, which is incorrect here. After 'voy a', the verb should be in the infinitive form 'encontrar'. The correct phrase should be 'voy a encontrarlo'.",
+        "grammatical": {
+          "evidence": "encuentrolo",
+          "verdict": false
+        },
+        "hint": "Use the infinitive form of the verb after 'voy a'.",
+        "uses_target_structure": {
+          "evidence": "encuentrolo",
+          "verdict": true
+        }
+      },
+      "answer": "voy a encuentrolo",
+      "canonical": "Voy a encontrarlo.",
+      "cue": "I'm going to find it.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.sg.attach",
+      "v1_id": "0e3d9588-0e3d-4958-9583-7d7b092ab0cb2428",
+      "v1_tag": "clitic.do.sg.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Deberían hacerlo",
+        "conveys_meaning": {
+          "evidence": "Deberían hacerlo",
+          "verdict": false
+        },
+        "error": {
+          "category": "lexical-choice",
+          "evidence": "Deberían"
+        },
+        "explanation": "The verb 'deberían' means 'they should', not 'they need'. The correct verb for 'they need' is 'necesitan'. This is a lexical choice error because the meaning of the sentence changes with the wrong verb.",
+        "grammatical": {
+          "evidence": "Deberían hacerlo",
+          "verdict": true
+        },
+        "hint": "Use the correct verb for 'need' instead of 'should'.",
+        "uses_target_structure": {
+          "evidence": "hacerlo",
+          "verdict": true
+        }
+      },
+      "answer": "Deberian hacerlo",
+      "canonical": "Necesitan hacerlo.",
+      "cue": "They need to do it.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.placement.choice",
+      "v1_id": "0e55e048-0e55-4e04-a043-99a9e211527e45e8",
+      "v1_tag": "clitic.placement.choice"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Necesita comprarlo",
+        "conveys_meaning": {
+          "evidence": "Necesita comprarlo",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Necesita comprarlo",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "comprarlo",
+          "verdict": true
+        }
+      },
+      "answer": "Necesita comprarlo",
+      "canonical": "Necesita comprarlo.",
+      "cue": "He needs to buy it.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "32e9b100-32e9-4b10-b10c-5fdaa80988e78500",
+      "v1_tag": "clitic.do.sg.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Comería la pastel si no fue en dieta",
+        "conveys_meaning": {
+          "evidence": "Comería la pastel si no fue en dieta",
+          "verdict": false
+        },
+        "error": {
+          "category": "agreement-gender",
+          "evidence": "la pastel"
+        },
+        "explanation": "In Spanish, nouns have gender and the articles must agree with the gender of the noun. 'Pastel' is a masculine noun, so the correct article is 'el', not 'la'.",
+        "grammatical": {
+          "evidence": "la pastel",
+          "verdict": false
+        },
+        "hint": "Check the gender of 'pastel' and use the correct article.",
+        "uses_target_structure": {
+          "evidence": "Comería",
+          "verdict": true
+        }
+      },
+      "answer": "Comeria la pastel si no fue en dieta",
+      "canonical": "Habría comido el pastel si no estuviera a dieta.",
+      "cue": "She would have eaten the cake if she wasn't on a diet.",
+      "v1_correct": 0,
+      "v1_error_tag": "cond.regular",
+      "v1_id": "3302edf0-3302-4edf-adfc-9781ae0c71ddc4b0",
+      "v1_tag": "cond.regular"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Vivemos en un ciudad",
+        "conveys_meaning": {
+          "evidence": "Vivemos en un ciudad",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "Vivemos"
+        },
+        "explanation": "The verb 'vivir' is a regular -ir verb, and in the present tense for 'nosotros', it should be 'vivimos'. The learner used 'vivemos', which is incorrect for -ir verbs. Regular -ir verbs in the present tense for 'nosotros' end in '-imos'.",
+        "grammatical": {
+          "evidence": "Vivemos",
+          "verdict": false
+        },
+        "hint": "Check the present tense conjugation for 'nosotros' with regular -ir verbs.",
+        "uses_target_structure": {
+          "evidence": "Vivemos",
+          "verdict": true
+        }
+      },
+      "answer": "Vivemos en un ciudad",
+      "canonical": "Vivimos en una ciudad.",
+      "cue": "We live in a city.",
+      "v1_correct": 0,
+      "v1_error_tag": "conj.pres.ir.mixed",
+      "v1_id": "331842e0-3318-442e-82ec-1bac1ad46621fc60",
+      "v1_tag": "conj.pres.ir.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "va a ejerciar cada manana porque es saludable",
+        "conveys_meaning": {
+          "evidence": "va a ejerciar cada manana porque es saludable",
+          "verdict": true
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "ejerciar"
+        },
+        "explanation": "The word 'ejerciar' is a misspelling. The correct spelling is 'ejercitar', which means 'to exercise'. Misspellings beyond accents, casing, and punctuation make the sentence ungrammatical.",
+        "grammatical": {
+          "evidence": "ejerciar",
+          "verdict": false
+        },
+        "hint": "Check the spelling of the verb 'to exercise' in Spanish.",
+        "uses_target_structure": {
+          "evidence": "va a ejerciar",
+          "verdict": true
+        }
+      },
+      "answer": "va a ejerciar cada manana porque es saludable",
+      "canonical": "Va a hacer ejercicio cada mañana porque es saludable.",
+      "cue": "She is going to exercise every morning because it is healthy.",
+      "v1_correct": 0,
+      "v1_error_tag": "lex.cognate.al-ent",
+      "v1_id": "29efcf30-29ef-4cf3-8f3b-df64951e4ce73ef0",
+      "v1_tag": "opener.voy-a"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Puedes organizarlo",
+        "conveys_meaning": {
+          "evidence": "Puedes organizarlo",
+          "verdict": false
+        },
+        "error": {
+          "category": "lexical-choice",
+          "evidence": "Puedes"
+        },
+        "explanation": "The verb 'puedes' is in the second person singular form, meaning 'you can'. The cue requires 'she can', which should be 'puede'. The subject pronoun 'she' corresponds to the third person singular form of the verb 'poder'.",
+        "grammatical": {
+          "evidence": "Puedes organizarlo",
+          "verdict": true
+        },
+        "hint": "Use the third person singular form of 'poder' to match 'she can'.",
+        "uses_target_structure": {
+          "evidence": "organizarlo",
+          "verdict": false
+        }
+      },
+      "answer": "Puedes organizarlo",
+      "canonical": "Puede organizarlo.",
+      "cue": "She can organize it.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.puedo",
+      "v1_id": "2a3223a8-2a32-423a-a3a3-9f29530a65f24cc8",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Puedo preparar la comida pero no quiero hacerlo",
+        "conveys_meaning": {
+          "evidence": "Puedo preparar la comida pero no quiero hacerlo",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Puedo preparar la comida pero no quiero hacerlo",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Puedo preparar",
+          "verdict": true
+        }
+      },
+      "answer": "puedo preparar la comida pero no quiero hacerlo",
+      "canonical": "Puedo preparar la comida pero no quiero.",
+      "cue": "I can prepare the meal but I don't want to.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "2a516f60-2a51-46f6-af6b-552892adbc60a2e0",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "leeromos cada noche",
+        "conveys_meaning": {
+          "evidence": "leeromos cada noche",
+          "verdict": false
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "leeromos"
+        },
+        "explanation": "The verb form 'leeromos' is incorrect. In Spanish, the present tense conjugation for 'we read' is 'leemos'. The ending '-er' verbs in the present tense for 'nosotros' (we) typically end in '-emos'.",
+        "grammatical": {
+          "evidence": "leeromos",
+          "verdict": false
+        },
+        "hint": "Check the present tense conjugation for 'we read' in Spanish.",
+        "uses_target_structure": {
+          "evidence": "leeromos",
+          "verdict": true
+        }
+      },
+      "answer": "leeromos cada noche",
+      "canonical": "Leemos cada noche.",
+      "cue": "We read every night.",
+      "v1_correct": 0,
+      "v1_error_tag": "conj.pres.er.mixed",
+      "v1_id": "3578ef30-3578-4ef3-af3b-eb591738eaa6def0",
+      "v1_tag": "conj.pres.er.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "necesitamos encontrarnos",
+        "conveys_meaning": {
+          "evidence": "necesitamos encontrarnos",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "necesitamos encontrarnos",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "encontrarnos",
+          "verdict": true
+        }
+      },
+      "answer": "necesitamos encontrarnos",
+      "canonical": "Necesitamos encontrarnos.",
+      "cue": "We need to find us.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "35be8b80-35be-48b8-8b8b-f9db79d587337180",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "pueden ser creative",
+        "conveys_meaning": {
+          "evidence": "pueden ser creative",
+          "verdict": false
+        },
+        "error": {
+          "category": "agreement-gender",
+          "evidence": "creative"
+        },
+        "explanation": "In Spanish, adjectives must agree in gender and number with the nouns they modify. 'Creative' is an English word and should be translated to 'creativos' to match the plural and masculine or mixed gender implied by 'they.'",
+        "grammatical": {
+          "evidence": "creative",
+          "verdict": false
+        },
+        "hint": "Ensure adjectives agree in gender and number with the nouns they describe.",
+        "uses_target_structure": {
+          "evidence": "pueden ser",
+          "verdict": true
+        }
+      },
+      "answer": "pueden ser creative",
+      "canonical": "Pueden ser creativos.",
+      "cue": "They can be creative.",
+      "v1_correct": 0,
+      "v1_error_tag": "lex.cognate.ive-ary",
+      "v1_id": "35d91090-35d9-4109-909b-c67621fc8741bd0",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Recibe cartas de amigos",
+        "conveys_meaning": {
+          "evidence": "recibe cartas de amigos",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Recibe cartas de amigos",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "recibe",
+          "verdict": true
+        }
+      },
+      "answer": "recibe cartas de amigos",
+      "canonical": "Recibe cartas de amigos.",
+      "cue": "He receives letters from friends.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "35f051b0-35f0-451b-91bb-d8e92252c127f370",
+      "v1_tag": "conj.pres.ir.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Les decimos lo que quieromos",
+        "conveys_meaning": {
+          "evidence": "quieromos",
+          "verdict": false
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "quieromos"
+        },
+        "explanation": "The verb form 'quieromos' is incorrect. The correct form for 'we want' is 'queremos'. In Spanish, verbs must be conjugated correctly to match the subject in person and number.",
+        "grammatical": {
+          "evidence": "quieromos",
+          "verdict": false
+        },
+        "hint": "Check the conjugation of 'querer' for 'we want'.",
+        "uses_target_structure": {
+          "evidence": "Les decimos lo que",
+          "verdict": false
+        }
+      },
+      "answer": "Les decimos lo que quieromos",
+      "canonical": "Se lo decimos lo que queremos.",
+      "cue": "We tell them what we want.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.both.before-finite",
+      "v1_id": "17d4efd8-17d4-4efd-afd3-c17ffd2e95144cb8",
+      "v1_tag": "clitic.both.before-finite"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Necesita llamarlo",
+        "conveys_meaning": {
+          "evidence": "Necesita llamarlo",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Necesita llamarlo",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "llamarlo",
+          "verdict": false
+        }
+      },
+      "answer": "Necesita llamarlo",
+      "canonical": "Necesita llamarlo.",
+      "cue": "She needs to call him.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "180fa718-180f-4a71-a713-8b68dc6cc32854f8",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Pueden cantar",
+        "conveys_meaning": {
+          "evidence": "Pueden cantar",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Pueden cantar",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Pueden cantar",
+          "verdict": true
+        }
+      },
+      "answer": "Pueden cantar",
+      "canonical": "Pueden cantar.",
+      "cue": "They can sing.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "182d0e70-182d-40e7-8e7b-a77c1d78b106f30",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "necesitar prepararlos",
+        "conveys_meaning": {
+          "evidence": "necesitar prepararlos",
+          "verdict": false
+        },
+        "error": {
+          "category": "omission",
+          "evidence": "necesitar"
+        },
+        "explanation": "In Spanish, when expressing necessity, the verb 'necesitar' should be conjugated to match the subject. Here, the subject 'you' is implied, so 'necesitas' is needed. The infinitive 'necesitar' is incorrect without a conjugated verb to indicate who needs to do the action.",
+        "grammatical": {
+          "evidence": "necesitar prepararlos",
+          "verdict": false
+        },
+        "hint": "Conjugate 'necesitar' to match the subject 'you'.",
+        "uses_target_structure": {
+          "evidence": "prepararlos",
+          "verdict": true
+        }
+      },
+      "answer": "necesitar prepararlos",
+      "canonical": "Necesitas prepararlos.",
+      "cue": "You need to prepare them.",
+      "v1_correct": 0,
+      "v1_error_tag": "clitic.do.person.attach",
+      "v1_id": "18488d80-1848-48d8-8d8b-49e2d070897d9b80",
+      "v1_tag": "clitic.do.person.attach"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quieremos cancelar la reunión",
+        "conveys_meaning": {
+          "evidence": "Quieremos cancelar la reunión",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "Quieremos"
+        },
+        "explanation": "The verb 'querer' is irregular in the present tense. The correct form for 'we want' is 'queremos', not 'quieremos'. The stem changes from 'e' to 'ie' in some forms, but not in the first person plural.",
+        "grammatical": {
+          "evidence": "Quieremos",
+          "verdict": false
+        },
+        "hint": "Check the conjugation of 'querer' for 'we want'.",
+        "uses_target_structure": {
+          "evidence": "Quieremos cancelar",
+          "verdict": true
+        }
+      },
+      "answer": "Quieremos cancelar la reunion",
+      "canonical": "Queremos cancelar la reunión.",
+      "cue": "We want to cancel the meeting.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.quiero",
+      "v1_id": "275f0e48-275f-40e4-8e43-f67cf6ad1e870be8",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Quieromos comparar las opciones",
+        "conveys_meaning": {
+          "evidence": "Quieromos comparar las opciones",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "Quieromos"
+        },
+        "explanation": "The verb form 'quieromos' is incorrect. The correct conjugation for 'querer' in the first person plural (we) is 'queremos'. The ending '-emos' is used for regular -er verbs in the present tense for 'nosotros/nosotras'.",
+        "grammatical": {
+          "evidence": "Quieromos",
+          "verdict": false
+        },
+        "hint": "Check the conjugation of 'querer' for 'we' in the present tense.",
+        "uses_target_structure": {
+          "evidence": "Quieromos comparar",
+          "verdict": true
+        }
+      },
+      "answer": "Quieromos comparar las opciones",
+      "canonical": "Queremos comparar las opciones.",
+      "cue": "We want to compare the options.",
+      "v1_correct": 0,
+      "v1_error_tag": "opener.quiero",
+      "v1_id": "27a7f270-27a7-4f27-b27b-53bcfdfa3e952330",
+      "v1_tag": "opener.quiero"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Queremos cancelar la reunión.",
+        "conveys_meaning": {
+          "evidence": "Queremos cancelar la reunión",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Queremos cancelar la reunión",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "reunión",
+          "verdict": true
+        }
+      },
+      "answer": "",
+      "canonical": "Queremos cancelar la reunión.",
+      "cue": "We want to cancel the meeting.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "22855b48-2285-45b4-9b43-1826329887f75ce8",
+      "v1_tag": "lex.cognate.tion"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Queremos comparar las opciones.",
+        "conveys_meaning": {
+          "evidence": "Queremos comparar las opciones",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Queremos comparar las opciones",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "comparar",
+          "verdict": false
+        }
+      },
+      "answer": "",
+      "canonical": "Queremos comparar las opciones.",
+      "cue": "We want to compare the options.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "22d24e80-22d2-44e8-8e8b-7fe5b11cea467080",
+      "v1_tag": "lex.cognate.ible-able"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Puedes encontrarlo",
+        "conveys_meaning": {
+          "evidence": "Puedes encontrarlo",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Puedes encontrarlo",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "encontrarlo",
+          "verdict": true
+        }
+      },
+      "answer": "Puedes encontrarlo",
+      "canonical": "¿Puedes encontrarlo?",
+      "cue": "Can you find it?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "30680f30-3068-40f3-8f3b-25c25ec393c47ef0",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Puedes intentarlo mañana",
+        "conveys_meaning": {
+          "evidence": "Puedes intentarlo mañana",
+          "verdict": true
+        },
+        "error": {
+          "category": "orthography",
+          "evidence": "manana"
+        },
+        "explanation": "The word 'mañana' requires an 'ñ' instead of 'n' to be correctly spelled. 'Mañana' means 'tomorrow', while 'manana' is not a valid Spanish word.",
+        "grammatical": {
+          "evidence": "manana",
+          "verdict": false
+        },
+        "hint": "Check the spelling of 'mañana' to ensure it uses the correct letter.",
+        "uses_target_structure": {
+          "evidence": "intentarlo",
+          "verdict": true
+        }
+      },
+      "answer": "Puedes intentarlo manana",
+      "canonical": "Puedes intentarlo mañana.",
+      "cue": "You can try it tomorrow.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "30c52350-30c5-4235-a35b-7a9751f46266a590",
+      "v1_tag": "clitic.do.attach.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Puedes encontrarlo?",
+        "conveys_meaning": {
+          "evidence": "¿Puedes encontrarlo?",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "¿Puedes encontrarlo?",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "puedes encontrarlo",
+          "verdict": true
+        }
+      },
+      "answer": "",
+      "canonical": "¿Puedes encontrarlo?",
+      "cue": "Can you find it?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "12145778-1214-4577-9773-91d047c126b94cd8",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Lo puedes intentar mañana.",
+        "conveys_meaning": {
+          "evidence": "Lo puedes intentar mañana",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Lo puedes intentar mañana",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "puedes intentar",
+          "verdict": true
+        }
+      },
+      "answer": "",
+      "canonical": "Puedes intentarlo mañana.",
+      "cue": "You can try it tomorrow.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "12c154a0-12c1-454a-94ab-e669259505197120",
+      "v1_tag": "opener.puedo"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Lo puedes intentar mañana.",
+        "conveys_meaning": {
+          "evidence": "Lo puedes intentar mañana",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Lo puedes intentar mañana",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "intentar",
+          "verdict": false
+        }
+      },
+      "answer": "",
+      "canonical": "Puedes intentarlo mañana.",
+      "cue": "You can try it tomorrow.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "12dd44f8-12dd-444f-84f3-22295189b13ec858",
+      "v1_tag": "lex.cognate.tion"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Sabe si va a venir",
+        "conveys_meaning": {
+          "evidence": "Sabe si va a venir",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Sabe si va a venir",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Sabe si va a venir",
+          "verdict": true
+        }
+      },
+      "answer": "Sabe si va a venir",
+      "canonical": "Él sabe si ella vendrá.",
+      "cue": "He knows if she will come.",
+      "v1_correct": 0,
+      "v1_error_tag": "question.embedded",
+      "v1_id": "137840c0-1378-440c-80cb-5b6fdd11cfba4fc0",
+      "v1_tag": "question.embedded"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Sé quién llamar",
+        "conveys_meaning": {
+          "evidence": "Sé quién llamar",
+          "verdict": true
+        },
+        "error": {
+          "category": "omission",
+          "evidence": "Sé quién llamar"
+        },
+        "explanation": "In Spanish, when using 'saber' with an embedded question, the word 'a' is required before the verb to indicate the person being called. This is known as the 'personal a', which is used when the direct object is a specific person or people.",
+        "grammatical": {
+          "evidence": "Sé quién llamar",
+          "verdict": false
+        },
+        "hint": "Remember to use the 'personal a' before the verb when referring to a specific person.",
+        "uses_target_structure": {
+          "evidence": "Sé quién llamar",
+          "verdict": true
+        }
+      },
+      "answer": "Se quien llamar",
+      "canonical": "Sé a quién llamar.",
+      "cue": "I know who to call.",
+      "v1_correct": 0,
+      "v1_error_tag": "question.embedded",
+      "v1_id": "13d38408-13d3-4840-8403-a4d5e508369db4a8",
+      "v1_tag": "question.embedded"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Él sabe si ella vendrá?",
+        "conveys_meaning": {
+          "evidence": "¿Él sabe si ella vendrá?",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "¿Él sabe si ella vendrá?",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "¿Él sabe si ella vendrá?",
+          "verdict": true
+        }
+      },
+      "answer": "",
+      "canonical": "Él sabe si ella vendrá.",
+      "cue": "He knows if she will come.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "151fde10-151f-4de1-9e1b-f3edfe2d4bccf750",
+      "v1_tag": "question.yes-no"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Sé a quién llamar.",
+        "conveys_meaning": {
+          "evidence": "Sé a quién llamar.",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Sé a quién llamar.",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "a quién",
+          "verdict": true
+        }
+      },
+      "answer": "",
+      "canonical": "Sé a quién llamar.",
+      "cue": "I know who to call.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "157028c0-1570-428c-a8cb-cd3913c71d7057c0",
+      "v1_tag": "gram.personal-a"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Vivimos en una ciudad",
+        "conveys_meaning": {
+          "evidence": "Vivimos en una ciudad",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Vivimos en una ciudad",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Vivimos",
+          "verdict": true
+        }
+      },
+      "answer": "Vivimos en una ciudad",
+      "canonical": "Vivimos en una ciudad.",
+      "cue": "We live in a city.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "2a9667a0-2a96-467a-a7ab-f6388426acc80020",
+      "v1_tag": "conj.pres.ir.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Comes aquí?",
+        "conveys_meaning": {
+          "evidence": "Comes aqui",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "Comes"
+        },
+        "explanation": "The verb 'comer' is an -er verb, not an -ir verb. The target structure requires using a regular -ir verb in the present tense. The correct form for 'you eat' using an -ir verb would be 'vives' from 'vivir', for example.",
+        "grammatical": {
+          "evidence": "Comes aqui",
+          "verdict": true
+        },
+        "hint": "Use a regular -ir verb in the present tense.",
+        "uses_target_structure": {
+          "evidence": "Comes",
+          "verdict": false
+        }
+      },
+      "answer": "Comes aqui",
+      "canonical": "¿Comes aquí?",
+      "cue": "Do you eat here?",
+      "v1_correct": 0,
+      "v1_error_tag": "conj.pres.ir.mixed",
+      "v1_id": "2ace1d58-2ace-41d5-9d53-e02817a7c8f0838",
+      "v1_tag": "conj.pres.ir.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "abrien la puerta",
+        "conveys_meaning": {
+          "evidence": "abrien la puerta",
+          "verdict": true
+        },
+        "error": {
+          "category": "verb-form",
+          "evidence": "abrien"
+        },
+        "explanation": "The verb 'abrir' is a regular -ir verb, and in the present tense, it should be conjugated as 'abren' for 'they open'. The form 'abrien' is incorrect because it does not follow the regular conjugation pattern for -ir verbs in the present tense.",
+        "grammatical": {
+          "evidence": "abrien",
+          "verdict": false
+        },
+        "hint": "Check the present tense conjugation for regular -ir verbs.",
+        "uses_target_structure": {
+          "evidence": "abrien",
+          "verdict": true
+        }
+      },
+      "answer": "abrien la puerta",
+      "canonical": "Ellos abren la puerta.",
+      "cue": "They open the door.",
+      "v1_correct": 0,
+      "v1_error_tag": "conj.pres.ir.mixed",
+      "v1_id": "2af91d28-2af9-41d2-9d23-d5c41035761ec448",
+      "v1_tag": "conj.pres.ir.mixed"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Comes aquí?",
+        "conveys_meaning": {
+          "evidence": "¿Comes aquí?",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "¿Comes aquí?",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "¿Comes aquí?",
+          "verdict": true
+        }
+      },
+      "answer": "",
+      "canonical": "¿Comes aquí?",
+      "cue": "Do you eat here?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "1f8d6480-1f8d-4648-a48b-48de7385a0473e80",
+      "v1_tag": "question.yes-no"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿Puedes verla?",
+        "conveys_meaning": {
+          "evidence": "Puedes verla",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Puedes verla",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "¿Puedes verla?",
+          "verdict": true
+        }
+      },
+      "answer": "Puedes verla",
+      "canonical": "¿Puedes verla?",
+      "cue": "Can you see her?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "0a594ac0-0a59-44ac-8acb-434113a8f50821c0",
+      "v1_tag": "question.yes-no"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Tengo que estudiar",
+        "conveys_meaning": {
+          "evidence": "Tengo que estudiar",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "Tengo que estudiar",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "Tengo que estudiar",
+          "verdict": true
+        }
+      },
+      "answer": "Tengo que estudiar",
+      "canonical": "Tengo que estudiar.",
+      "cue": "I have to study.",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "0a914ab0-0a91-44ab-8abb-5d505c24f86070",
+      "v1_tag": "opener.tengo-que"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "Sé donde estas llaves",
+        "conveys_meaning": {
+          "evidence": "Sé donde estas llaves",
+          "verdict": false
+        },
+        "error": {
+          "category": "agreement-gender",
+          "evidence": "estas llaves"
+        },
+        "explanation": "In Spanish, demonstrative adjectives must agree in gender and number with the noun they modify. 'Estas' is feminine plural, which matches 'llaves', but the sentence lacks the definite article 'las' to indicate 'the keys'.",
+        "grammatical": {
+          "evidence": "estas llaves",
+          "verdict": false
+        },
+        "hint": "Ensure the demonstrative adjective agrees in gender and number with the noun and use the correct article.",
+        "uses_target_structure": {
+          "evidence": "Sé donde",
+          "verdict": true
+        }
+      },
+      "answer": "Se donde estas llaves",
+      "canonical": "Sé dónde están las llaves.",
+      "cue": "I know where the keys are.",
+      "v1_correct": 0,
+      "v1_error_tag": "question.embedded",
+      "v1_id": "0ad45e90-0ad4-45e9-9e9b-6a7ce79c86d981d0",
+      "v1_tag": "question.embedded"
+    },
+    {
+      "analysis": {
+        "accent_restored_answer": "¿La puedes ver?",
+        "conveys_meaning": {
+          "evidence": "¿La puedes ver?",
+          "verdict": true
+        },
+        "error": null,
+        "explanation": null,
+        "grammatical": {
+          "evidence": "¿La puedes ver?",
+          "verdict": true
+        },
+        "hint": null,
+        "uses_target_structure": {
+          "evidence": "puedes ver",
+          "verdict": true
+        }
+      },
+      "answer": "",
+      "canonical": "¿Puedes verla?",
+      "cue": "Can you see her?",
+      "v1_correct": 1,
+      "v1_error_tag": null,
+      "v1_id": "2e9811f0-2e98-411f-91fb-9e1a65e0ba89b8b0",
+      "v1_tag": "opener.puedo"
+    }
+  ],
+  "evaluator_model": "gpt-4o-2024-08-06"
+}

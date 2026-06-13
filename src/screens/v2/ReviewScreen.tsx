@@ -1,19 +1,50 @@
-// V2 end-of-session review (S6, #37) — the batched review entry. With
-// only Tier 0 live, attempts are either deterministically correct (shown
-// compactly, with any accent/orthography remark) or pending the Tier 1
-// evaluator (S7, #38). S14 brings this screen to its final shape.
+// V2 end-of-session review (S6, #37; S7, #38) — the batched review entry.
+// Tier 0 corrects arrive resolved; Tier 1 verdicts (wrong with hint +
+// explanation, structure dodges with their nudge) land in the background,
+// so the screen polls while anything is still pending. Dodges read as
+// correct to the learner — the nudge is the only difference (user story
+// 15). S14 brings this screen to its final shape.
 
+import { useEffect, useState } from "react";
 import { TopBar, Button } from "../../components";
+import { isTauri, v2SessionReview } from "../../lib/tauri";
 import type { Screen, V2ReviewAttempt } from "../../types";
 
 interface V2ReviewScreenProps {
   attempts: V2ReviewAttempt[];
+  sessionId: string;
   go: (screen: Screen) => void;
 }
 
-export function V2ReviewScreen({ attempts, go }: V2ReviewScreenProps) {
-  const corrects = attempts.filter((a) => a.status === "correct");
+const POLL_MS = 2000;
+
+export function V2ReviewScreen({
+  attempts: initial,
+  sessionId,
+  go,
+}: V2ReviewScreenProps) {
+  const [attempts, setAttempts] = useState(initial);
+
   const pendings = attempts.filter((a) => a.status === "pending");
+
+  // Background Tier 1 evaluations resolve after session end; poll until
+  // nothing is pending.
+  useEffect(() => {
+    if (!isTauri() || pendings.length === 0) return;
+    const timer = setInterval(() => {
+      v2SessionReview(sessionId)
+        .then(setAttempts)
+        .catch(() => {});
+    }, POLL_MS);
+    return () => clearInterval(timer);
+  }, [sessionId, pendings.length]);
+
+  // The learner reads a dodge as correct; the nudge remark carries the
+  // difference.
+  const corrects = attempts.filter(
+    (a) => a.status === "correct" || a.status === "dodge",
+  );
+  const wrongs = attempts.filter((a) => a.status === "wrong");
 
   return (
     <div className="app fade-in">
@@ -31,6 +62,52 @@ export function V2ReviewScreen({ attempts, go }: V2ReviewScreenProps) {
             {pendings.length} answer{pendings.length === 1 ? "" : "s"} awaiting
             full evaluation.
           </p>
+        )}
+
+        {wrongs.length > 0 && (
+          <section style={{ marginTop: 36 }}>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>
+              Needs work · {wrongs.length}
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+              {wrongs.map((a, i) => (
+                <div key={`${a.itemId}-${i}`}>
+                  <p
+                    className="muted"
+                    style={{ fontSize: 13, marginBottom: 4 }}
+                  >
+                    {a.source}
+                  </p>
+                  <p style={{ fontSize: 16, color: "var(--ink)" }}>
+                    <span style={{ color: "var(--bad)", marginRight: 8 }}>
+                      ✗
+                    </span>
+                    <span lang="es">{a.answer}</span>
+                  </p>
+                  <p className="muted" style={{ fontSize: 13, marginTop: 4 }}>
+                    Correct: <span lang="es">{a.canonical}</span>
+                  </p>
+                  {a.hint && (
+                    <p
+                      style={{
+                        fontSize: 14,
+                        marginTop: 8,
+                        color: "var(--ink)",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      {a.hint}
+                    </p>
+                  )}
+                  {a.explanation && (
+                    <p className="muted" style={{ fontSize: 13, marginTop: 6 }}>
+                      {a.explanation}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
         )}
 
         {pendings.length > 0 && (

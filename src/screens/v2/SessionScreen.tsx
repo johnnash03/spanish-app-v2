@@ -86,7 +86,7 @@ export function V2SessionScreen({
     await Promise.allSettled(inflight.current);
     try {
       const attempts = await v2EndSession(sessionId);
-      go({ name: "v2Review", attempts });
+      go({ name: "v2Review", attempts, sessionId });
     } catch {
       setEnding(false);
       setEndFailed(true);

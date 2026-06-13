@@ -3,7 +3,7 @@
 //! and the end-of-session review is read back from the log — a session is
 //! always reconstructable from the database alone.
 
-use crate::v2::eval;
+use crate::v2::eval::{self, Tier1Analysis, Tier1Outcome};
 use crate::v2::generator::ValidatedVariant;
 use rusqlite::{params, Connection, OptionalExtension};
 use serde::Serialize;
@@ -51,7 +51,8 @@ pub struct AttemptVerdict {
 }
 
 /// One attempt as the end-of-session review shows it, read back from the
-/// attempt log joined with the bank.
+/// attempt log joined with the bank. Tier 1 resolution fields are null
+/// until the background evaluation lands (S7, #38).
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ReviewAttempt {
@@ -62,6 +63,9 @@ pub struct ReviewAttempt {
     pub remarks: Vec<String>,
     pub canonical: String,
     pub target_skill: String,
+    pub error_category: Option<String>,
+    pub hint: Option<String>,
+    pub explanation: Option<String>,
 }
 
 pub fn start_session(conn: &Connection, unit_id: &str) -> rusqlite::Result<String> {
@@ -73,12 +77,15 @@ pub fn start_session(conn: &Connection, unit_id: &str) -> rusqlite::Result<Strin
     Ok(id)
 }
 
-/// The unit's banked items in randomized serving order.
+/// The unit's banked items in randomized serving order — except that
+/// skills owed a re-serve (a structure dodge not yet followed by a genuine
+/// correct, user story 16) come first.
 pub fn session_queue(conn: &Connection, unit_id: &str) -> rusqlite::Result<Vec<QueueItem>> {
+    let reserve = skills_needing_reserve(conn, unit_id)?;
     let mut stmt = conn.prepare(
         "SELECT id, source, tags FROM bank_items WHERE unit_id = ?1 ORDER BY RANDOM()",
     )?;
-    let items = stmt
+    let mut items: Vec<QueueItem> = stmt
         .query_map(params![unit_id], |r| {
             let tags: String = r.get(2)?;
             Ok(QueueItem {
@@ -91,7 +98,31 @@ pub fn session_queue(conn: &Connection, unit_id: &str) -> rusqlite::Result<Vec<Q
             })
         })?
         .collect::<Result<_, _>>()?;
+    // Stable partition keeps the random order within each half.
+    items.sort_by_key(|q| !reserve.contains(&q.target_skill));
     Ok(items)
+}
+
+/// Skills whose latest dodge has no later genuine correct: the learner
+/// produced good Spanish around the structure but has not yet demonstrated
+/// it, so the skill re-serves at the head of the next queue.
+pub fn skills_needing_reserve(
+    conn: &Connection,
+    unit_id: &str,
+) -> rusqlite::Result<std::collections::BTreeSet<String>> {
+    let mut stmt = conn.prepare(
+        "SELECT DISTINCT a.target_skill FROM attempts a
+         WHERE a.unit_id = ?1 AND a.status = 'dodge'
+           AND NOT EXISTS (
+             SELECT 1 FROM attempts b
+             WHERE b.target_skill = a.target_skill
+               AND b.status = 'correct' AND b.rowid > a.rowid
+           )",
+    )?;
+    let skills = stmt
+        .query_map(params![unit_id], |r| r.get(0))?
+        .collect::<Result<_, _>>()?;
+    Ok(skills)
 }
 
 /// Runs Tier 0 on a submitted answer and writes the attempt to the log in
@@ -127,9 +158,16 @@ pub fn submit_attempt(
         .and_then(|t| t["target_skill"].as_str().map(String::from))
         .unwrap_or_default();
 
-    let (status, tier, remarks) = match eval::match_answer(answer, &canonical, &variant_texts) {
-        Some(m) => ("correct", Some(0i64), m.remarks),
-        None => ("pending", None, vec![]),
+    // An empty submission is wrong by code, never by model: handed to the
+    // Tier 1 evaluator it has nothing to judge and the model invents an
+    // answer from the cue (v1 logged empty answers as correct).
+    let (status, tier, remarks) = if eval::normalize(answer, eval::Leniency::FULL).is_empty() {
+        ("wrong", Some(0i64), vec!["No answer given.".to_string()])
+    } else {
+        match eval::match_answer(answer, &canonical, &variant_texts) {
+            Some(m) => ("correct", Some(0i64), m.remarks),
+            None => ("pending", None, vec![]),
+        }
     };
 
     let attempt_id = fresh_id("att");
@@ -161,6 +199,106 @@ pub fn submit_attempt(
     })
 }
 
+/// What the Tier 1 evaluator needs to know about one pending attempt: the
+/// cue, the answer, and the item's skill tags. The canonical answer is
+/// deliberately absent — the evaluator never sees it.
+#[derive(Debug, Clone)]
+pub struct EvalContext {
+    pub cue: String,
+    pub answer: String,
+    pub target_skill: String,
+    pub stacked: Vec<String>,
+}
+
+/// Loads the evaluation context of a pending attempt. Returns `None` when
+/// the attempt is unknown or no longer pending (a verdict must never be
+/// overwritten by a late evaluation).
+pub fn eval_context(
+    conn: &Connection,
+    attempt_id: &str,
+) -> Result<Option<EvalContext>, String> {
+    let row: Option<(String, String, String, String)> = conn
+        .query_row(
+            "SELECT a.source, a.answer, a.target_skill, COALESCE(b.tags, '{}')
+             FROM attempts a LEFT JOIN bank_items b ON b.id = a.item_id
+             WHERE a.id = ?1 AND a.status = 'pending'",
+            params![attempt_id],
+            |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?)),
+        )
+        .optional()
+        .map_err(|e| e.to_string())?;
+    Ok(row.map(|(cue, answer, target_skill, tags)| {
+        let stacked = serde_json::from_str::<serde_json::Value>(&tags)
+            .ok()
+            .and_then(|t| serde_json::from_value::<Vec<String>>(t["stacked"].clone()).ok())
+            .unwrap_or_default();
+        EvalContext {
+            cue,
+            answer,
+            target_skill,
+            stacked,
+        }
+    }))
+}
+
+/// Writes a Tier 1 resolution onto its pending attempt — the only path
+/// from 'pending' to a Tier 1 verdict, and a no-op if the attempt has
+/// already been resolved. The full decomposed analysis is kept on the row
+/// for inspection and the appeal flow.
+pub fn resolve_attempt(
+    conn: &Connection,
+    attempt_id: &str,
+    analysis: &Tier1Analysis,
+    outcome: &Tier1Outcome,
+) -> Result<(), String> {
+    let judgments = serde_json::to_string(analysis).map_err(|e| e.to_string())?;
+    let (status, remarks, category, evidence, skills, hint, explanation) = match outcome {
+        Tier1Outcome::Correct => ("correct", vec![], None, None, None, None, None),
+        Tier1Outcome::Dodge { nudge } => {
+            ("dodge", vec![nudge.clone()], None, None, None, None, None)
+        }
+        Tier1Outcome::Wrong {
+            category,
+            evidence,
+            hint,
+            explanation,
+            skills,
+        } => (
+            "wrong",
+            vec![],
+            Some(category.wire_name()),
+            Some(evidence.clone()),
+            Some(serde_json::to_string(skills).map_err(|e| e.to_string())?),
+            hint.clone(),
+            explanation.clone(),
+        ),
+    };
+    let updated = conn
+        .execute(
+            "UPDATE attempts SET
+               status = ?2, tier = 1, remarks = ?3, judgments = ?4,
+               error_category = ?5, error_evidence = ?6, error_skills = ?7,
+               hint = ?8, explanation = ?9
+             WHERE id = ?1 AND status = 'pending'",
+            params![
+                attempt_id,
+                status,
+                serde_json::to_string(&remarks).map_err(|e| e.to_string())?,
+                judgments,
+                category,
+                evidence,
+                skills,
+                hint,
+                explanation,
+            ],
+        )
+        .map_err(|e| e.to_string())?;
+    if updated == 0 {
+        eprintln!("[tier1 {attempt_id}] resolution dropped: attempt missing or already resolved");
+    }
+    Ok(())
+}
+
 pub fn end_session(conn: &Connection, session_id: &str) -> rusqlite::Result<()> {
     conn.execute(
         "UPDATE sessions SET ended_at = ?2 WHERE id = ?1 AND ended_at IS NULL",
@@ -177,7 +315,7 @@ pub fn session_attempts(
 ) -> rusqlite::Result<Vec<ReviewAttempt>> {
     let mut stmt = conn.prepare(
         "SELECT a.item_id, a.source, a.answer, a.status, a.remarks, a.target_skill,
-                COALESCE(b.canonical, '')
+                COALESCE(b.canonical, ''), a.error_category, a.hint, a.explanation
          FROM attempts a LEFT JOIN bank_items b ON b.id = a.item_id
          WHERE a.session_id = ?1
          ORDER BY a.created_at, a.id",
@@ -193,6 +331,9 @@ pub fn session_attempts(
                 remarks: serde_json::from_str(&remarks).unwrap_or_default(),
                 target_skill: r.get(5)?,
                 canonical: r.get(6)?,
+                error_category: r.get(7)?,
+                hint: r.get(8)?,
+                explanation: r.get(9)?,
             })
         })?
         .collect::<Result<_, _>>()?;
@@ -293,6 +434,21 @@ mod tests {
     }
 
     #[test]
+    fn empty_answers_are_wrong_by_code_and_never_reach_tier1() {
+        // V1 marked empty submissions correct; v2 settles them
+        // deterministically — no pending status, so no evaluator call.
+        let conn = in_memory();
+        seed_item(&conn, "a", "I want to eat.", "Quiero comer.", &[]);
+        let session = start_session(&conn, "opener.quiero").unwrap();
+        for empty in ["", "   ", "¿?"] {
+            let v = submit_attempt(&conn, &session, "a", empty).unwrap();
+            assert_eq!(v.status, "wrong", "{empty:?}");
+            assert_eq!(v.remarks, vec!["No answer given.".to_string()]);
+            assert!(eval_context(&conn, &v.attempt_id).unwrap().is_none());
+        }
+    }
+
+    #[test]
     fn submit_attempt_rejects_unknown_items() {
         let conn = in_memory();
         let session = start_session(&conn, "opener.quiero").unwrap();
@@ -323,6 +479,133 @@ mod tests {
             )
             .unwrap();
         assert!(ended.is_some());
+    }
+
+    fn pending_attempt(conn: &Connection, session: &str, answer: &str) -> String {
+        let v = submit_attempt(conn, session, "a", answer).unwrap();
+        assert_eq!(v.status, "pending");
+        v.attempt_id
+    }
+
+    fn stub_analysis() -> Tier1Analysis {
+        use crate::v2::eval::tier1::Judgment;
+        Tier1Analysis {
+            accent_restored_answer: "restored".into(),
+            grammatical: Judgment { verdict: true, evidence: "".into() },
+            conveys_meaning: Judgment { verdict: true, evidence: "".into() },
+            uses_target_structure: Judgment { verdict: false, evidence: "".into() },
+            error: None,
+            hint: None,
+            explanation: None,
+        }
+    }
+
+    #[test]
+    fn resolving_wrong_writes_classification_and_review_reads_it_back() {
+        let conn = in_memory();
+        seed_item(&conn, "a", "I want to eat.", "Quiero comer.", &[]);
+        let session = start_session(&conn, "opener.quiero").unwrap();
+        let attempt = pending_attempt(&conn, &session, "Quieromos comer.");
+
+        resolve_attempt(
+            &conn,
+            &attempt,
+            &stub_analysis(),
+            &Tier1Outcome::Wrong {
+                category: crate::v2::eval::ErrorCategory::VerbForm,
+                evidence: "Quieromos".into(),
+                hint: Some("Check the nosotros form.".into()),
+                explanation: Some("The 1pl of querer is queremos.".into()),
+                skills: vec!["opener.quiero".into()],
+            },
+        )
+        .unwrap();
+
+        let attempts = session_attempts(&conn, &session).unwrap();
+        assert_eq!(attempts[0].status, "wrong");
+        assert_eq!(attempts[0].error_category.as_deref(), Some("verb-form"));
+        assert_eq!(attempts[0].hint.as_deref(), Some("Check the nosotros form."));
+        assert!(attempts[0].explanation.as_deref().unwrap().contains("queremos"));
+        // The full decomposed analysis is on the row for inspection.
+        let judgments: String = conn
+            .query_row(
+                "SELECT judgments FROM attempts WHERE id = ?1",
+                params![attempt],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert!(serde_json::from_str::<Tier1Analysis>(&judgments).is_ok());
+    }
+
+    #[test]
+    fn resolving_a_dodge_writes_the_nudge_and_marks_the_skill_for_reserve() {
+        let conn = in_memory();
+        seed_item(&conn, "a", "I want to eat.", "Quiero comer.", &[]);
+        let session = start_session(&conn, "opener.quiero").unwrap();
+        let attempt = pending_attempt(&conn, &session, "Me gustaría comer.");
+
+        resolve_attempt(
+            &conn,
+            &attempt,
+            &stub_analysis(),
+            &Tier1Outcome::Dodge { nudge: "Correct Spanish — try it with quiero.".into() },
+        )
+        .unwrap();
+
+        let attempts = session_attempts(&conn, &session).unwrap();
+        assert_eq!(attempts[0].status, "dodge");
+        assert_eq!(attempts[0].remarks, vec!["Correct Spanish — try it with quiero.".to_string()]);
+        assert!(attempts[0].error_category.is_none(), "a dodge is not an error");
+
+        // The skill is owed a re-serve until a genuine correct lands.
+        let reserve = skills_needing_reserve(&conn, "opener.quiero").unwrap();
+        assert!(reserve.contains("opener.quiero"));
+        let queue = session_queue(&conn, "opener.quiero").unwrap();
+        assert_eq!(queue[0].target_skill, "opener.quiero");
+
+        // A later genuine correct clears the debt.
+        let v = submit_attempt(&conn, &session, "a", "Quiero comer.").unwrap();
+        assert_eq!(v.status, "correct");
+        assert!(skills_needing_reserve(&conn, "opener.quiero").unwrap().is_empty());
+    }
+
+    #[test]
+    fn resolution_never_overwrites_an_already_resolved_attempt() {
+        let conn = in_memory();
+        seed_item(&conn, "a", "I want to eat.", "Quiero comer.", &[]);
+        let session = start_session(&conn, "opener.quiero").unwrap();
+        let attempt = pending_attempt(&conn, &session, "Quieromos comer.");
+
+        resolve_attempt(&conn, &attempt, &stub_analysis(), &Tier1Outcome::Correct).unwrap();
+        // A late second resolution (e.g. a retried call) must not clobber.
+        resolve_attempt(
+            &conn,
+            &attempt,
+            &stub_analysis(),
+            &Tier1Outcome::Dodge { nudge: "late".into() },
+        )
+        .unwrap();
+        let attempts = session_attempts(&conn, &session).unwrap();
+        assert_eq!(attempts[0].status, "correct");
+    }
+
+    #[test]
+    fn eval_context_serves_pending_attempts_without_the_canonical() {
+        let conn = in_memory();
+        seed_item(&conn, "a", "I want to eat.", "Quiero comer.", &[]);
+        let session = start_session(&conn, "opener.quiero").unwrap();
+        let attempt = pending_attempt(&conn, &session, "Deseo comer.");
+
+        let ctx = eval_context(&conn, &attempt).unwrap().unwrap();
+        assert_eq!(ctx.cue, "I want to eat.");
+        assert_eq!(ctx.answer, "Deseo comer.");
+        assert_eq!(ctx.target_skill, "opener.quiero");
+        assert!(ctx.stacked.is_empty());
+
+        // Resolved attempts no longer offer a context — no re-evaluation.
+        resolve_attempt(&conn, &attempt, &stub_analysis(), &Tier1Outcome::Correct).unwrap();
+        assert!(eval_context(&conn, &attempt).unwrap().is_none());
+        assert!(eval_context(&conn, "nope").unwrap().is_none());
     }
 
     #[test]

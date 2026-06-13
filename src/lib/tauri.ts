@@ -227,3 +227,11 @@ export async function v2EndSession(
 ): Promise<import("../types").V2ReviewAttempt[]> {
   return invoke("v2_end_session", { sessionId });
 }
+
+// Read-only snapshot the review screen polls while background Tier 1
+// evaluations resolve pending attempts (S7, #38).
+export async function v2SessionReview(
+  sessionId: string,
+): Promise<import("../types").V2ReviewAttempt[]> {
+  return invoke("v2_session_review", { sessionId });
+}

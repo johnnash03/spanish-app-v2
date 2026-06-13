@@ -121,6 +121,9 @@ describe("V2SessionScreen", () => {
         remarks: [],
         canonical: "Puedes verlos.",
         targetSkill: "clitic.do",
+        errorCategory: null,
+        hint: null,
+        explanation: null,
       },
     ];
     vi.mocked(tauri.v2EndSession).mockResolvedValue(reviewAttempts);
@@ -132,6 +135,7 @@ describe("V2SessionScreen", () => {
       expect(go).toHaveBeenCalledWith({
         name: "v2Review",
         attempts: reviewAttempts,
+        sessionId: "ses-1",
       }),
     );
     expect(tauri.v2EndSession).toHaveBeenCalledWith("ses-1");

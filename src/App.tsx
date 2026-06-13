@@ -106,7 +106,13 @@ function App() {
   }
 
   if (screen.name === "v2Review") {
-    return <V2ReviewScreen attempts={screen.attempts} go={setScreen} />;
+    return (
+      <V2ReviewScreen
+        attempts={screen.attempts}
+        sessionId={screen.sessionId}
+        go={setScreen}
+      />
+    );
   }
 
   return <HomeScreen go={setScreen} />;

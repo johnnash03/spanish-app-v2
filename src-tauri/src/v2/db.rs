@@ -124,6 +124,24 @@ pub fn run_migrations(conn: &Connection) -> rusqlite::Result<()> {
             ",
         )?;
     }
+
+    // v5 (S7, #38): Tier 1 resolution lands on the attempt row. The full
+    // decomposed analysis is kept for inspection (and the appeal flow,
+    // S8); error fields hold the closed-enum classification with its
+    // code-attributed, registry-validated skill tags.
+    if version < 5 {
+        conn.execute_batch(
+            "
+            ALTER TABLE attempts ADD COLUMN judgments TEXT;
+            ALTER TABLE attempts ADD COLUMN error_category TEXT;
+            ALTER TABLE attempts ADD COLUMN error_evidence TEXT;
+            ALTER TABLE attempts ADD COLUMN error_skills TEXT;
+            ALTER TABLE attempts ADD COLUMN hint TEXT;
+            ALTER TABLE attempts ADD COLUMN explanation TEXT;
+            UPDATE meta SET value = '5' WHERE key = 'schema_version';
+            ",
+        )?;
+    }
     Ok(())
 }
 
@@ -161,7 +179,31 @@ mod tests {
                 |r| r.get(0),
             )
             .unwrap();
-        assert_eq!(version, "4");
+        assert_eq!(version, "5");
+    }
+
+    #[test]
+    fn migration_v5_adds_tier1_resolution_columns_to_attempts() {
+        let conn = in_memory();
+        conn.execute(
+            "INSERT INTO attempts
+             (id, session_id, item_id, unit_id, target_skill, source, answer,
+              status, tier, remarks, created_at, judgments, error_category,
+              error_evidence, error_skills, hint, explanation)
+             VALUES ('a', 's', 'i', 'u', 't', 'src', 'ans', 'wrong', 1, '[]', 0,
+                     '{}', 'verb-form', 'quieromos', '[\"opener.quiero\"]',
+                     'h', 'e')",
+            params![],
+        )
+        .unwrap();
+        let category: String = conn
+            .query_row(
+                "SELECT error_category FROM attempts WHERE id = 'a'",
+                params![],
+                |r| r.get(0),
+            )
+            .unwrap();
+        assert_eq!(category, "verb-form");
     }
 
     #[test]
